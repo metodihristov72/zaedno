@@ -1,38 +1,110 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЗАЕДНО — Регистрирай огнище</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Segoe UI', Arial, sans-serif; background: #FAF9F6; color: #1a1a1a; padding: 20px; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --cream: #F7F3EE; --warm-white: #FDFAF7;
+  --sage: #8FA88A; --sage-light: #C8D9C4; --sage-pale: #EBF2E9;
+  --terracotta: #C4785A; --terracotta-light: #E8C4B0; --terracotta-pale: #FAF0EA;
+  --stone: #8C8478; --stone-dark: #4A4440; --mist: #B8C4BE;
+}
+body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--stone-dark); min-height: 100vh; }
 
-.page-title { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
-.page-sub { font-size: 14px; color: #888; margin-bottom: 24px; }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 4rem; border-bottom: 1px solid rgba(184,196,190,0.2); }
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.12em; text-decoration: none; }
+.logo span { color: var(--terracotta); }
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a { font-size: 0.85rem; color: var(--stone); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
+.nav-links a:hover { color: var(--stone-dark); }
 
-.form-card { background: #fff; border: 1px solid #e8e8e6; border-radius: 14px; padding: 24px; max-width: 600px; }
+.page-wrap { max-width: 680px; margin: 0 auto; padding: 4rem 2rem 6rem; }
 
-.form-row { margin-bottom: 16px; }
-.form-label { display: block; font-size: 13px; font-weight: 600; color: #555; margin-bottom: 6px; }
-.form-label span { color: #D85A30; }
-.form-row input, .form-row textarea { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; background: #fff; font-family: inherit; }
-.form-row input:focus, .form-row textarea:focus { border-color: #D85A30; }
-.form-row textarea { height: 100px; resize: vertical; }
+.back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--terracotta); text-decoration: none; letter-spacing: 0.08em; margin-bottom: 2.5rem; transition: opacity 0.2s; }
+.back-link:hover { opacity: 0.7; }
 
-.submit-btn { width: 100%; padding: 12px; background: #D85A30; color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; transition: background 0.15s; }
-.submit-btn:hover { background: #993C1D; }
-.submit-btn:disabled { background: #ccc; cursor: not-allowed; }
+.page-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); margin-bottom: 1rem; display: block; }
+.page-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.1; color: var(--stone-dark); margin-bottom: 0.75rem; }
+.page-title em { font-style: italic; color: var(--terracotta); }
+.page-sub { font-size: 0.9rem; font-weight: 300; color: var(--stone); margin-bottom: 3rem; line-height: 1.7; }
 
-.success-msg { display: none; background: #e8f5e9; color: #2e7d32; border-radius: 10px; padding: 20px; text-align: center; margin-top: 16px; font-size: 15px; }
-.success-msg strong { display: block; font-size: 18px; margin-bottom: 6px; }
-.error-msg { display: none; background: #FAECE7; color: #993C1D; border-radius: 8px; padding: 12px 16px; margin-top: 12px; font-size: 13px; }
+.form-card { background: var(--warm-white); border: 1px solid rgba(184,196,190,0.3); border-radius: 1.5rem; padding: 2.5rem; }
+.form-row { margin-bottom: 1.25rem; }
+.form-label { display: block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.5rem; }
+.form-label span { color: var(--terracotta); }
+.form-row input, .form-row textarea {
+  width: 100%; padding: 0.85rem 1.1rem;
+  border: 1px solid rgba(184,196,190,0.5);
+  border-radius: 10px;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.9rem; font-weight: 300;
+  color: var(--stone-dark);
+  background: var(--cream);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-row input:focus, .form-row textarea:focus { border-color: var(--sage); }
+.form-row textarea { height: 110px; resize: vertical; }
 
-.back-link { display: inline-block; margin-bottom: 20px; font-size: 13px; color: #D85A30; text-decoration: none; cursor: pointer; }
-.back-link:hover { text-decoration: underline; }
+.submit-btn {
+  width: 100%; padding: 1rem;
+  background: var(--terracotta); color: white;
+  border: none; border-radius: 100px;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.85rem; font-weight: 400;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  cursor: pointer; margin-top: 0.5rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.submit-btn:hover { background: var(--stone-dark); transform: translateY(-1px); }
+.submit-btn:disabled { background: var(--mist); cursor: not-allowed; transform: none; }
+
+.note { font-size: 0.72rem; color: var(--stone); text-align: center; margin-top: 1rem; letter-spacing: 0.05em; }
+
+.success-msg {
+  display: none; text-align: center; padding: 3rem 2rem;
+  background: var(--sage-pale); border: 1px solid rgba(143,168,138,0.3);
+  border-radius: 1.5rem; margin-top: 1.5rem;
+}
+.success-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.success-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--stone-dark); margin-bottom: 0.5rem; }
+.success-sub { font-size: 0.9rem; font-weight: 300; color: var(--stone); line-height: 1.7; }
+
+.error-msg { display: none; background: var(--terracotta-pale); color: var(--terracotta); border-radius: 8px; padding: 0.75rem 1rem; margin-top: 0.75rem; font-size: 0.85rem; }
+
+footer { border-top: 1px solid rgba(184,196,190,0.3); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.1em; }
+.footer-copy { font-size: 0.75rem; font-weight: 300; color: var(--stone); }
+
+@media (max-width: 768px) {
+  nav, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .page-wrap { padding: 2rem 1.5rem 4rem; }
+}
 </style>
+</head>
+<body>
 
-<div style="padding: 10px 0;">
-  <a class="back-link" onclick="window.top.location.href='/ognishta'">← Назад към огнищата</a>
+<nav>
+  <a class="logo" href="index.html">З<span>А</span>ЕДНО</a>
+  <div class="nav-links">
+    <a href="ognishta.html">Огнища</a>
+    <a href="analiz.html">Анализ</a>
+    <a href="register.html">Присъединяване</a>
+  </div>
+</nav>
 
-  <div class="page-title">🔥 Регистрирай огнище</div>
-  <div class="page-sub">Разкажи ни за твоето огнище — ще се свържем с теб скоро.</div>
+<div class="page-wrap">
+  <a class="back-link" href="ognishta.html">← Назад към огнищата</a>
 
-  <div class="form-card">
+  <span class="page-label">Нова заявка</span>
+  <h1 class="page-title">Регистрирай<br><em>огнище</em></h1>
+  <p class="page-sub">Разкажи ни за твоето огнище — ще се свържем с теб скоро.</p>
+
+  <div class="form-card" id="form-card">
     <div class="form-row">
       <label class="form-label">Име на огнището <span>*</span></label>
       <input type="text" id="f-ime" placeholder="напр. Огнище Изток" />
@@ -49,30 +121,35 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #FAF9F6; color: #
       <label class="form-label">Контакт <span>*</span></label>
       <input type="text" id="f-kontakt" placeholder="имейл или телефон" />
     </div>
-
     <button class="submit-btn" id="submit-btn" onclick="submitForm()">Изпрати заявката</button>
     <div class="error-msg" id="error-msg">Моля попълни всички задължителни полета.</div>
+    <p class="note">Ще прегледаме заявката и ще се свържем с теб.</p>
   </div>
 
   <div class="success-msg" id="success-msg">
-    <strong>Благодарим! 🌱</strong>
-    Огнището е регистрирано успешно. Ще се свържем с теб скоро.
+    <div class="success-icon">🌱</div>
+    <div class="success-title">Благодарим!</div>
+    <div class="success-sub">Огнището е регистрирано успешно.<br>Ще се свържем с теб скоро.</div>
   </div>
 </div>
 
+<footer>
+  <div class="footer-logo">ЗАЕДНО</div>
+  <div class="footer-copy">Заедно за по-добър свят · 2026</div>
+</footer>
+
 <script>
-const AIRTABLE_TOKEN   = 'patkilxpy1zZ8s9XY.89afe665363fbbc3a73a5e9f54cebc244e5e814228c85c2e23bbb4e3da045d0c';
+const AIRTABLE_TOKEN   = 'ПОСТАВИ_НОВИЯ_ТОКЕН_ТУК';
 const AIRTABLE_BASE_ID = 'app7sE0WDVYu5FYwj';
 const AIRTABLE_TABLE   = 'ОГНИЩА';
 
 async function submitForm() {
-  const ime     = document.getElementById('f-ime').value.trim();
-  const detayli = document.getElementById('f-detayli').value.trim();
+  const ime      = document.getElementById('f-ime').value.trim();
+  const detayli  = document.getElementById('f-detayli').value.trim();
   const chlenovе = document.getElementById('f-chlenovе').value;
-  const kontakt = document.getElementById('f-kontakt').value.trim();
+  const kontakt  = document.getElementById('f-kontakt').value.trim();
 
   document.getElementById('error-msg').style.display = 'none';
-
   if (!ime || !detayli || !kontakt) {
     document.getElementById('error-msg').style.display = 'block';
     return;
@@ -85,26 +162,16 @@ async function submitForm() {
   try {
     const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE)}`, {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${AIRTABLE_TOKEN}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        fields: {
-          'ИМЕ':      ime,
-          'ДЕТАЙЛИ':  detayli,
-          'ЧЛЕНОВЕ':  chlenovе ? Number(chlenovе) : 1,
-          'КОНТАКТ':  kontakt,
-          'АКТИВНО':  false
-        }
-      })
+      headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fields: {
+        'ИМЕ': ime, 'ДЕТАЙЛИ': detayli,
+        'ЧЛЕНОВЕ': chlenovе ? Number(chlenovе) : 1,
+        'КОНТАКТ': kontakt, 'АКТИВНО': false
+      }})
     });
-
     if (!res.ok) throw new Error();
-
-    document.querySelector('.form-card').style.display = 'none';
+    document.getElementById('form-card').style.display = 'none';
     document.getElementById('success-msg').style.display = 'block';
-
   } catch(e) {
     btn.disabled = false;
     btn.textContent = 'Изпрати заявката';
@@ -113,3 +180,5 @@ async function submitForm() {
   }
 }
 </script>
+</body>
+</html>
