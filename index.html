@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЗАЕДНО — Не се борим. Помагаме.</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #F7F3EE;
+  font-family: 'Jost', sans-serif;
+}
+.zh-wrap {
+  width: 100%;
+  min-height: 100vh;
+  background: #F7F3EE;
+  display: flex;
+  flex-direction: column;
+}
+.zh-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem;
+}
+.zh-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #1A2E4A;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+}
+.zh-links { display: flex; gap: 2rem; }
+.zh-links a {
+  font-size: 0.85rem;
+  color: #8C8478;
+  text-decoration: none;
+  letter-spacing: 0.08em;
+}
+.zh-links a:hover { color: #1A2E4A; }
+.zh-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem;
+  gap: 1.5rem;
+  min-height: 80vh;
+}
+.zh-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #8FA88A;
+}
+.zh-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(4rem, 10vw, 8rem);
+  font-weight: 300;
+  line-height: 1;
+  color: #1A2E4A;
+}
+.zh-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 300;
+  font-style: italic;
+  color: #8C8478;
+  max-width: 600px;
+  line-height: 1.7;
+}
+.zh-rule {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #4A4440;
+  background: #FAF0EA;
+  border: 1px solid #E8C4B0;
+  padding: 0.9rem 2rem;
+  border-radius: 100px;
+}
+.zh-rule strong { color: #C4785A; }
+.zh-btn {
+  display: inline-block;
+  background: #C4785A;
+  color: white;
+  padding: 1rem 3rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  margin-top: 0.5rem;
+}
+.zh-btn:hover { background: #1A2E4A; }
+.zh-scroll {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+.zh-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, #B8C4BE, transparent);
+}
+</style>
+</head>
+<body>
+<div class="zh-wrap">
+  <nav class="zh-nav">
+    <a class="zh-logo" href="index.html">ЗАЕДНО</a>
+    <div class="zh-links">
+      <a href="ognishta.html">Огнища</a>
+      <a href="#">Анализ</a>
+      <a href="register.html">Присъединяване</a>
+    </div>
+  </nav>
+  <div class="zh-content">
+    <div class="zh-eyebrow">ЗАЕДНО · 2026</div>
+    <div class="zh-title">Не се борим.<br>Помагаме.</div>
+    <div class="zh-sub">Събуждаме съзнанието и строим по-добър свят</div>
+    <div class="zh-rule"><strong>Едното правило:</strong> Не вреди на останалите. Ако можеш — помогни.</div>
+    <a class="zh-btn" href="register.html">Присъедини се</a>
+  </div>
+  <div class="zh-scroll">
+    <div class="zh-line"></div>
+  </div>
+</div>
+</body>
+</html>
