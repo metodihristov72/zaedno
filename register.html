@@ -1,0 +1,115 @@
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #FAF9F6; color: #1a1a1a; padding: 20px; }
+
+.page-title { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+.page-sub { font-size: 14px; color: #888; margin-bottom: 24px; }
+
+.form-card { background: #fff; border: 1px solid #e8e8e6; border-radius: 14px; padding: 24px; max-width: 600px; }
+
+.form-row { margin-bottom: 16px; }
+.form-label { display: block; font-size: 13px; font-weight: 600; color: #555; margin-bottom: 6px; }
+.form-label span { color: #D85A30; }
+.form-row input, .form-row textarea { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; background: #fff; font-family: inherit; }
+.form-row input:focus, .form-row textarea:focus { border-color: #D85A30; }
+.form-row textarea { height: 100px; resize: vertical; }
+
+.submit-btn { width: 100%; padding: 12px; background: #D85A30; color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; transition: background 0.15s; }
+.submit-btn:hover { background: #993C1D; }
+.submit-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+.success-msg { display: none; background: #e8f5e9; color: #2e7d32; border-radius: 10px; padding: 20px; text-align: center; margin-top: 16px; font-size: 15px; }
+.success-msg strong { display: block; font-size: 18px; margin-bottom: 6px; }
+.error-msg { display: none; background: #FAECE7; color: #993C1D; border-radius: 8px; padding: 12px 16px; margin-top: 12px; font-size: 13px; }
+
+.back-link { display: inline-block; margin-bottom: 20px; font-size: 13px; color: #D85A30; text-decoration: none; cursor: pointer; }
+.back-link:hover { text-decoration: underline; }
+</style>
+
+<div style="padding: 10px 0;">
+  <a class="back-link" onclick="window.top.location.href='/ognishta'">← Назад към огнищата</a>
+
+  <div class="page-title">🔥 Регистрирай огнище</div>
+  <div class="page-sub">Разкажи ни за твоето огнище — ще се свържем с теб скоро.</div>
+
+  <div class="form-card">
+    <div class="form-row">
+      <label class="form-label">Име на огнището <span>*</span></label>
+      <input type="text" id="f-ime" placeholder="напр. Огнище Изток" />
+    </div>
+    <div class="form-row">
+      <label class="form-label">Описание <span>*</span></label>
+      <textarea id="f-detayli" placeholder="Разкажете за инициативите и ценностите на огнището..."></textarea>
+    </div>
+    <div class="form-row">
+      <label class="form-label">Брой членове</label>
+      <input type="number" id="f-chlenovе" placeholder="напр. 5" min="1" />
+    </div>
+    <div class="form-row">
+      <label class="form-label">Контакт <span>*</span></label>
+      <input type="text" id="f-kontakt" placeholder="имейл или телефон" />
+    </div>
+
+    <button class="submit-btn" id="submit-btn" onclick="submitForm()">Изпрати заявката</button>
+    <div class="error-msg" id="error-msg">Моля попълни всички задължителни полета.</div>
+  </div>
+
+  <div class="success-msg" id="success-msg">
+    <strong>Благодарим! 🌱</strong>
+    Огнището е регистрирано успешно. Ще се свържем с теб скоро.
+  </div>
+</div>
+
+<script>
+const AIRTABLE_TOKEN   = 'patkilxpy1zZ8s9XY.89afe665363fbbc3a73a5e9f54cebc244e5e814228c85c2e23bbb4e3da045d0c';
+const AIRTABLE_BASE_ID = 'app7sE0WDVYu5FYwj';
+const AIRTABLE_TABLE   = 'ОГНИЩА';
+
+async function submitForm() {
+  const ime     = document.getElementById('f-ime').value.trim();
+  const detayli = document.getElementById('f-detayli').value.trim();
+  const chlenovе = document.getElementById('f-chlenovе').value;
+  const kontakt = document.getElementById('f-kontakt').value.trim();
+
+  document.getElementById('error-msg').style.display = 'none';
+
+  if (!ime || !detayli || !kontakt) {
+    document.getElementById('error-msg').style.display = 'block';
+    return;
+  }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Изпращане...';
+
+  try {
+    const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE)}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${AIRTABLE_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        fields: {
+          'ИМЕ':      ime,
+          'ДЕТАЙЛИ':  detayli,
+          'ЧЛЕНОВЕ':  chlenovе ? Number(chlenovе) : 1,
+          'КОНТАКТ':  kontakt,
+          'АКТИВНО':  false
+        }
+      })
+    });
+
+    if (!res.ok) throw new Error();
+
+    document.querySelector('.form-card').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = 'Изпрати заявката';
+    document.getElementById('error-msg').textContent = 'Грешка при изпращане. Опитай пак.';
+    document.getElementById('error-msg').style.display = 'block';
+  }
+}
+</script>
