@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЗАЕДНО — Анализ</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --cream: #F7F3EE; --warm-white: #FDFAF7;
+  --sage: #8FA88A; --sage-light: #C8D9C4; --sage-pale: #EBF2E9;
+  --terracotta: #C4785A; --terracotta-light: #E8C4B0; --terracotta-pale: #FAF0EA;
+  --stone: #8C8478; --stone-dark: #4A4440; --mist: #B8C4BE;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--stone-dark); overflow-x: hidden; }
+
+nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 4rem; background: var(--cream); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(184,196,190,0.2); }
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.12em; text-decoration: none; }
+.logo span { color: var(--terracotta); }
+.nav-links { display: flex; gap: 2rem; align-items: center; }
+.nav-links a { font-size: 0.85rem; color: var(--stone); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--stone-dark); }
+
+.hero-analiz { padding: 6rem 4rem 4rem; max-width: 1100px; margin: 0 auto; text-align: center; }
+.section-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); margin-bottom: 1rem; display: block; }
+.hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; line-height: 1.1; color: var(--stone-dark); margin-bottom: 1.5rem; }
+.hero-title em { font-style: italic; color: var(--terracotta); }
+.hero-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 300; font-style: italic; color: var(--stone); max-width: 640px; margin: 0 auto 3rem; line-height: 1.7; }
+
+.fundamental { background: var(--warm-white); border-radius: 2rem; padding: 4rem; max-width: 900px; margin: 0 auto 4rem; border: 1px solid rgba(143,168,138,0.2); text-align: center; }
+.fundamental-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 300; font-style: italic; color: var(--stone-dark); line-height: 1.6; margin-bottom: 1rem; }
+.fundamental-sub { font-size: 0.9rem; font-weight: 300; color: var(--stone); line-height: 1.8; max-width: 600px; margin: 0 auto; }
+
+.parts-container { max-width: 1100px; margin: 0 auto; padding: 0 4rem 4rem; }
+.part-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: var(--stone-dark); margin: 3rem 0 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(184,196,190,0.4); }
+.part-title em { font-style: italic; color: var(--terracotta); }
+
+.platform-card { background: var(--warm-white); border-radius: 1.5rem; padding: 2rem; margin-bottom: 1.5rem; border: 1px solid rgba(184,196,190,0.3); display: grid; grid-template-columns: 1fr; gap: 1rem; transition: transform 0.2s, box-shadow 0.2s; }
+.platform-card:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(74,68,64,0.06); }
+.platform-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+.platform-icon { font-size: 1.5rem; }
+.platform-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--stone-dark); }
+.platform-type { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--stone); background: var(--cream); padding: 0.2rem 0.7rem; border-radius: 20px; border: 1px solid rgba(184,196,190,0.4); }
+.platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.platform-col { padding: 1rem; border-radius: 1rem; }
+.platform-col.weak { background: rgba(196,120,90,0.06); border: 1px solid rgba(196,120,90,0.15); }
+.platform-col.zaedno { background: var(--sage-pale); border: 1px solid rgba(143,168,138,0.3); }
+.col-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.6rem; }
+.col-label.red { color: var(--terracotta); }
+.col-label.green { color: var(--sage); }
+.col-text { font-size: 0.88rem; font-weight: 300; line-height: 1.7; color: var(--stone); }
+
+.gap-section { background: linear-gradient(135deg, var(--sage-pale) 0%, var(--terracotta-pale) 100%); border-radius: 2rem; padding: 4rem; max-width: 1100px; margin: 3rem auto; }
+.gap-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 300; color: var(--stone-dark); margin-bottom: 2rem; text-align: center; }
+.gap-title em { font-style: italic; color: var(--terracotta); }
+.gap-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.gap-item { background: rgba(253,250,247,0.7); border-radius: 1rem; padding: 1.2rem 1.5rem; border: 1px solid rgba(184,196,190,0.3); }
+.gap-item-title { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; color: var(--stone-dark); margin-bottom: 0.4rem; }
+.gap-item-text { font-size: 0.85rem; font-weight: 300; color: var(--stone); line-height: 1.6; }
+.gap-conclusion { text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300; font-style: italic; color: var(--stone-dark); margin-top: 1.5rem; line-height: 1.6; }
+
+.unique-section { max-width: 1100px; margin: 0 auto; padding: 0 4rem 4rem; }
+.unique-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem; }
+.unique-card { background: var(--warm-white); border-radius: 1.5rem; padding: 2rem; border: 1px solid rgba(184,196,190,0.3); position: relative; overflow: hidden; transition: transform 0.2s; }
+.unique-card:hover { transform: translateY(-3px); }
+.unique-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(to right, var(--sage-light), var(--terracotta-light)); }
+.unique-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--terracotta); line-height: 1; margin-bottom: 0.5rem; opacity: 0.6; }
+.unique-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--stone-dark); margin-bottom: 0.75rem; }
+.unique-body { font-size: 0.88rem; font-weight: 300; line-height: 1.8; color: var(--stone); }
+
+.example-section { max-width: 1100px; margin: 0 auto; padding: 0 4rem 4rem; }
+.example-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+.example-col { border-radius: 1.5rem; padding: 2rem; }
+.example-col.bad { background: rgba(196,120,90,0.06); border: 1px solid rgba(196,120,90,0.2); }
+.example-col.good { background: var(--sage-pale); border: 1px solid rgba(143,168,138,0.3); }
+.example-col-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 1.2rem; }
+.example-col.bad .example-col-title { color: var(--terracotta); }
+.example-col.good .example-col-title { color: var(--sage); }
+.example-row { font-size: 0.85rem; font-weight: 300; color: var(--stone); line-height: 1.7; padding: 0.5rem 0; border-bottom: 1px solid rgba(184,196,190,0.2); }
+.example-row:last-child { border-bottom: none; }
+.example-row.final { font-weight: 500; color: var(--stone-dark); margin-top: 0.3rem; }
+
+.cta-bottom { text-align: center; padding: 5rem 4rem; }
+.cta-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 300; font-style: italic; color: var(--stone-dark); max-width: 700px; margin: 0 auto 2rem; line-height: 1.5; }
+.cta-text em { color: var(--terracotta); font-style: normal; }
+.cta-btn { display: inline-block; background: var(--terracotta); color: white; padding: 1rem 3rem; border-radius: 100px; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: background 0.3s ease, transform 0.2s ease; }
+.cta-btn:hover { background: var(--stone-dark); transform: translateY(-2px); }
+
+footer { border-top: 1px solid rgba(184,196,190,0.3); padding: 2.5rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.1em; }
+.footer-copy { font-size: 0.75rem; font-weight: 300; color: var(--stone); }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+  nav, .parts-container, .unique-section, .example-section, .cta-bottom, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .hero-analiz { padding: 4rem 1.5rem 2rem; }
+  .platform-grid, .gap-grid, .unique-grid, .example-grid { grid-template-columns: 1fr; }
+  .fundamental, .gap-section { padding: 2rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">З<span>А</span>ЕДНО</a>
+  <div class="nav-links">
+    <a href="ognishta.html">Огнища</a>
+    <a href="analiz.html" class="active">Анализ</a>
+    <a href="register.html">Присъединяване</a>
+  </div>
+</nav>
+
+<div class="hero-analiz reveal">
+  <span class="section-label">Защо тук а не другаде</span>
+  <h1 class="hero-title">Пълен анализ на<br><em>съществуващите платформи</em></h1>
+  <p class="hero-sub">"Има много такива места в интернет. Защо някой ще дойде при вас?" — Това е правилният въпрос. Ето изчерпателният отговор.</p>
+</div>
+
+<div class="fundamental reveal">
+  <p class="fundamental-text">"Разговорът е цел сам по себе си — не средство за реална промяна."</p>
+  <p class="fundamental-sub">Хората говорят, спорят, харесват, гласуват — но в края на деня нищо реално не се случва. ЗАЕДНО е построена върху противоположната логика: разговорът е началото, не краят.</p>
+</div>
+
+<div class="parts-container">
+
+  <h2 class="part-title reveal">Част 1 — <em>Масови комуникационни платформи</em></h2>
+
+  <div class="platform-card reveal">
+    <div class="platform-header">
+      <span class="platform-icon">👥</span>
+      <span class="platform-name">Facebook Групи</span>
+      <span class="platform-type">Социална мрежа</span>
+    </div>
+    <div class="platform-grid">
+      <div class="platform-col weak">
+        <div class="col-label red">Слабото място</div>
+        <div class="col-text">Алгоритъмът показва емоционалното съдържание — гневът се разпространява по-бързо от решенията. Данните принадлежат на Facebook. Разговорът свършва с разговор — никой не поема отговорност за действие.</div>
+      </div>
+      <div class="platform-col zaedno">
+        <div class="col-label green">ЗАЕДНО прави</div>
+        <div class="col-text">Данните са твои. Няма алгоритъм на вниманието. Всяка дискусия завършва с реален продукт. AI модераторът различава конструктивното от деструктивното.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="platform-card reveal">
+    <div class="platform-header">
+      <span class="platform-icon">✈️</span>
+      <span class="platform-name">Telegram</span>
+      <span class="platform-type">Месинджър / Канали</span>
+    </div>
+    <div class="platform-grid">
+      <div class="platform-col weak">
+        <div class="col-label red">Слабото място</div>
+        <div class="col-text">Комуникацията е еднопосочна в каналите. В групите няма структура — съобщенията се губят. Няма механизъм за вземане на решения или създаване на продукт.</div>
+      </div>
+      <div class="platform-col zaedno">
+        <div class="col-label green">ЗАЕДНО прави</div>
+        <div class="col-text">Структурирани огнища около конкретна тема. Всеки участник има профил и история. Дискусията е организирана и води към конкретен продукт.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="platform-card reveal">
+    <div class="platform-header">
+      <span class="platform-icon">📱</span>
+      <span class="platform-name">Viber</span>
+      <span class="platform-type">Месинджър / Групи</span>
+    </div>
+    <div class="platform-grid">
+      <div class="platform-col weak">
+        <div class="col-label red">Слабото място</div>
+        <div class="col-text">Проектиран за лична комуникация, не за решаване на проблеми. Няма структура за дискусия. Не е подходящ за непознати с обща цел.</div>
+      </div>
+      <div class="platform-col zaedno">
+        <div class="col-label green">ЗАЕДНО прави</div>
+        <div class="col-text">Отворена за всеки с интерес към темата. Структурирана дискусия. Резултатите се документират и остават достъпни.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="platform-card reveal">
+    <div class="platform-header">
+      <span class="platform-icon">🎮</span>
+      <span class="platform-name">Discord</span>
+      <span class="platform-type">Общности / Чат</span>
+    </div>
+    <div class="platform-grid">
+      <div class="platform-col weak">
+        <div class="col-label red">Слабото място</div>
+        <div class="col-text">Проектиран за забавление — не за решаване на граждански проблеми. Няма механизъм за вземане на решения. Жаргонът и културата са чужди за повечето хора.</div>
+      </div>
+      <div class="platform-col zaedno">
+        <div class="col-label green">ЗАЕДНО прави</div>
+        <div class="col-text">Проектирана специално за граждански проблеми и взаимопомощ. Достъпна за всяка възраст. Завършва с реален документ или решение.</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="part-title reveal">Част 2 — <em>Платформи за дискусия и форуми</em></h2>
+
+  <div class="platform-card reveal">
+    <div class="platform-header">
+      <span class="platform-icon">🔴</span>
+      <span class="platform-name">Reddit</span>
+      <span class="platform-type">Форум / Гласуване</span>
+    </div>
+    <div class="platform-grid">
+      <div class="platform-col weak">
+        <div class="col-label red">Слабото място</div>
+        <div class="col-text">Победителят е този с най-много харесвания — не с най-добрата идея. Карма системата насърчава популизма, а не дълбочината. Няма механизъм за действие след дискусията.</div>
+      </div>
+      <div class="platform-col zaedno">
+        <div class="col-label green">ЗАЕДНО прави</div>
+        <div class="col-text">Победителят е идеята с най-добро решение. Реалните умения определят приноса. AI модераторът поддържа конструктивен тон. Всяка дискусия завършва с действие.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="platform-card reveal">
+    <div class="platform-header">
+      <span class="platform-icon">✍️</span>
+      <span class="platform-name">Change.org</span>
+      <span class="platform-type">Петиции</span>
+    </div>
+    <div class="platform-grid">
+      <div class="platform-col weak">
+        <div class="col-label red">Слабото място</div>
+        <div class="col-text">Хората само подписват — не мислят заедно. Петицията е краят на участието, не началото. Много петиции не постигат реален резултат защото нямат конкретно решение зад тях.</div>
+      </div>
+      <div class="platform-col zaedno">
+        <div class="col-label green">ЗАЕДНО прави</div>
+        <div class="col-text">Хората не само подписват — те изграждат решението заедно. Юристи, инженери, граждани работят в дълбочина. Крайният документ е конкретен и аргументиран.</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="part-title reveal">Част 3 — <em>Специализирани граждански платформи</em></h2>
+
+  <div class="platform-card reveal">
+    <div class="platform-header">
+      <span class="platform-icon">🏛️</span>
+      <span class="platform-name">Decidim</span>
+      <span class="platform-type">Гражданска платформа</span>
+    </div>
+    <div class="platform-grid">
+      <div class="platform-col weak">
+        <div class="col-label red">Слабото място</div>
+        <div class="col-text">Проектирана за институции — не за обикновени граждани. Изключително сложна за употреба. Студена и бюрократична. Изисква IT екип за инсталация и поддръжка.</div>
+      </div>
+      <div class="platform-col zaedno">
+        <div class="col-label green">ЗАЕДНО прави</div>
+        <div class="col-text">Достъпна за всеки — без технически познания. Топла и приветлива. Работи от първия ден. Може да се ползва от отделни граждани, не само от институции.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="platform-card reveal">
+    <div class="platform-header">
+      <span class="platform-icon">🗳️</span>
+      <span class="platform-name">Loomio</span>
+      <span class="platform-type">Вземане на решения</span>
+    </div>
+    <div class="platform-grid">
+      <div class="platform-col weak">
+        <div class="col-label red">Слабото място</div>
+        <div class="col-text">Проектирана за организации с известни членове — не за отворени граждански общности. Без жизнен цикъл на дискусията. Скъпа за малки организации.</div>
+      </div>
+      <div class="platform-col zaedno">
+        <div class="col-label green">ЗАЕДНО прави</div>
+        <div class="col-text">Отворена за непознати около обща кауза. Живият жизнен цикъл на огнището дава смисъл и посока. AI модерацията поддържа качеството.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="platform-card reveal">
+    <div class="platform-header">
+      <span class="platform-icon">🗺️</span>
+      <span class="platform-name">Pol.is</span>
+      <span class="platform-type">Картиране на мнения</span>
+    </div>
+    <div class="platform-grid">
+      <div class="platform-col weak">
+        <div class="col-label red">Слабото място</div>
+        <div class="col-text">Само гласуване — без реален разговор между хората. Без краен продукт освен статистика. Изисква голям брой участници за да работи алгоритъмът.</div>
+      </div>
+      <div class="platform-col zaedno">
+        <div class="col-label green">ЗАЕДНО прави</div>
+        <div class="col-text">Реален разговор между хората с различни умения. Краен продукт: документ, предложение, решение. Работи дори с малка група.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="gap-section reveal">
+  <h2 class="gap-title">Празнотата която <em>никой не запълва</em></h2>
+  <div class="gap-grid">
+    <div class="gap-item">
+      <div class="gap-item-title">Масовите платформи</div>
+      <div class="gap-item-text">Достигат много хора но разговорът свършва с разговор. Няма структура за решаване на проблеми.</div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-item-title">Гражданските платформи</div>
+      <div class="gap-item-text">Имат структура но са студени, бюрократични и достъпни само за институции с IT екипи.</div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-item-title">Форумите и Reddit</div>
+      <div class="gap-item-text">Имат дълбочина но победителят е популярното мнение, не най-доброто решение.</div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-item-title">Петициите</div>
+      <div class="gap-item-text">Мобилизират хора но без дълбочина — само подпис, не мислене заедно.</div>
+    </div>
+  </div>
+  <p class="gap-conclusion">Не съществува платформа която едновременно е достъпна за всеки, свързва хора с различни умения, поддържа дълбока дискусия и завършва с конкретен продукт — построена върху взаимопомощта като философия.<br><br><strong>Тази празнота съществува в световен мащаб. ЗАЕДНО е отговорът.</strong></p>
+</div>
+
+<div class="unique-section">
+  <span class="section-label">Какво прави ЗАЕДНО уникална</span>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;color:var(--stone-dark);margin-bottom:0.5rem;">В световен мащаб</h2>
+  <div class="unique-grid">
+    <div class="unique-card reveal">
+      <div class="unique-num">1</div>
+      <div class="unique-title">Интелектуалният филтър</div>
+      <p class="unique-body">За тема "Екология" не събираме само еколози. Събираме инженер + икономист + биолог + гражданин + юрист. Различни умения, обща цел. Нито една друга платформа в света не прави това автоматично за граждански теми.</p>
+    </div>
+    <div class="unique-card reveal">
+      <div class="unique-num">2</div>
+      <div class="unique-title">Жизненият цикъл на огнището</div>
+      <p class="unique-body">Всяка дискусия има цикъл — от семе до наследство. Расте, зрее, създава продукт. Участниците виждат как тяхната идея расте и оставя следа. Не се губи в потока.</p>
+    </div>
+    <div class="unique-card reveal">
+      <div class="unique-num">3</div>
+      <div class="unique-title">Продуктът накрая</div>
+      <p class="unique-body">Всяко огнище завършва с нещо реално — документ, предложение, решение. Това може да бъде изпратено към институция, споделено с медия или приложено директно. Разговорът не е цел — той е инструмент.</p>
+    </div>
+    <div class="unique-card reveal">
+      <div class="unique-num">4</div>
+      <div class="unique-title">AI модераторът с емпатия</div>
+      <p class="unique-body">Системата различава агресията от болката от агресията от егото. Никога не наказва мълчаливо — винаги обяснява. Поддържа топлина и конструктивност без да цензурира.</p>
+    </div>
+    <div class="unique-card reveal">
+      <div class="unique-num">5</div>
+      <div class="unique-title">Взаимопомощта като философия</div>
+      <p class="unique-body">Не е функция добавена отгоре. Тя е в основата на всяко дизайн решение. Няма харесвания, няма класации, няма победители и губещи. Всички растат заедно или не расте никой.</p>
+    </div>
+    <div class="unique-card reveal">
+      <div class="unique-num">6</div>
+      <div class="unique-title">Физическите срещи като продължение</div>
+      <p class="unique-body">Платформата е мост — не дестинация. Огнищата водят към реални срещи между хора с изградено доверие. Дигиталното и физическото се допълват.</p>
+    </div>
+  </div>
+</div>
+
+<div class="example-section">
+  <span class="section-label">Реален пример</span>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:300;color:var(--stone-dark);margin-bottom:0.5rem;">Един проблем, <em style="color:var(--terracotta);font-style:italic">два подхода</em></h2>
+  <p style="font-size:0.9rem;color:var(--stone);margin-bottom:1.5rem;font-weight:300;">Проблем: Опасен мост в малък град. Общината не реагира.</p>
+  <div class="example-grid reveal">
+    <div class="example-col bad">
+      <div class="example-col-title">Подход А — Facebook група</div>
+      <div class="example-row">Някой публикува снимка с коментар "Срам!"</div>
+      <div class="example-row">200 коментара: "Скандал!", "Общината не работи!"</div>
+      <div class="example-row">Публикацията се губи след 3 дни</div>
+      <div class="example-row">Алгоритъмът спира да я показва</div>
+      <div class="example-row">След месец темата е забравена</div>
+      <div class="example-row final">❌ Мостът остава опасен</div>
+    </div>
+    <div class="example-col good">
+      <div class="example-col-title">Подход Б — ЗАЕДНО</div>
+      <div class="example-row">Местен жител отваря огнище: "Опасен мост — търсим решение"</div>
+      <div class="example-row">Системата свързва: инженер, юрист, журналист, местни жители</div>
+      <div class="example-row">Инженерът прави оценка, юристът цитира закони</div>
+      <div class="example-row">Огнището ражда документ: техническа оценка + правни аргументи</div>
+      <div class="example-row">Документът се изпраща официално към общината и медиите</div>
+      <div class="example-row final">✅ Срокът е ясен. Промяната е реална.</div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-bottom reveal">
+  <p class="cta-text">Да — има много места в интернет. Но никъде в света няма платформа която обединява различни умения, поддържа дълбока дискусия и завършва с реален продукт — построена върху <em>взаимопомощта като философия</em>.</p>
+  <a class="cta-btn" href="register.html">Присъедини се към ЗАЕДНО</a>
+</div>
+
+<footer>
+  <div class="footer-logo">ЗАЕДНО</div>
+  <div class="footer-copy">Заедно за по-добър свят · 2026</div>
+</footer>
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80);
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+});
+</script>
+</body>
+</html>
