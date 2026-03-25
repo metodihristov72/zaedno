@@ -2,82 +2,92 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Segoe UI', Arial, sans-serif; background: #FAF9F6; color: #1a1a1a; padding: 20px; }
 
-.top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-.page-title { font-size: 22px; font-weight: 700; color: #1a1a1a; }
-
-.stats-bar { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+.stats-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
 .stat-card { background: #f0ede6; border-radius: 10px; padding: 14px 16px; text-align: center; }
-.stat-number { font-size: 28px; font-weight: 700; color: #1a1a1a; }
+.stat-number { font-size: 24px; font-weight: 700; color: #1a1a1a; }
 .stat-label { font-size: 12px; color: #888; margin-top: 2px; }
 
-.search-bar { margin-bottom: 16px; }
-.search-bar input { width: 100%; padding: 10px 16px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; background: #fff; }
+.search-bar { display: flex; gap: 8px; margin-bottom: 16px; }
+.search-bar input { flex: 1; padding: 9px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; background: #fff; }
 .search-bar input:focus { border-color: #D85A30; }
+.search-bar select { padding: 9px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; background: #fff; }
 
-.ognicha-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
-.ognicha-card { background: #fff; border: 1px solid #e8e8e6; border-radius: 14px; padding: 20px; transition: border-color 0.15s, box-shadow 0.15s; }
-.ognicha-card:hover { border-color: #D85A30; box-shadow: 0 2px 12px rgba(216,90,48,0.08); }
+.ognicha-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.ognicha-card { background: #fff; border: 1px solid #e8e8e6; border-radius: 12px; padding: 16px 18px; transition: border-color 0.15s; }
+.ognicha-card:hover { border-color: #D85A30; }
+.card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.fire-circle { width: 38px; height: 38px; border-radius: 50%; background: #FAECE7; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; }
+.card-name { font-size: 15px; font-weight: 700; }
+.card-city { font-size: 12px; color: #888; margin-top: 2px; }
+.card-desc { font-size: 13px; color: #666; line-height: 1.5; margin-bottom: 10px; min-height: 40px; }
+.card-footer { display: flex; align-items: center; justify-content: space-between; font-size: 12px; }
+.badge-members { background: #FAECE7; color: #993C1D; padding: 3px 10px; border-radius: 6px; font-weight: 600; }
+.badge-status { color: #aaa; }
 
-.card-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-.fire-circle { width: 42px; height: 42px; border-radius: 50%; background: #FAECE7; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 20px; }
-.card-name { font-size: 16px; font-weight: 700; color: #1a1a1a; }
+.empty { text-align: center; padding: 2rem; color: #aaa; font-size: 14px; }
+.loading { text-align: center; padding: 2rem; color: #aaa; font-size: 14px; }
+.error { text-align: center; padding: 1rem; color: #993C1D; font-size: 13px; background: #FAECE7; border-radius: 8px; margin-bottom: 16px; display: none; }
 
-.card-desc { font-size: 13px; color: #666; line-height: 1.6; margin-bottom: 14px; min-height: 42px; }
-
-.card-footer { display: flex; align-items: center; justify-content: space-between; }
-.badge-members { background: #FAECE7; color: #993C1D; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-.badge-active { background: #e8f5e9; color: #2e7d32; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-
-.empty { text-align: center; padding: 3rem; color: #aaa; font-size: 14px; }
-.loading { text-align: center; padding: 3rem; color: #aaa; font-size: 14px; }
-.error { padding: 12px 16px; color: #993C1D; font-size: 13px; background: #FAECE7; border-radius: 8px; margin-bottom: 16px; display: none; }
+.top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.reg-btn { background: #D85A30; color: #fff; border: none; border-radius: 8px; padding: 9px 20px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
+.reg-btn:hover { background: #993C1D; }
 </style>
 
 <div class="top-bar">
-  <div class="page-title">🔥 Огнища</div>
+  <div class="stats-bar" style="margin:0; flex:1; margin-right:16px;">
+    <div class="stat-card">
+      <div class="stat-number" id="stat-total">—</div>
+      <div class="stat-label">Активни огнища</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="stat-cities">—</div>
+      <div class="stat-label">Града</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" id="stat-members">—</div>
+      <div class="stat-label">Членове</div>
+    </div>
+  </div>
+  <a class="reg-btn" href="/register-ognishtо">+ Регистрирай огнище</a>
 </div>
 
-<div class="stats-bar">
-  <div class="stat-card">
-    <div class="stat-number" id="stat-total">—</div>
-    <div class="stat-label">Активни огнища</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-number" id="stat-members">—</div>
-    <div class="stat-label">Общо членове</div>
-  </div>
-</div>
+<div class="error" id="error-msg">Грешка при свързване с Airtable. Проверете API ключа.</div>
 
 <div class="search-bar">
-  <input type="text" id="search-input" placeholder="Търси огнище..." oninput="filterCards()" />
+  <input type="text" id="search-input" placeholder="Търси по град или описание..." oninput="filterCards()" />
+  <select id="region-filter" onchange="filterCards()">
+    <option value="">Всички градове</option>
+  </select>
 </div>
 
-<div class="error" id="error-msg">Грешка при свързване с Airtable.</div>
-<div class="loading" id="loading">Зареждане...</div>
+<div class="loading" id="loading">Зареждане на огнищата...</div>
 <div class="ognicha-grid" id="ognicha-grid"></div>
 <div class="empty" id="empty-state" style="display:none;">Няма намерени огнища</div>
 
 <script>
-const AIRTABLE_TOKEN   = 'patkilxpy1zZ8s9XY.89afe665363fbbc3a73a5e9f54cebc244e5e814228c85c2e23bbb4e3da045d0c';
-const AIRTABLE_BASE_ID = 'app7sE0WDVYu5FYwj';
-const AIRTABLE_TABLE   = 'ОГНИЩА';
+// ============================================
+const MAKE_GET_WEBHOOK = 'https://hook.eu1.make.com/v63ljepxc891k4xjtv6tkjp416w3xxi1';
+// ============================================
 
 let allRecords = [];
 
 async function loadFromAirtable() {
   try {
-    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE)}`;
-    const res = await fetch(url, { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } });
-    if (!res.ok) throw new Error();
+    const res = await fetch(MAKE_GET_WEBHOOK);
+    if (!res.ok) throw new Error('API error');
     const data = await res.json();
-    allRecords = (data.records || []).map(r => ({
-      name:    r.fields['ИМЕ']     || '—',
-      desc:    r.fields['ДЕТАЙЛИ'] || '',
-      members: r.fields['ЧЛЕНОВЕ'] || 0,
-      active:  r.fields['АКТИВНО'] !== false,
-    })).filter(o => o.active);
+    allRecords = (data || []).map(r => ({
+      name:    r.fields['ИМЕ']      || '—',
+      city:    r.fields['ГРАД']     || '—',
+      area:    r.fields['КВАРТАЛ']  || '',
+      desc:    r.fields['ДЕТАЙЛИ']  || '',
+      members: r.fields['ЧЛЕНОВЕ']  || 0,
+      active:  r.fields['АКТИВНО']  !== false,
+      contact: r.fields['КОНТАКТ']  || '',
+    }));
     document.getElementById('loading').style.display = 'none';
     updateStats();
+    populateCities();
     renderCards(allRecords);
   } catch(e) {
     document.getElementById('loading').style.display = 'none';
@@ -86,15 +96,27 @@ async function loadFromAirtable() {
 }
 
 function updateStats() {
-  document.getElementById('stat-total').textContent   = allRecords.length;
-  document.getElementById('stat-members').textContent = allRecords.reduce((s,o) => s + Number(o.members||0), 0);
+  const active = allRecords.filter(o => o.active);
+  document.getElementById('stat-total').textContent   = active.length;
+  document.getElementById('stat-cities').textContent  = new Set(active.map(o => o.city)).size;
+  document.getElementById('stat-members').textContent = active.reduce((s,o) => s + Number(o.members||0), 0);
+}
+
+function populateCities() {
+  const sel = document.getElementById('region-filter');
+  const cities = [...new Set(allRecords.map(o => o.city).filter(c => c && c !== '—'))];
+  sel.innerHTML = '<option value="">Всички градове</option>' +
+    cities.map(c => `<option value="${c}">${c}</option>`).join('');
 }
 
 function filterCards() {
   const q = document.getElementById('search-input').value.toLowerCase();
-  const filtered = allRecords.filter(o =>
-    !q || o.name.toLowerCase().includes(q) || o.desc.toLowerCase().includes(q)
-  );
+  const r = document.getElementById('region-filter').value;
+  const filtered = allRecords.filter(o => {
+    const matchQ = !q || o.name.toLowerCase().includes(q) || o.city.toLowerCase().includes(q) || o.desc.toLowerCase().includes(q);
+    const matchR = !r || o.city === r;
+    return matchQ && matchR;
+  });
   renderCards(filtered);
 }
 
@@ -107,12 +129,15 @@ function renderCards(list) {
     <div class="ognicha-card">
       <div class="card-top">
         <div class="fire-circle">🔥</div>
-        <div class="card-name">${o.name}</div>
+        <div>
+          <div class="card-name">${o.name}</div>
+          <div class="card-city">${o.city}${o.area ? ', ' + o.area : ''}</div>
+        </div>
       </div>
       <div class="card-desc">${o.desc || 'Няма описание.'}</div>
       <div class="card-footer">
-        <span class="badge-members">${o.members} членове</span>
-        <span class="badge-active">Активно</span>
+        <span class="badge-members">${o.members || 0} членове</span>
+        <span class="badge-status">${o.active ? 'Активно' : 'Неактивно'}</span>
       </div>
     </div>
   `).join('');
