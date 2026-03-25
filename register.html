@@ -139,9 +139,7 @@ footer { border-top: 1px solid rgba(184,196,190,0.3); padding: 2rem 4rem; displa
 </footer>
 
 <script>
-const AIRTABLE_TOKEN   = 'ПОСТАВИ_НОВИЯ_ТОКЕН_ТУК';
-const AIRTABLE_BASE_ID = 'app7sE0WDVYu5FYwj';
-const AIRTABLE_TABLE   = 'ОГНИЩА';
+const MAKE_POST_WEBHOOK = 'https://hook.eu1.make.com/fy2xstonjf5eub7ya7mvmfnloym bhypu';
 
 async function submitForm() {
   const ime      = document.getElementById('f-ime').value.trim();
@@ -160,14 +158,14 @@ async function submitForm() {
   btn.textContent = 'Изпращане...';
 
   try {
-    const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(AIRTABLE_TABLE)}`, {
+    const res = await fetch(MAKE_POST_WEBHOOK, {
       method: 'POST',
-      headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fields: {
-        'ИМЕ': ime, 'ДЕТАЙЛИ': detayli,
-        'ЧЛЕНОВЕ': chlenovе ? Number(chlenovе) : 1,
-        'КОНТАКТ': kontakt, 'АКТИВНО': false
-      }})
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ime, detayli,
+        chlenovе: chlenovе ? Number(chlenovе) : 1,
+        kontakt
+      })
     });
     if (!res.ok) throw new Error();
     document.getElementById('form-card').style.display = 'none';
