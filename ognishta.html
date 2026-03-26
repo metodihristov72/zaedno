@@ -1,17 +1,14 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Segoe UI', Arial, sans-serif; background: #FAF9F6; color: #1a1a1a; padding: 20px; }
-
 .stats-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
 .stat-card { background: #f0ede6; border-radius: 10px; padding: 14px 16px; text-align: center; }
 .stat-number { font-size: 24px; font-weight: 700; color: #1a1a1a; }
 .stat-label { font-size: 12px; color: #888; margin-top: 2px; }
-
 .search-bar { display: flex; gap: 8px; margin-bottom: 16px; }
 .search-bar input { flex: 1; padding: 9px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; background: #fff; }
 .search-bar input:focus { border-color: #D85A30; }
 .search-bar select { padding: 9px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; outline: none; background: #fff; }
-
 .ognicha-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
 .ognicha-card { background: #fff; border: 1px solid #e8e8e6; border-radius: 12px; padding: 16px 18px; transition: border-color 0.15s; }
 .ognicha-card:hover { border-color: #D85A30; }
@@ -23,11 +20,9 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #FAF9F6; color: #
 .card-footer { display: flex; align-items: center; justify-content: space-between; font-size: 12px; }
 .badge-members { background: #FAECE7; color: #993C1D; padding: 3px 10px; border-radius: 6px; font-weight: 600; }
 .badge-status { color: #aaa; }
-
 .empty { text-align: center; padding: 2rem; color: #aaa; font-size: 14px; }
 .loading { text-align: center; padding: 2rem; color: #aaa; font-size: 14px; }
 .error { text-align: center; padding: 1rem; color: #993C1D; font-size: 13px; background: #FAECE7; border-radius: 8px; margin-bottom: 16px; display: none; }
-
 .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .reg-btn { background: #D85A30; color: #fff; border: none; border-radius: 8px; padding: 9px 20px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
 .reg-btn:hover { background: #993C1D; }
@@ -38,57 +33,50 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #FAF9F6; color: #
 
 <div class="top-bar">
   <div class="stats-bar" style="margin:0; flex:1; margin-right:16px;">
-    <div class="stat-card">
-      <div class="stat-number" id="stat-total">—</div>
-      <div class="stat-label">Активни огнища</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number" id="stat-cities">—</div>
-      <div class="stat-label">Града</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number" id="stat-members">—</div>
-      <div class="stat-label">Членове</div>
-    </div>
+    <div class="stat-card"><div class="stat-number" id="stat-total">—</div><div class="stat-label">Активни огнища</div></div>
+    <div class="stat-card"><div class="stat-number" id="stat-cities">—</div><div class="stat-label">Града</div></div>
+    <div class="stat-card"><div class="stat-number" id="stat-members">—</div><div class="stat-label">Членове</div></div>
   </div>
   <a class="reg-btn" href="register.html">+ Регистрирай огнище</a>
 </div>
 
 <div class="error" id="error-msg">Грешка при зареждане. Опитайте по-късно.</div>
-
 <div class="search-bar">
   <input type="text" id="search-input" placeholder="Търси по град или описание..." oninput="filterCards()" />
-  <select id="region-filter" onchange="filterCards()">
-    <option value="">Всички градове</option>
-  </select>
+  <select id="region-filter" onchange="filterCards()"><option value="">Всички градове</option></select>
 </div>
-
 <div class="loading" id="loading">Зареждане на огнищата...</div>
 <div class="ognicha-grid" id="ognicha-grid"></div>
 <div class="empty" id="empty-state" style="display:none;">Няма намерени огнища</div>
 
 <script>
 const MAKE_GET_WEBHOOK = 'https://hook.eu1.make.com/v63ljepxc891k4xjtv6tkjp416w3xxi1';
-
 let allRecords = [];
 
 async function loadFromAirtable() {
   try {
     const res = await fetch(MAKE_GET_WEBHOOK);
     if (!res.ok) throw new Error('API error');
-    const data = await res.json();
-    console.log('Make response:', JSON.stringify(data).substring(0, 500));
-    const records = Array.isArray(data) ? data : (data.records || []);
+    const text = await res.text();
+    let records = [];
+    try {
+      const parsed = JSON.parse(text);
+      records = Array.isArray(parsed) ? parsed : [parsed];
+    } catch(e) {
+      records = text.trim().split('\n')
+        .map(line => { try { return JSON.parse(line.trim()); } catch(e) { return null; } })
+        .filter(Boolean);
+    }
     allRecords = records.map(r => {
       const f = r.fields || r;
       return {
-        name:    f['ИМЕ']     || f['ime']     || '—',
-        city:    f['ГРАД']    || f['grad']    || '—',
-        area:    f['КВАРТАЛ'] || f['kvartal'] || '',
-        desc:    f['ДЕТАЙЛИ'] || f['detayli'] || '',
-        members: f['ЧЛЕНОВЕ'] || f['chlenovе']|| 0,
+        name:    f['ИМЕ']     || '—',
+        city:    f['ГРАД']    || '—',
+        area:    f['КВАРТАЛ'] || '',
+        desc:    f['ДЕТАЙЛИ'] || '',
+        members: f['ЧЛЕНОВЕ'] || 0,
         active:  f['АКТИВНО'] !== false,
-        contact: f['КОНТАКТ'] || f['kontakt'] || '',
+        contact: f['КОНТАКТ'] || '',
       };
     });
     document.getElementById('loading').style.display = 'none';
@@ -96,7 +84,6 @@ async function loadFromAirtable() {
     populateCities();
     renderCards(allRecords);
   } catch(e) {
-    console.error(e);
     document.getElementById('loading').style.display = 'none';
     document.getElementById('error-msg').style.display = 'block';
   }
@@ -104,31 +91,28 @@ async function loadFromAirtable() {
 
 function updateStats() {
   const active = allRecords.filter(o => o.active);
-  document.getElementById('stat-total').textContent   = active.length;
-  document.getElementById('stat-cities').textContent  = new Set(active.map(o => o.city)).size;
+  document.getElementById('stat-total').textContent = active.length;
+  document.getElementById('stat-cities').textContent = new Set(active.map(o => o.city)).size;
   document.getElementById('stat-members').textContent = active.reduce((s,o) => s + Number(o.members||0), 0);
 }
 
 function populateCities() {
   const sel = document.getElementById('region-filter');
   const cities = [...new Set(allRecords.map(o => o.city).filter(c => c && c !== '—'))];
-  sel.innerHTML = '<option value="">Всички градове</option>' +
-    cities.map(c => `<option value="${c}">${c}</option>`).join('');
+  sel.innerHTML = '<option value="">Всички градове</option>' + cities.map(c => `<option value="${c}">${c}</option>`).join('');
 }
 
 function filterCards() {
   const q = document.getElementById('search-input').value.toLowerCase();
   const r = document.getElementById('region-filter').value;
-  const filtered = allRecords.filter(o => {
+  renderCards(allRecords.filter(o => {
     const matchQ = !q || o.name.toLowerCase().includes(q) || o.city.toLowerCase().includes(q) || o.desc.toLowerCase().includes(q);
-    const matchR = !r || o.city === r;
-    return matchQ && matchR;
-  });
-  renderCards(filtered);
+    return matchQ && (!r || o.city === r);
+  }));
 }
 
 function renderCards(list) {
-  const grid  = document.getElementById('ognicha-grid');
+  const grid = document.getElementById('ognicha-grid');
   const empty = document.getElementById('empty-state');
   if (!list.length) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
   empty.style.display = 'none';
@@ -136,18 +120,14 @@ function renderCards(list) {
     <div class="ognicha-card">
       <div class="card-top">
         <div class="fire-circle">🔥</div>
-        <div>
-          <div class="card-name">${o.name}</div>
-          <div class="card-city">${o.city}${o.area ? ', ' + o.area : ''}</div>
-        </div>
+        <div><div class="card-name">${o.name}</div><div class="card-city">${o.city}${o.area ? ', '+o.area : ''}</div></div>
       </div>
       <div class="card-desc">${o.desc || 'Няма описание.'}</div>
       <div class="card-footer">
         <span class="badge-members">${o.members || 0} членове</span>
         <span class="badge-status">${o.active ? 'Активно' : 'Неактивно'}</span>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
 loadFromAirtable();
