@@ -31,7 +31,10 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #FAF9F6; color: #
 .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .reg-btn { background: #D85A30; color: #fff; border: none; border-radius: 8px; padding: 9px 20px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
 .reg-btn:hover { background: #993C1D; }
+.home-btn { color: #D85A30; text-decoration: none; font-size: 14px; margin-bottom: 16px; display: inline-block; }
 </style>
+
+<a class="home-btn" href="index.html">← Начална страница</a>
 
 <div class="top-bar">
   <div class="stats-bar" style="margin:0; flex:1; margin-right:16px;">
@@ -48,10 +51,10 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #FAF9F6; color: #
       <div class="stat-label">Членове</div>
     </div>
   </div>
-  <a class="reg-btn" href="/register-ognishtо">+ Регистрирай огнище</a>
+  <a class="reg-btn" href="register.html">+ Регистрирай огнище</a>
 </div>
 
-<div class="error" id="error-msg">Грешка при свързване с Airtable. Проверете API ключа.</div>
+<div class="error" id="error-msg">Грешка при зареждане. Опитайте по-късно.</div>
 
 <div class="search-bar">
   <input type="text" id="search-input" placeholder="Търси по град или описание..." oninput="filterCards()" />
@@ -65,9 +68,7 @@ body { font-family: 'Segoe UI', Arial, sans-serif; background: #FAF9F6; color: #
 <div class="empty" id="empty-state" style="display:none;">Няма намерени огнища</div>
 
 <script>
-// ============================================
 const MAKE_GET_WEBHOOK = 'https://hook.eu1.make.com/v63ljepxc891k4xjtv6tkjp416w3xxi1';
-// ============================================
 
 let allRecords = [];
 
@@ -76,20 +77,26 @@ async function loadFromAirtable() {
     const res = await fetch(MAKE_GET_WEBHOOK);
     if (!res.ok) throw new Error('API error');
     const data = await res.json();
-    allRecords = (data || []).map(r => ({
-      name:    r.fields['ИМЕ']      || '—',
-      city:    r.fields['ГРАД']     || '—',
-      area:    r.fields['КВАРТАЛ']  || '',
-      desc:    r.fields['ДЕТАЙЛИ']  || '',
-      members: r.fields['ЧЛЕНОВЕ']  || 0,
-      active:  r.fields['АКТИВНО']  !== false,
-      contact: r.fields['КОНТАКТ']  || '',
-    }));
+    console.log('Make response:', JSON.stringify(data).substring(0, 500));
+    const records = Array.isArray(data) ? data : (data.records || []);
+    allRecords = records.map(r => {
+      const f = r.fields || r;
+      return {
+        name:    f['ИМЕ']     || f['ime']     || '—',
+        city:    f['ГРАД']    || f['grad']    || '—',
+        area:    f['КВАРТАЛ'] || f['kvartal'] || '',
+        desc:    f['ДЕТАЙЛИ'] || f['detayli'] || '',
+        members: f['ЧЛЕНОВЕ'] || f['chlenovе']|| 0,
+        active:  f['АКТИВНО'] !== false,
+        contact: f['КОНТАКТ'] || f['kontakt'] || '',
+      };
+    });
     document.getElementById('loading').style.display = 'none';
     updateStats();
     populateCities();
     renderCards(allRecords);
   } catch(e) {
+    console.error(e);
     document.getElementById('loading').style.display = 'none';
     document.getElementById('error-msg').style.display = 'block';
   }
