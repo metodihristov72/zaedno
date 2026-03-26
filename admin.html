@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЗАЕДНО — Admin</title>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --cream: #F7F3EE;
+  --warm-white: #FDFAF7;
+  --sage: #8FA88A;
+  --sage-light: #C8D9C4;
+  --terracotta: #C4785A;
+  --terracotta-light: #E8C4B0;
+  --terracotta-pale: #FAF0EA;
+  --stone: #8C8478;
+  --stone-dark: #4A4440;
+  --mist: #B8C4BE;
+  --red: #C0392B;
+  --green: #27AE60;
+}
+body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--stone-dark); min-height: 100vh; }
+
+/* LOGIN */
+#login-screen {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--cream) 0%, var(--terracotta-pale) 100%);
+}
+.login-box {
+  background: var(--warm-white); border-radius: 2rem; padding: 3rem;
+  text-align: center; max-width: 400px; width: 100%;
+  border: 1px solid rgba(184,196,190,0.3);
+  box-shadow: 0 20px 60px rgba(74,68,64,0.1);
+}
+.login-logo { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 600; color: var(--stone-dark); margin-bottom: 0.5rem; }
+.login-logo span { color: var(--terracotta); }
+.login-sub { font-size: 0.85rem; color: var(--stone); margin-bottom: 2rem; letter-spacing: 0.1em; }
+.login-btn {
+  background: var(--terracotta); color: white; border: none; border-radius: 100px;
+  padding: 1rem 3rem; font-family: 'Jost', sans-serif; font-size: 0.9rem;
+  font-weight: 500; cursor: pointer; letter-spacing: 0.08em;
+  transition: background 0.3s ease; width: 100%;
+}
+.login-btn:hover { background: var(--stone-dark); }
+
+/* ADMIN */
+#admin-screen { display: none; }
+nav {
+  background: var(--warm-white); border-bottom: 1px solid rgba(184,196,190,0.3);
+  padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center;
+}
+.nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--stone-dark); }
+.nav-logo span { color: var(--terracotta); }
+.nav-right { display: flex; align-items: center; gap: 1.5rem; }
+.nav-user { font-size: 0.82rem; color: var(--stone); }
+.logout-btn {
+  background: none; border: 1px solid var(--mist); color: var(--stone);
+  padding: 0.4rem 1rem; border-radius: 100px; font-family: 'Jost', sans-serif;
+  font-size: 0.78rem; cursor: pointer; transition: all 0.2s;
+}
+.logout-btn:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 2.5rem 2rem; }
+
+/* STATS */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2.5rem; }
+.stat-card {
+  background: var(--warm-white); border-radius: 1.2rem; padding: 1.5rem;
+  border: 1px solid rgba(184,196,190,0.3); text-align: center;
+}
+.stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--stone-dark); }
+.stat-label { font-size: 0.72rem; color: var(--stone); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.3rem; }
+
+/* TABLE */
+.section-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300;
+  color: var(--stone-dark); margin-bottom: 1.2rem;
+}
+.table-wrap { background: var(--warm-white); border-radius: 1.2rem; border: 1px solid rgba(184,196,190,0.3); overflow: hidden; }
+table { width: 100%; border-collapse: collapse; }
+th {
+  background: var(--cream); padding: 1rem 1.2rem; text-align: left;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--stone); border-bottom: 1px solid rgba(184,196,190,0.3);
+}
+td { padding: 1rem 1.2rem; border-bottom: 1px solid rgba(184,196,190,0.15); font-size: 0.88rem; vertical-align: middle; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--cream); }
+
+.badge-active { background: #E8F5E9; color: #2E7D32; padding: 0.25rem 0.75rem; border-radius: 100px; font-size: 0.72rem; font-weight: 500; }
+.badge-inactive { background: var(--terracotta-pale); color: var(--terracotta); padding: 0.25rem 0.75rem; border-radius: 100px; font-size: 0.72rem; font-weight: 500; }
+
+.actions { display: flex; gap: 0.5rem; }
+.btn-approve {
+  background: var(--green); color: white; border: none; border-radius: 6px;
+  padding: 0.35rem 0.8rem; font-size: 0.75rem; cursor: pointer; transition: opacity 0.2s;
+}
+.btn-approve:hover { opacity: 0.8; }
+.btn-delete {
+  background: var(--red); color: white; border: none; border-radius: 6px;
+  padding: 0.35rem 0.8rem; font-size: 0.75rem; cursor: pointer; transition: opacity 0.2s;
+}
+.btn-delete:hover { opacity: 0.8; }
+.btn-toggle {
+  background: var(--stone); color: white; border: none; border-radius: 6px;
+  padding: 0.35rem 0.8rem; font-size: 0.75rem; cursor: pointer; transition: opacity 0.2s;
+}
+.btn-toggle:hover { opacity: 0.8; }
+
+.loading { text-align: center; padding: 3rem; color: var(--stone); }
+.empty { text-align: center; padding: 3rem; color: var(--stone); font-size: 0.9rem; }
+
+/* TOAST */
+.toast {
+  position: fixed; bottom: 2rem; right: 2rem; background: var(--stone-dark);
+  color: white; padding: 1rem 1.5rem; border-radius: 12px; font-size: 0.85rem;
+  opacity: 0; transform: translateY(10px); transition: all 0.3s ease; z-index: 100;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .main { padding: 1.5rem 1rem; }
+  table { font-size: 0.8rem; }
+  th, td { padding: 0.75rem 0.8rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">З<span>А</span>ЕДНО</div>
+    <div class="login-sub">АДМИНИСТРАТИВЕН ПАНЕЛ</div>
+    <button class="login-btn" onclick="netlifyIdentity.open()">Вход с имейл</button>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="admin-screen">
+  <nav>
+    <div class="nav-logo">З<span>А</span>ЕДНО <span style="font-size:0.75rem;color:var(--stone);font-family:'Jost';font-weight:300;letter-spacing:0.15em">ADMIN</span></div>
+    <div class="nav-right">
+      <span class="nav-user" id="user-email"></span>
+      <button class="logout-btn" onclick="netlifyIdentity.logout()">Изход</button>
+    </div>
+  </nav>
+
+  <div class="main">
+    <div class="stats">
+      <div class="stat-card"><div class="stat-num" id="s-total">—</div><div class="stat-label">Всички огнища</div></div>
+      <div class="stat-card"><div class="stat-num" id="s-active">—</div><div class="stat-label">Активни</div></div>
+      <div class="stat-card"><div class="stat-num" id="s-inactive">—</div><div class="stat-label">Неактивни</div></div>
+      <div class="stat-card"><div class="stat-num" id="s-members">—</div><div class="stat-label">Членове</div></div>
+    </div>
+
+    <div class="section-title">Огнища</div>
+    <div class="table-wrap">
+      <div class="loading" id="loading">Зареждане...</div>
+      <table id="admin-table" style="display:none;">
+        <thead>
+          <tr>
+            <th>Име</th>
+            <th>Детайли</th>
+            <th>Контакт</th>
+            <th>Членове</th>
+            <th>Статус</th>
+            <th>Действия</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+      <div class="empty" id="empty" style="display:none;">Няма огнища</div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const MAKE_GET = 'https://hook.eu1.make.com/v63ljepxc891k4xjtv6tkjp416w3xxi1';
+const AIRTABLE_BASE = 'app7sE0WDVYu5FYwj';
+const AIRTABLE_TABLE = 'ОГНИЩА';
+
+// Netlify Identity
+netlifyIdentity.on('login', user => {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('admin-screen').style.display = 'block';
+  document.getElementById('user-email').textContent = user.email;
+  loadOgnishta();
+  netlifyIdentity.close();
+});
+
+netlifyIdentity.on('logout', () => {
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('admin-screen').style.display = 'none';
+});
+
+netlifyIdentity.on('init', user => {
+  if (user) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-screen').style.display = 'block';
+    document.getElementById('user-email').textContent = user.email;
+    loadOgnishta();
+  }
+});
+
+// Load data
+let allRecords = [];
+
+async function loadOgnishta() {
+  try {
+    const res = await fetch(MAKE_GET);
+    const text = await res.text();
+    let records = [];
+    try {
+      const parsed = JSON.parse(text);
+      records = Array.isArray(parsed) ? parsed : [parsed];
+    } catch(e) {
+      records = text.trim().split('\n')
+        .map(l => { try { return JSON.parse(l.trim()); } catch(e) { return null; } })
+        .filter(Boolean);
+    }
+    allRecords = records;
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('admin-table').style.display = 'table';
+    updateStats();
+    renderTable();
+  } catch(e) {
+    document.getElementById('loading').textContent = 'Грешка при зареждане.';
+  }
+}
+
+function updateStats() {
+  const active = allRecords.filter(r => r['АКТИВНО'] !== false);
+  document.getElementById('s-total').textContent = allRecords.length;
+  document.getElementById('s-active').textContent = active.length;
+  document.getElementById('s-inactive').textContent = allRecords.length - active.length;
+  document.getElementById('s-members').textContent = allRecords.reduce((s,r) => s + Number(r['ЧЛЕНОВЕ']||0), 0);
+}
+
+function renderTable() {
+  const tbody = document.getElementById('table-body');
+  if (!allRecords.length) {
+    document.getElementById('empty').style.display = 'block';
+    document.getElementById('admin-table').style.display = 'none';
+    return;
+  }
+  tbody.innerHTML = allRecords.map((r, i) => `
+    <tr>
+      <td><strong>${r['ИМЕ'] || '—'}</strong></td>
+      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r['ДЕТАЙЛИ'] || '—'}</td>
+      <td>${r['КОНТАКТ'] || '—'}</td>
+      <td>${r['ЧЛЕНОВЕ'] || 0}</td>
+      <td><span class="${r['АКТИВНО'] !== false ? 'badge-active' : 'badge-inactive'}">${r['АКТИВНО'] !== false ? 'Активно' : 'Неактивно'}</span></td>
+      <td>
+        <div class="actions">
+          <button class="btn-toggle" onclick="toggleActive(${i})">${r['АКТИВНО'] !== false ? 'Деактивирай' : 'Активирай'}</button>
+          <button class="btn-delete" onclick="deleteRecord(${i})">Изтрий</button>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+async function getToken() {
+  const user = netlifyIdentity.currentUser();
+  if (!user) return null;
+  await user.jwt();
+  return user.token.access_token;
+}
+
+async function toggleActive(i) {
+  const r = allRecords[i];
+  const newVal = r['АКТИВНО'] === false;
+  showToast('Обновяване...');
+  // За сега само локално — за пълна интеграция трябва Netlify Function
+  allRecords[i]['АКТИВНО'] = newVal;
+  updateStats();
+  renderTable();
+  showToast(newVal ? '✅ Огнището е активирано' : '⏸️ Огнището е деактивирано');
+}
+
+async function deleteRecord(i) {
+  if (!confirm('Сигурен ли си че искаш да изтриеш това огнище?')) return;
+  allRecords.splice(i, 1);
+  updateStats();
+  renderTable();
+  showToast('🗑️ Огнището е изтрито локално');
+}
+</script>
+</body>
+</html>
