@@ -58,27 +58,30 @@ async function loadFromAirtable() {
     const res = await fetch(MAKE_GET_WEBHOOK);
     if (!res.ok) throw new Error('API error');
     const text = await res.text();
+
+    // Make връща NDJSON — всеки запис на отделен ред
     let records = [];
-    try {
-      const parsed = JSON.parse(text);
-      records = Array.isArray(parsed) ? parsed : [parsed];
-    } catch(e) {
-      records = text.trim().split('\n')
-        .map(line => { try { return JSON.parse(line.trim()); } catch(e) { return null; } })
-        .filter(Boolean);
+    const lines = text.trim().split('\n').filter(l => l.trim().startsWith('{'));
+    for (const line of lines) {
+      try { records.push(JSON.parse(line.trim())); } catch(e) {}
     }
-    allRecords = records.map(r => {
-      const f = r.fields || r;
-      return {
-        name:    f['ИМЕ']     || '—',
-        city:    f['ГРАД']    || '—',
-        area:    f['КВАРТАЛ'] || '',
-        desc:    f['ДЕТАЙЛИ'] || '',
-        members: f['ЧЛЕНОВЕ'] || 0,
-        active:  f['АКТИВНО'] !== false,
-        contact: f['КОНТАКТ'] || '',
-      };
-    });
+    if (records.length === 0) {
+      try {
+        const parsed = JSON.parse(text);
+        records = Array.isArray(parsed) ? parsed : [parsed];
+      } catch(e) {}
+    }
+
+    allRecords = records.map(r => ({
+      name:    r.ime     || r['ИМЕ']     || '—',
+      city:    r.grad    || r['ГРАД']    || '—',
+      area:    r.kvartal || r['КВАРТАЛ'] || '',
+      desc:    r.detayli || r['ДЕТАЙЛИ'] || '',
+      members: r.chlenovе|| r['ЧЛЕНОВЕ'] || 0,
+      active:  r.aktivno !== false && r['АКТИВНО'] !== false,
+      contact: r.kontakt || r['КОНТАКТ'] || '',
+    }));
+
     document.getElementById('loading').style.display = 'none';
     updateStats();
     populateCities();
