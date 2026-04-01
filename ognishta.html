@@ -3,279 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ЗАЕДНО — Огнище</title>
+<title>ЗАЕДНО — Огнища</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --cream: #F7F3EE;
-  --warm-white: #FDFAF7;
-  --amber: #C4785A;
-  --amber-light: #E8C4B0;
-  --amber-pale: #FAF0EA;
-  --amber-deep: #8B4513;
-  --sage: #8FA88A;
-  --sage-pale: #EBF2E9;
-  --stone: #8C8478;
-  --stone-dark: #4A4440;
-  --mist: #B8C4BE;
-  --glow: rgba(196, 120, 90, 0.15);
+  --cream: #F7F3EE; --warm-white: #FDFAF7;
+  --sage: #8FA88A; --sage-light: #C8D9C4; --sage-pale: #EBF2E9;
+  --terracotta: #C4785A; --terracotta-light: #E8C4B0; --terracotta-pale: #FAF0EA;
+  --stone: #8C8478; --stone-dark: #4A4440; --mist: #B8C4BE;
 }
+body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--stone-dark); min-height: 100vh; }
 
-body {
-  font-family: 'Jost', sans-serif;
-  background: var(--cream);
-  color: var(--stone-dark);
-  min-height: 100vh;
-}
-
-/* Топло фоново сияние */
-body::before {
-  content: '';
-  position: fixed;
-  top: -20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80vw;
-  height: 60vh;
-  background: radial-gradient(ellipse, rgba(196,120,90,0.12) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-nav {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem 4rem;
-  border-bottom: 1px solid rgba(184,196,190,0.2);
-}
-.logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: var(--stone-dark);
-  letter-spacing: 0.12em;
-  text-decoration: none;
-}
-.logo span { color: var(--amber); }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 4rem; border-bottom: 1px solid rgba(184,196,190,0.2); }
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.12em; text-decoration: none; }
+.logo span { color: var(--terracotta); }
 .nav-links { display: flex; gap: 2rem; }
-.nav-links a {
-  font-size: 0.85rem;
-  color: var(--stone);
-  text-decoration: none;
-  letter-spacing: 0.08em;
-  transition: color 0.2s;
-}
+.nav-links a { font-size: 0.85rem; color: var(--stone); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
 .nav-links a:hover { color: var(--stone-dark); }
 
-.page-wrap {
-  position: relative;
-  z-index: 1;
-  max-width: 780px;
-  margin: 0 auto;
-  padding: 4rem 2rem 8rem;
-}
+.page-wrap { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem 6rem; }
 
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.82rem;
-  color: var(--amber);
-  text-decoration: none;
-  letter-spacing: 0.08em;
-  margin-bottom: 3rem;
-  transition: opacity 0.2s;
-}
-.back-link:hover { opacity: 0.7; }
+.page-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem; }
+.page-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.5rem; display: block; }
+.page-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.1; color: var(--stone-dark); }
+.page-title em { font-style: italic; color: var(--terracotta); }
 
-/* Огнище хедър */
-.fire-header {
-  text-align: center;
-  margin-bottom: 3rem;
-  padding: 3rem 2rem;
-  background: var(--warm-white);
-  border-radius: 2rem;
-  border: 1px solid rgba(196,120,90,0.15);
-  box-shadow: 0 8px 40px rgba(196,120,90,0.08);
-  position: relative;
-  overflow: hidden;
+.reg-btn {
+  background: var(--terracotta); color: white; border: none; border-radius: 100px;
+  padding: 0.75rem 2rem; font-family: 'Jost', sans-serif; font-size: 0.85rem;
+  font-weight: 400; letter-spacing: 0.1em; text-decoration: none;
+  transition: background 0.3s ease;
 }
+.reg-btn:hover { background: var(--stone-dark); }
 
-.fire-header::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--amber), transparent);
-}
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.stat-card { background: var(--warm-white); border-radius: 1.2rem; padding: 1.5rem; border: 1px solid rgba(184,196,190,0.3); text-align: center; }
+.stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--stone-dark); }
+.stat-label { font-size: 0.72rem; color: var(--stone); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 0.3rem; }
 
-.fire-emoji {
-  font-size: 4rem;
-  margin-bottom: 1.5rem;
-  display: block;
-  animation: flicker 3s ease-in-out infinite;
-}
+.search-bar { display: flex; gap: 0.75rem; margin-bottom: 2rem; }
+.search-bar input { flex: 1; padding: 0.85rem 1.1rem; border: 1px solid rgba(184,196,190,0.5); border-radius: 10px; font-family: 'Jost', sans-serif; font-size: 0.9rem; font-weight: 300; color: var(--stone-dark); background: var(--warm-white); outline: none; transition: border-color 0.2s; }
+.search-bar input:focus { border-color: var(--sage); }
 
-@keyframes flicker {
-  0%, 100% { transform: scale(1) rotate(-1deg); }
-  25% { transform: scale(1.05) rotate(1deg); }
-  50% { transform: scale(0.98) rotate(-0.5deg); }
-  75% { transform: scale(1.03) rotate(0.5deg); }
-}
+.ognicha-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+.ognicha-card { background: var(--warm-white); border: 1px solid rgba(184,196,190,0.3); border-radius: 1.5rem; padding: 1.75rem; transition: border-color 0.2s, transform 0.2s; cursor: pointer; }
+.ognicha-card:hover { border-color: var(--terracotta); transform: translateY(-2px); }
+.card-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+.fire-circle { width: 44px; height: 44px; border-radius: 50%; background: var(--terracotta-pale); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 20px; }
+.card-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--stone-dark); }
+.card-desc { font-size: 0.88rem; font-weight: 300; color: var(--stone); line-height: 1.6; margin-bottom: 1rem; }
+.card-footer { display: flex; align-items: center; justify-content: space-between; }
+.badge-members { background: var(--terracotta-pale); color: var(--terracotta); padding: 0.25rem 0.75rem; border-radius: 100px; font-size: 0.72rem; font-weight: 500; }
+.badge-status { font-size: 0.72rem; color: var(--mist); letter-spacing: 0.05em; }
 
-.fire-label {
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--amber);
-  margin-bottom: 0.75rem;
-  display: block;
-}
+.loading { text-align: center; padding: 3rem; color: var(--stone); }
+.empty { text-align: center; padding: 3rem; color: var(--stone); font-size: 0.9rem; }
+.error-msg { background: var(--terracotta-pale); color: var(--terracotta); border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.85rem; display: none; }
 
-.fire-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 400;
-  line-height: 1.15;
-  color: var(--stone-dark);
-  margin-bottom: 1rem;
-}
-
-.fire-badges {
-  display: flex;
-  gap: 0.75rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 1.5rem;
-}
-
-.badge {
-  padding: 0.35rem 1rem;
-  border-radius: 100px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-}
-.badge-members {
-  background: var(--amber-pale);
-  color: var(--amber);
-  border: 1px solid var(--amber-light);
-}
-.badge-active {
-  background: var(--sage-pale);
-  color: var(--sage);
-  border: 1px solid rgba(143,168,138,0.3);
-}
-
-/* Секции */
-.section {
-  background: var(--warm-white);
-  border-radius: 1.5rem;
-  border: 1px solid rgba(184,196,190,0.25);
-  padding: 2rem 2.5rem;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 4px 20px rgba(74,68,64,0.04);
-}
-
-.section-label {
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--sage);
-  margin-bottom: 0.75rem;
-  display: block;
-}
-
-.section-text {
-  font-size: 1rem;
-  font-weight: 300;
-  color: var(--stone-dark);
-  line-height: 1.8;
-}
-
-.contact-link {
-  color: var(--amber);
-  text-decoration: none;
-  font-weight: 400;
-  transition: opacity 0.2s;
-}
-.contact-link:hover { opacity: 0.7; }
-
-/* Разделител */
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin: 3rem 0 2rem;
-}
-.divider-line { flex: 1; height: 1px; background: rgba(184,196,190,0.4); }
-.divider-icon { font-size: 1.2rem; color: var(--amber); opacity: 0.6; }
-
-/* Giscus контейнер */
-.comments-section {
-  background: var(--warm-white);
-  border-radius: 1.5rem;
-  border: 1px solid rgba(184,196,190,0.25);
-  padding: 2rem 2.5rem;
-  box-shadow: 0 4px 20px rgba(74,68,64,0.04);
-}
-
-.comments-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.4rem;
-  font-weight: 300;
-  color: var(--stone-dark);
-  margin-bottom: 1.5rem;
-}
-
-/* Loading и Error */
-.loading-wrap {
-  text-align: center;
-  padding: 5rem 2rem;
-}
-.loading-fire { font-size: 3rem; animation: flicker 2s ease-in-out infinite; margin-bottom: 1rem; }
-.loading-text { font-size: 0.9rem; font-weight: 300; color: var(--stone); }
-
-.error-wrap {
-  text-align: center;
-  padding: 3rem;
-  background: var(--amber-pale);
-  border-radius: 1.5rem;
-  border: 1px solid rgba(196,120,90,0.2);
-}
-.error-text { font-size: 0.9rem; color: var(--amber); }
-
-footer {
-  position: relative;
-  z-index: 1;
-  border-top: 1px solid rgba(184,196,190,0.3);
-  padding: 2rem 4rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.footer-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--stone-dark);
-  letter-spacing: 0.1em;
-}
+footer { border-top: 1px solid rgba(184,196,190,0.3); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.1em; }
 .footer-copy { font-size: 0.75rem; font-weight: 300; color: var(--stone); }
 
 @media (max-width: 768px) {
   nav, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
-  .page-wrap { padding: 2rem 1.5rem 5rem; }
-  .section { padding: 1.5rem; }
-  .comments-section { padding: 1.5rem; }
+  .page-wrap { padding: 2rem 1.5rem 4rem; }
+  .page-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .stats { grid-template-columns: repeat(3, 1fr); }
 }
 </style>
 </head>
@@ -291,49 +85,29 @@ footer {
 </nav>
 
 <div class="page-wrap">
-  <a class="back-link" href="ognishta.html">← Назад към огнищата</a>
-
-  <div id="loading-state" class="loading-wrap">
-    <div class="loading-fire">🔥</div>
-    <div class="loading-text">Разпалваме огнището...</div>
+  <div class="page-header">
+    <div>
+      <span class="page-label">Общността</span>
+      <h1 class="page-title">Активни<br><em>огнища</em></h1>
+    </div>
+    <a class="reg-btn" href="register.html">+ Регистрирай огнище</a>
   </div>
 
-  <div id="error-state" class="error-wrap" style="display:none;">
-    <div class="error-text">Огнището не беше намерено.</div>
+  <div class="stats">
+    <div class="stat-card"><div class="stat-num" id="stat-total">—</div><div class="stat-label">Активни огнища</div></div>
+    <div class="stat-card"><div class="stat-num" id="stat-cities">—</div><div class="stat-label">Града</div></div>
+    <div class="stat-card"><div class="stat-num" id="stat-members">—</div><div class="stat-label">Членове</div></div>
   </div>
 
-  <div id="content" style="display:none;">
-    <div class="fire-header">
-      <span class="fire-emoji">🔥</span>
-      <span class="fire-label">Огнище</span>
-      <h1 class="fire-name" id="fire-name">—</h1>
-      <div class="fire-badges">
-        <span class="badge badge-members" id="fire-members">1 член</span>
-        <span class="badge badge-active">Активно</span>
-      </div>
-    </div>
+  <div class="error-msg" id="error-msg">Грешка при зареждане. Опитайте по-късно.</div>
 
-    <div class="section" id="desc-section" style="display:none;">
-      <span class="section-label">За огнището</span>
-      <p class="section-text" id="fire-desc"></p>
-    </div>
-
-    <div class="section" id="contact-section" style="display:none;">
-      <span class="section-label">Свържи се</span>
-      <p class="section-text" id="fire-contact"></p>
-    </div>
-
-    <div class="divider">
-      <div class="divider-line"></div>
-      <div class="divider-icon">🌱</div>
-      <div class="divider-line"></div>
-    </div>
-
-    <div class="comments-section">
-      <div class="comments-title">Разговорът около огнището</div>
-      <div id="giscus-container"></div>
-    </div>
+  <div class="search-bar">
+    <input type="text" id="search-input" placeholder="Търси по име или описание..." oninput="filterCards()" />
   </div>
+
+  <div class="loading" id="loading">Зареждане на огнищата...</div>
+  <div class="ognicha-grid" id="ognicha-grid"></div>
+  <div class="empty" id="empty-state" style="display:none;">Няма намерени огнища</div>
 </div>
 
 <footer>
@@ -343,22 +117,16 @@ footer {
 
 <script>
 const MAKE_GET_WEBHOOK = 'https://hook.eu1.make.com/v63ljepxc891k4xjtv6tkjp416w3xxi1';
+let allRecords = [];
 
-function getIdFromUrl() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get('id');
-}
-
-async function loadOgnishte() {
-  const id = getIdFromUrl();
-  if (!id) { showError(); return; }
-
+async function loadFromAirtable() {
   try {
     const res = await fetch(MAKE_GET_WEBHOOK, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'get' })
     });
+    if (!res.ok) throw new Error('API error');
     const text = await res.text();
 
     let records = [];
@@ -366,70 +134,68 @@ async function loadOgnishte() {
     for (const line of lines) {
       try { records.push(JSON.parse(line.trim())); } catch(e) {}
     }
-
-    const record = records.find(r => r.id && r.id.trim() === id.trim());
-    if (!record) { showError(); return; }
-
-    renderOgnishte(record);
-  } catch(e) {
-    showError();
-  }
-}
-
-function renderOgnishte(r) {
-  document.title = `ЗАЕДНО — ${r['ИМЕ'] || 'Огнище'}`;
-
-  document.getElementById('fire-name').textContent = r['ИМЕ'] || '—';
-  document.getElementById('fire-members').textContent = `${r['ЧЛЕНОВЕ'] || 1} ${Number(r['ЧЛЕНОВЕ']) === 1 ? 'член' : 'члена'}`;
-
-  if (r['ДЕТАЙЛИ']) {
-    document.getElementById('fire-desc').textContent = r['ДЕТАЙЛИ'];
-    document.getElementById('desc-section').style.display = 'block';
-  }
-
-  if (r['КОНТАКТ']) {
-    const contact = r['КОНТАКТ'];
-    const el = document.getElementById('fire-contact');
-    if (contact.includes('@')) {
-      el.innerHTML = `<a class="contact-link" href="mailto:${contact}">${contact}</a>`;
-    } else {
-      el.textContent = contact;
+    if (records.length === 0) {
+      try {
+        const parsed = JSON.parse(text);
+        records = Array.isArray(parsed) ? parsed : [parsed];
+      } catch(e) {}
     }
-    document.getElementById('contact-section').style.display = 'block';
+
+    allRecords = records
+      .filter(r => r && (r['ИМЕ'] || r.ime))
+      .map(r => ({
+        id:      r.id      || r['ID']      || '',
+        name:    r['ИМЕ']  || r.ime        || '—',
+        desc:    r['ДЕТАЙЛИ'] || r.detayli || '',
+        members: r['ЧЛЕНОВЕ'] || r.chlenovе || 0,
+        active:  r['АКТИВНО'] !== false && r.aktivno !== false,
+        contact: r['КОНТАКТ'] || r.kontakt || '',
+      }));
+
+    document.getElementById('loading').style.display = 'none';
+    updateStats();
+    renderCards(allRecords.filter(o => o.active));
+  } catch(e) {
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('error-msg').style.display = 'block';
   }
-
-  document.getElementById('loading-state').style.display = 'none';
-  document.getElementById('content').style.display = 'block';
-
-  loadGiscus();
 }
 
-function loadGiscus() {
-  const container = document.getElementById('giscus-container');
-  const script = document.createElement('script');
-  script.src = 'https://giscus.app/client.js';
-  script.setAttribute('data-repo', 'metodihristov72/zaedno');
-  script.setAttribute('data-repo-id', 'R_kgDORvw9Ng');
-  script.setAttribute('data-category', 'General');
-  script.setAttribute('data-category-id', 'DIC_kwDORvw9Ns4C5Z1n');
-  script.setAttribute('data-mapping', 'pathname');
-  script.setAttribute('data-strict', '0');
-  script.setAttribute('data-reactions-enabled', '1');
-  script.setAttribute('data-emit-metadata', '0');
-  script.setAttribute('data-input-position', 'bottom');
-  script.setAttribute('data-theme', 'preferred_color_scheme');
-  script.setAttribute('data-lang', 'bg');
-  script.setAttribute('crossorigin', 'anonymous');
-  script.async = true;
-  container.appendChild(script);
+function updateStats() {
+  const active = allRecords.filter(o => o.active);
+  document.getElementById('stat-total').textContent = active.length;
+  document.getElementById('stat-cities').textContent = '—';
+  document.getElementById('stat-members').textContent = active.reduce((s,o) => s + Number(o.members||0), 0);
 }
 
-function showError() {
-  document.getElementById('loading-state').style.display = 'none';
-  document.getElementById('error-state').style.display = 'block';
+function filterCards() {
+  const q = document.getElementById('search-input').value.toLowerCase();
+  const filtered = allRecords.filter(o => o.active).filter(o => {
+    return !q || o.name.toLowerCase().includes(q) || o.desc.toLowerCase().includes(q);
+  });
+  renderCards(filtered);
 }
 
-loadOgnishte();
+function renderCards(list) {
+  const grid = document.getElementById('ognicha-grid');
+  const empty = document.getElementById('empty-state');
+  if (!list.length) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  grid.innerHTML = list.map(o => `
+    <a class="ognicha-card" href="ognishte.html?id=${encodeURIComponent(o.id)}">
+      <div class="card-top">
+        <div class="fire-circle">🔥</div>
+        <div class="card-name">${o.name}</div>
+      </div>
+      <div class="card-desc">${o.desc || 'Няма описание.'}</div>
+      <div class="card-footer">
+        <span class="badge-members">${o.members || 0} ${Number(o.members) === 1 ? 'член' : 'члена'}</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>`).join('');
+}
+
+loadFromAirtable();
 </script>
 </body>
 </html>
