@@ -236,6 +236,8 @@ nav {
   margin-bottom: 1.5rem;
 }
 
+.article-text { font-size: 1rem; font-weight: 300; color: var(--stone-dark); line-height: 1.9; white-space: pre-wrap; }
+
 /* Loading и Error */
 .loading-wrap {
   text-align: center;
@@ -318,6 +320,11 @@ footer {
       <p class="section-text" id="fire-desc"></p>
     </div>
 
+    <div class="section article-section" id="article-section" style="display:none;">
+      <span class="section-label">Статия</span>
+      <div class="section-text article-text" id="fire-article"></div>
+    </div>
+
     <div class="section" id="contact-section" style="display:none;">
       <span class="section-label">Свържи се</span>
       <p class="section-text" id="fire-contact"></p>
@@ -385,6 +392,11 @@ function renderOgnishte(r) {
   if (r['ДЕТАЙЛИ']) {
     document.getElementById('fire-desc').textContent = r['ДЕТАЙЛИ'];
     document.getElementById('desc-section').style.display = 'block';
+  }
+
+  if (r['СТАТИЯ']) {
+    document.getElementById('fire-article').innerHTML = r['СТАТИЯ'].replace(/\n/g, '<br>');
+    document.getElementById('article-section').style.display = 'block';
   }
 
   if (r['КОНТАКТ']) {
