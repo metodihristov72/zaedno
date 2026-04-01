@@ -8,384 +8,91 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --cream: #F7F3EE;
-  --warm-white: #FDFAF7;
-  --sage: #8FA88A;
-  --sage-pale: #EBF2E9;
-  --terracotta: #C4785A;
-  --terracotta-light: #E8C4B0;
-  --terracotta-pale: #FAF0EA;
-  --stone: #8C8478;
-  --stone-dark: #4A4440;
-  --mist: #B8C4BE;
+  --cream: #F7F3EE; --warm-white: #FDFAF7;
+  --sage: #8FA88A; --sage-pale: #EBF2E9;
+  --terracotta: #C4785A; --terracotta-light: #E8C4B0; --terracotta-pale: #FAF0EA;
+  --stone: #8C8478; --stone-dark: #4A4440; --mist: #B8C4BE;
 }
-
-body {
-  font-family: 'Jost', sans-serif;
-  background: var(--cream);
-  color: var(--stone-dark);
-  min-height: 100vh;
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  top: -10%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100vw;
-  height: 50vh;
-  background: radial-gradient(ellipse, rgba(143,168,138,0.08) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-nav {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem 4rem;
-  border-bottom: 1px solid rgba(184,196,190,0.2);
-}
-.logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: var(--stone-dark);
-  letter-spacing: 0.12em;
-  text-decoration: none;
-}
+body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--stone-dark); min-height: 100vh; }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 4rem; border-bottom: 1px solid rgba(184,196,190,0.2); }
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.12em; text-decoration: none; }
 .logo span { color: var(--terracotta); }
 .nav-links { display: flex; gap: 2rem; }
-.nav-links a {
-  font-size: 0.85rem;
-  color: var(--stone);
-  text-decoration: none;
-  letter-spacing: 0.08em;
-  transition: color 0.2s;
-}
+.nav-links a { font-size: 0.85rem; color: var(--stone); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
 .nav-links a:hover { color: var(--stone-dark); }
 .nav-links a.active { color: var(--terracotta); }
 
-/* HERO */
-.hero {
-  position: relative;
-  z-index: 1;
-  max-width: 780px;
-  margin: 0 auto;
-  padding: 6rem 2rem 4rem;
-  text-align: center;
-}
+.opening { max-width: 780px; margin: 0 auto; padding: 6rem 2rem 3rem; text-align: center; }
+.opening-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.4em; text-transform: uppercase; color: var(--sage); margin-bottom: 2rem; display: block; }
+.opening-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 300; font-style: italic; line-height: 1.4; color: var(--stone-dark); margin-bottom: 2rem; }
+.opening-title strong { font-style: normal; font-weight: 600; color: var(--terracotta); }
 
-.hero-label {
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--sage);
-  margin-bottom: 1.5rem;
-  display: block;
-}
+.page-wrap { max-width: 780px; margin: 0 auto; padding: 0 2rem 8rem; }
 
-.hero-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  font-weight: 300;
-  line-height: 1.05;
-  color: var(--stone-dark);
-  margin-bottom: 2rem;
-}
+.journal { background: var(--warm-white); border-radius: 2rem; padding: 3.5rem; margin-bottom: 2rem; border: 1px solid rgba(184,196,190,0.25); box-shadow: 0 4px 30px rgba(74,68,64,0.05); position: relative; overflow: hidden; }
+.journal::before { content: '"'; font-family: 'Cormorant Garamond', serif; font-size: 16rem; color: rgba(143,168,138,0.08); position: absolute; top: -3rem; left: 1rem; line-height: 1; pointer-events: none; }
+.journal-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sage); margin-bottom: 1.5rem; display: block; position: relative; z-index: 1; }
+.journal-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.15rem, 2.5vw, 1.5rem); font-weight: 300; font-style: italic; line-height: 1.8; color: var(--stone-dark); position: relative; z-index: 1; }
 
-.hero-title em {
-  font-style: italic;
-  color: var(--terracotta);
-}
+.dark-section { background: var(--stone-dark); border-radius: 2rem; padding: 3.5rem; margin-bottom: 2rem; }
+.dark-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.35em; text-transform: uppercase; color: var(--mist); margin-bottom: 1.5rem; display: block; }
+.dark-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 300; line-height: 1.3; color: var(--cream); margin-bottom: 1.5rem; }
+.dark-title em { font-style: italic; color: var(--terracotta-light); }
+.dark-text { font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--mist); }
 
-.hero-quote {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--stone);
-  line-height: 1.7;
-  max-width: 560px;
-  margin: 0 auto 3rem;
-  padding: 2rem;
-  border-left: 2px solid var(--terracotta-light);
-  text-align: left;
-}
+.philosophy-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.philosophy-card { background: var(--warm-white); border: 1px solid rgba(184,196,190,0.3); border-radius: 1.5rem; padding: 2rem; transition: transform 0.2s, border-color 0.2s; }
+.philosophy-card:hover { transform: translateY(-2px); border-color: var(--sage); }
+.philosophy-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--terracotta); line-height: 1; margin-bottom: 0.75rem; }
+.philosophy-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--stone-dark); margin-bottom: 0.5rem; }
+.philosophy-text { font-size: 0.87rem; font-weight: 300; color: var(--stone); line-height: 1.75; }
 
-/* CONTENT */
-.page-wrap {
-  position: relative;
-  z-index: 1;
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 0 2rem 8rem;
-}
+.not-section { background: var(--terracotta-pale); border: 1px solid rgba(196,120,90,0.2); border-radius: 2rem; padding: 3rem; margin-bottom: 2rem; }
+.not-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 300; color: var(--stone-dark); margin-bottom: 1.5rem; }
+.not-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+.not-list li { display: flex; align-items: flex-start; gap: 1rem; font-size: 0.9rem; font-weight: 300; color: var(--stone-dark); line-height: 1.6; }
+.not-cross { color: var(--terracotta); font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+.not-check { color: var(--sage); font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
 
-/* PROBLEM */
-.problem-section {
-  background: var(--stone-dark);
-  color: var(--cream);
-  border-radius: 2rem;
-  padding: 3.5rem;
-  margin-bottom: 2rem;
-}
+.divider { display: flex; align-items: center; gap: 1rem; margin: 2rem 0; }
+.divider-line { flex: 1; height: 1px; background: rgba(184,196,190,0.4); }
+.divider-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--sage-pale); border: 1px solid var(--sage); }
 
-.section-label {
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--mist);
-  margin-bottom: 1rem;
-  display: block;
-}
+.big-quote-section { text-align: center; padding: 3rem 2rem; margin-bottom: 2rem; }
+.big-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 300; font-style: italic; color: var(--stone-dark); line-height: 1.5; margin-bottom: 1rem; }
+.big-quote em { color: var(--terracotta); font-style: normal; }
+.big-quote-sub { font-size: 0.82rem; font-weight: 300; color: var(--stone); letter-spacing: 0.1em; }
 
-.section-label.green { color: var(--sage); }
-.section-label.orange { color: var(--terracotta-light); }
+.financial-section { background: var(--sage-pale); border: 1px solid rgba(143,168,138,0.3); border-radius: 2rem; padding: 3rem; margin-bottom: 2rem; }
+.fin-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sage); margin-bottom: 1.5rem; display: block; }
+.fin-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.3rem, 2.5vw, 1.7rem); font-weight: 300; color: var(--stone-dark); margin-bottom: 1.5rem; }
+.fin-rows { display: flex; flex-direction: column; }
+.fin-row { display: flex; align-items: flex-start; gap: 1.5rem; padding: 1.1rem 0; border-bottom: 1px solid rgba(143,168,138,0.2); }
+.fin-row:last-child { border-bottom: none; }
+.fin-phase { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sage); min-width: 90px; padding-top: 0.1rem; }
+.fin-desc { font-size: 0.88rem; font-weight: 300; color: var(--stone-dark); line-height: 1.6; }
+.fin-desc strong { font-weight: 500; }
 
-.section-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
-  font-weight: 300;
-  line-height: 1.2;
-  margin-bottom: 1.5rem;
-}
-
-.section-title em { font-style: italic; color: var(--terracotta-light); }
-
-.section-text {
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--mist);
-}
-
-/* VISION */
-.vision-section {
-  background: var(--warm-white);
-  border: 1px solid rgba(184,196,190,0.3);
-  border-radius: 2rem;
-  padding: 3.5rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 30px rgba(74,68,64,0.05);
-}
-
-.vision-section .section-text {
-  color: var(--stone);
-}
-
-/* HOW IT WORKS */
-.how-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.how-card {
-  background: var(--warm-white);
-  border: 1px solid rgba(184,196,190,0.3);
-  border-radius: 1.5rem;
-  padding: 2rem;
-  transition: border-color 0.2s, transform 0.2s;
-}
-
-.how-card:hover {
-  border-color: var(--sage);
-  transform: translateY(-2px);
-}
-
-.how-icon {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  display: block;
-}
-
-.how-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--stone-dark);
-  margin-bottom: 0.5rem;
-}
-
-.how-text {
-  font-size: 0.85rem;
-  font-weight: 300;
-  color: var(--stone);
-  line-height: 1.7;
-}
-
-/* EXAMPLE */
-.example-section {
-  background: var(--sage-pale);
-  border: 1px solid rgba(143,168,138,0.3);
-  border-radius: 2rem;
-  padding: 3.5rem;
-  margin-bottom: 2rem;
-}
-
-.steps {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin-top: 2rem;
-}
-
-.step {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-  padding: 1.25rem 0;
-  border-bottom: 1px solid rgba(143,168,138,0.2);
-}
-
-.step:last-child { border-bottom: none; }
-
-.step-num {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--sage);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-  font-weight: 500;
-  flex-shrink: 0;
-}
-
-.step-label {
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--sage);
-  margin-bottom: 0.25rem;
-}
-
-.step-text {
-  font-size: 0.9rem;
-  font-weight: 300;
-  color: var(--stone-dark);
-  line-height: 1.6;
-}
-
-/* PHILOSOPHY */
-.philosophy-section {
-  background: var(--terracotta-pale);
-  border: 1px solid rgba(196,120,90,0.2);
-  border-radius: 2rem;
-  padding: 3.5rem;
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.big-quote {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--stone-dark);
-  line-height: 1.5;
-  margin-bottom: 1rem;
-}
-
-.big-quote span { color: var(--terracotta); }
-
-/* CTA */
-.cta-section {
-  background: var(--stone-dark);
-  border-radius: 2rem;
-  padding: 3.5rem;
-  text-align: center;
-  color: var(--cream);
-}
-
-.cta-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
-  font-weight: 300;
-  margin-bottom: 1rem;
-  color: var(--cream);
-}
-
-.cta-text {
-  font-size: 0.9rem;
-  font-weight: 300;
-  color: var(--mist);
-  margin-bottom: 2rem;
-  line-height: 1.7;
-}
-
-.cta-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btn-primary {
-  background: var(--terracotta);
-  color: white;
-  border: none;
-  border-radius: 100px;
-  padding: 1rem 2.5rem;
-  font-family: 'Jost', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-decoration: none;
-  transition: background 0.3s ease;
-}
+.cta-section { background: var(--stone-dark); border-radius: 2rem; padding: 3.5rem; text-align: center; }
+.cta-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 300; color: var(--cream); margin-bottom: 1rem; }
+.cta-title em { font-style: italic; color: var(--terracotta-light); }
+.cta-text { font-size: 0.9rem; font-weight: 300; color: var(--mist); margin-bottom: 2rem; line-height: 1.8; }
+.cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-primary { background: var(--terracotta); color: white; border: none; border-radius: 100px; padding: 1rem 2.5rem; font-family: 'Jost', sans-serif; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.1em; text-decoration: none; transition: background 0.3s; }
 .btn-primary:hover { background: #a85e42; }
-
-.btn-secondary {
-  background: transparent;
-  color: var(--mist);
-  border: 1px solid rgba(184,196,190,0.3);
-  border-radius: 100px;
-  padding: 1rem 2.5rem;
-  font-family: 'Jost', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
+.btn-secondary { background: transparent; color: var(--mist); border: 1px solid rgba(184,196,190,0.3); border-radius: 100px; padding: 1rem 2.5rem; font-family: 'Jost', sans-serif; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.1em; text-decoration: none; transition: all 0.3s; }
 .btn-secondary:hover { border-color: var(--mist); color: white; }
 
-footer {
-  position: relative;
-  z-index: 1;
-  border-top: 1px solid rgba(184,196,190,0.3);
-  padding: 2rem 4rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.footer-logo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--stone-dark);
-  letter-spacing: 0.1em;
-}
+footer { border-top: 1px solid rgba(184,196,190,0.3); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.1em; }
 .footer-copy { font-size: 0.75rem; font-weight: 300; color: var(--stone); }
 
 @media (max-width: 768px) {
   nav, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
-  .hero { padding: 4rem 1.5rem 2rem; }
+  .opening { padding: 4rem 1.5rem 2rem; }
   .page-wrap { padding: 0 1.5rem 5rem; }
-  .how-grid { grid-template-columns: 1fr; }
-  .problem-section, .vision-section, .example-section, .philosophy-section, .cta-section { padding: 2rem 1.5rem; }
-  .cta-buttons { flex-direction: column; align-items: center; }
+  .philosophy-grid { grid-template-columns: 1fr; }
+  .journal, .dark-section, .not-section, .financial-section, .cta-section { padding: 2rem 1.5rem; }
 }
 </style>
 </head>
@@ -400,123 +107,110 @@ footer {
   </div>
 </nav>
 
-<!-- HERO -->
-<div class="hero">
-  <span class="hero-label">Платформа за взаимопомощ и гражданска промяна</span>
-  <h1 class="hero-title">Не се борим.<br><em>Помагаме.</em></h1>
-  <blockquote class="hero-quote">
-    "Светът е устроен за конкуренция. Ние предлагаме различна архитектура — изградена за сътрудничество."
-  </blockquote>
+<div class="opening">
+  <span class="opening-label">История · Философия · Визия</span>
+  <h1 class="opening-title">
+    "Винаги съм искал да направя нещо значимо.<br>
+    <strong>Сега може би това е то.</strong>"
+  </h1>
 </div>
 
 <div class="page-wrap">
 
-  <!-- ПРОБЛЕМЪТ -->
-  <div class="problem-section">
-    <span class="section-label">Защо съществуваме</span>
-    <h2 class="section-title">Дигиталните пространства са<br><em>проектирани срещу нас</em></h2>
-    <p class="section-text">
-      Социалните мрежи, форумите, платформите за дискусия — всички са изградени около едно негласно правило: ти печелиш, някой друг губи. Лайкове, класации, алгоритми на внимание — всичко насърчава егото, не мисленето. Резултатът: хаос, тролове, повърхностност и усещане за безсилие пред реалните проблеми.
+  <div class="journal">
+    <span class="journal-label">Откъде идва всичко това</span>
+    <p class="journal-text">
+      Чувствам се не на място в сегашния свят. Не защото съм различен — а защото виждам ясно нещо което другите или не виждат, или се страхуват да признаят. Системата около нас е устроена да разделя, да изморява, да кара хората да се борят помежду си вместо заедно.
       <br><br>
-      ЗАЕДНО е изграден върху противоположната философия.
+      Всяка неправда ме кара да реагирам. Това не е слабост. Това е морален компас. Хората без тази болка са или щастливи слепци, или са свикнали. Аз не съм свикнал — и това е силата.
     </p>
   </div>
 
-  <!-- ВИЗИЯТА -->
-  <div class="vision-section">
-    <span class="section-label green">Визията</span>
-    <h2 class="section-title" style="color: var(--stone-dark);">Пространство за<br><em style="color: var(--terracotta);">взаимно допълване</em></h2>
-    <p class="section-text">
-      Тук хората не се съревновават — те се допълват. Всеки носи своите умения, знания и гледна точка. Заедно те мислят, създават и променят реалността около себе си.
+  <div class="dark-section">
+    <span class="dark-label">Проблемът</span>
+    <h2 class="dark-title">Светът е устроен за<br><em>конкуренция</em></h2>
+    <p class="dark-text">
+      Дигиталните пространства са проектирани около едно негласно правило: ти печелиш, някой друг губи. Лайкове, класации, алгоритми на внимание — всичко насърчава егото, не мисленето.
       <br><br>
-      Платформата е проектирана като жив организъм — не като инструмент, а като пространство за растеж. Огнищата са живите клетки на тази мрежа — малки общности около обща кауза, въпрос или място.
+      Резултатът: хаос, тролове, повърхностност и усещане за безсилие. Властта винаги е използвала разделението. Различни хора, различни групи — карани да се борят помежду си.
+      <br><br>
+      Отговорът е обратното: обединявай и освобождавай.
     </p>
   </div>
 
-  <!-- КАК РАБОТИ -->
-  <span class="section-label green" style="margin-bottom: 1rem; display: block;">Как работи</span>
-  <div class="how-grid">
-    <div class="how-card">
-      <span class="how-icon">🔥</span>
-      <div class="how-title">Огнището</div>
-      <p class="how-text">Всяко огнище е малка общност около обща тема. Може да е локална, тематична или проблемно ориентирана. Всеки може да запали свое огнище.</p>
+  <div class="philosophy-grid">
+    <div class="philosophy-card">
+      <div class="philosophy-num">01</div>
+      <div class="philosophy-title">Едното правило</div>
+      <p class="philosophy-text">"Не вреди на останалите. Ако можеш — помогни." Това е по-древно от всяка конституция. По-чисто от всеки закон.</p>
     </div>
-    <div class="how-card">
-      <span class="how-icon">🌱</span>
-      <div class="how-title">Инкубаторът на идеи</div>
-      <p class="how-text">Суровата мисъл влиза като семе. Общността я полива с интерес и опит. При достатъчен интерес тя се развива в пълноценна дискусия.</p>
+    <div class="philosophy-card">
+      <div class="philosophy-num">02</div>
+      <div class="philosophy-title">Срещу "разделяй и владей"</div>
+      <p class="philosophy-text">Властта винаги е използвала разделението. Отговорът е обратното: обединявай и освобождавай. Заедно сме по-силни от всяка система.</p>
     </div>
-    <div class="how-card">
-      <span class="how-icon">🧠</span>
-      <div class="how-title">Интелектуалният филтър</div>
-      <p class="how-text">Не търсим само еколози за тема "Екология" — търсим екип: инженер + икономист + биолог + гражданин. Разнообразието е силата.</p>
+    <div class="philosophy-card">
+      <div class="philosophy-num">03</div>
+      <div class="philosophy-title">Хората са добри по природа</div>
+      <p class="philosophy-text">Ако масата мисли с взаимопомощ и уважение — системата ще изхвърли тези които вредят сама. Като бяло кръвно тяло което открива болестта.</p>
     </div>
-    <div class="how-card">
-      <span class="how-icon">🤝</span>
-      <div class="how-title">Модерацията</div>
-      <p class="how-text">Различаваме два вида агресия. Болката от несправедливост се разбира. Нападката от его получава напомняне. Никога мълчаливо наказание.</p>
+    <div class="philosophy-card">
+      <div class="philosophy-num">04</div>
+      <div class="philosophy-title">Конкуренцията прави инвалиди</div>
+      <p class="philosophy-text">Не физически — душевно. Хората са забравили емпатията. Борбата за оцеляване е изяла способността да се грижим един за друг.</p>
     </div>
   </div>
 
-  <!-- РЕАЛЕН ПРИМЕР -->
-  <div class="example-section">
-    <span class="section-label green">Реален пример</span>
-    <h2 class="section-title" style="color: var(--stone-dark);">От проблем до<br><em style="color: var(--sage);">институционална промяна</em></h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div>
-          <div class="step-label">Семе</div>
-          <div class="step-text">"Законът за X е несправедлив" — един човек го забелязва и го споделя в огнището.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div>
-          <div class="step-label">Инкубатор</div>
-          <div class="step-text">40 души го поливат с интерес, лични истории и конкретен опит.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div>
-          <div class="step-label">Стая</div>
-          <div class="step-text">Влизат: юрист, икономист, засегнат гражданин, журналист. Всеки вижда проблема от своя ъгъл.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div>
-          <div class="step-label">Продукт</div>
-          <div class="step-text">Официален документ с конкретно предложение за промяна, разбран от всички ъгли.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">5</div>
-        <div>
-          <div class="step-label">Действие</div>
-          <div class="step-text">Изпращане към институция с подписите на всички участници. Гражданска промяна от дъното нагоре.</div>
-        </div>
-      </div>
-    </div>
+  <div class="not-section">
+    <h2 class="not-title">Какво не е ЗАЕДНО — и какво е</h2>
+    <ul class="not-list">
+      <li><span class="not-cross">✕</span><span>Не е поредният форум където хората се карат</span></li>
+      <li><span class="not-cross">✕</span><span>Не е социална мрежа за лайкове и внимание</span></li>
+      <li><span class="not-cross">✕</span><span>Не е петиция сайт без последствия</span></li>
+      <li><span class="not-cross">✕</span><span>Не е политическа платформа</span></li>
+      <li style="margin-top:1rem;"><span class="not-check">✓</span><span>Дигитално пространство построено върху взаимопомощта като ядро — не като лозунг</span></li>
+      <li><span class="not-check">✓</span><span>Всяка функция произтича от една идея: хората се допълват, не се борят</span></li>
+      <li><span class="not-check">✓</span><span>Платформа където разговорът ражда реален продукт — документ, решение, промяна</span></li>
+    </ul>
   </div>
 
-  <!-- ФИЛОСОФИЯ -->
-  <div class="philosophy-section">
-    <span class="section-label orange" style="color: var(--terracotta);">Философията</span>
+  <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+
+  <div class="big-quote-section">
     <p class="big-quote">
-      "Ти растеш → аз растя →<br>темата расте → <span>всички печелим.</span>"
+      "Утопия е само идея която чака<br>своя момент и своите хора.<br>
+      <em>Може би моментът е сега.</em>"
     </p>
-    <p style="font-size: 0.9rem; font-weight: 300; color: var(--stone); line-height: 1.7;">
-      ЗАЕДНО не е политическа платформа. Не се борим с никого и нищо. Събуждаме съзнанието и строим по-добър свят — един разговор, едно огнище, един човек в даден момент.
-    </p>
+    <p class="big-quote-sub">— Методи Христов, основател · Март 2026</p>
   </div>
 
-  <!-- CTA -->
+  <div class="divider"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+
+  <div class="financial-section">
+    <span class="fin-label">Финансова прозрачност</span>
+    <h2 class="fin-title">Безплатна за хората.<br>Устойчива чрез организации.</h2>
+    <div class="fin-rows">
+      <div class="fin-row">
+        <div class="fin-phase">Сега</div>
+        <div class="fin-desc"><strong>Доброволен труд и ЕС грантове</strong> — Europe for Citizens, Horizon Europe финансират граждански иновации. Платформата е безплатна.</div>
+      </div>
+      <div class="fin-row">
+        <div class="fin-phase">Средносрочно</div>
+        <div class="fin-desc"><strong>B2B абонамент</strong> — Общини, НПО, университети, корпорации плащат за инструмента. Гражданите никога не плащат.</div>
+      </div>
+      <div class="fin-row">
+        <div class="fin-phase">Дългосрочно</div>
+        <div class="fin-desc"><strong>Социални инвеститори</strong> — Международни фондации при доказани резултати. Никога реклами. Никога продаване на данни.</div>
+      </div>
+    </div>
+  </div>
+
   <div class="cta-section">
-    <h2 class="cta-title">Готов ли си да запалиш своето огнище?</h2>
+    <h2 class="cta-title">Не търсим потребители.<br><em>Търсим съоснователи.</em></h2>
     <p class="cta-text">
-      Платформата е в началото си. Първите хора тук не са потребители — те са съоснователи. Тяхното присъствие ще определи каква ще стане тя.
+      Първите хора тук не са просто членове — те ще определят каква ще стане платформата. Тяхното присъствие, техните теми, техният начин на разговор ще са ДНК-то на ЗАЕДНО.
+      <br><br>
+      Ако разбираш защо — ти си един от нас.
     </p>
     <div class="cta-buttons">
       <a href="register.html" class="btn-primary">Регистрирай огнище</a>
