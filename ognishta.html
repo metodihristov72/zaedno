@@ -182,7 +182,7 @@ function renderCards(list) {
   if (!list.length) { grid.innerHTML = ''; empty.style.display = 'block'; return; }
   empty.style.display = 'none';
   grid.innerHTML = list.map(o => `
-    <a class="ognicha-card" href="ognishte.html?id=${encodeURIComponent(o.id)}">
+    <a class="ognicha-card" href="ognishte.html?id=${encodeURIComponent(o.id.trim())}">
       <div class="card-top">
         <div class="fire-circle">🔥</div>
         <div class="card-name">${o.name}</div>
