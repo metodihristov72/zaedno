@@ -413,10 +413,10 @@ function renderOgnishte(r) {
   document.getElementById('loading-state').style.display = 'none';
   document.getElementById('content').style.display = 'block';
 
-  loadGiscus();
+  loadGiscus(id);
 }
 
-function loadGiscus() {
+function loadGiscus(id) {
   const container = document.getElementById('giscus-container');
   const script = document.createElement('script');
   script.src = 'https://giscus.app/client.js';
@@ -424,8 +424,9 @@ function loadGiscus() {
   script.setAttribute('data-repo-id', 'R_kgDORvw9Ng');
   script.setAttribute('data-category', 'General');
   script.setAttribute('data-category-id', 'DIC_kwDORvw9Ns4C5Z1n');
-  script.setAttribute('data-mapping', 'pathname');
-  script.setAttribute('data-strict', '0');
+  script.setAttribute('data-mapping', 'specific');
+  script.setAttribute('data-term', id);
+  script.setAttribute('data-strict', '1');
   script.setAttribute('data-reactions-enabled', '1');
   script.setAttribute('data-emit-metadata', '0');
   script.setAttribute('data-input-position', 'bottom');
