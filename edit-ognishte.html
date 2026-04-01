@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЗАЕДНО — Редактирай огнище</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --cream: #F7F3EE; --warm-white: #FDFAF7;
+  --sage: #8FA88A; --sage-pale: #EBF2E9;
+  --terracotta: #C4785A; --terracotta-light: #E8C4B0; --terracotta-pale: #FAF0EA;
+  --stone: #8C8478; --stone-dark: #4A4440; --mist: #B8C4BE;
+}
+body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--stone-dark); min-height: 100vh; }
+
+nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 4rem; border-bottom: 1px solid rgba(184,196,190,0.2); }
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.12em; text-decoration: none; }
+.logo span { color: var(--terracotta); }
+
+.page-wrap { max-width: 780px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+
+.back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--terracotta); text-decoration: none; letter-spacing: 0.08em; margin-bottom: 2.5rem; transition: opacity 0.2s; }
+.back-link:hover { opacity: 0.7; }
+
+.page-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.35em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.75rem; display: block; }
+.page-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 300; line-height: 1.2; color: var(--stone-dark); margin-bottom: 0.5rem; }
+.page-title em { font-style: italic; color: var(--terracotta); }
+.page-sub { font-size: 0.88rem; font-weight: 300; color: var(--stone); margin-bottom: 2.5rem; line-height: 1.7; }
+
+.info-card { background: var(--warm-white); border: 1px solid rgba(184,196,190,0.3); border-radius: 1.2rem; padding: 1.5rem 2rem; margin-bottom: 2rem; }
+.info-row { display: flex; gap: 1rem; margin-bottom: 0.5rem; font-size: 0.88rem; }
+.info-row:last-child { margin-bottom: 0; }
+.info-label { font-weight: 500; color: var(--stone); min-width: 90px; }
+.info-value { color: var(--stone-dark); font-weight: 300; }
+
+.editor-card { background: var(--warm-white); border: 1px solid rgba(184,196,190,0.3); border-radius: 1.5rem; padding: 2.5rem; margin-bottom: 1.5rem; }
+.editor-label { display: block; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.75rem; }
+.editor-textarea {
+  width: 100%;
+  min-height: 400px;
+  padding: 1.25rem;
+  border: 1px solid rgba(184,196,190,0.5);
+  border-radius: 12px;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--stone-dark);
+  background: var(--cream);
+  outline: none;
+  resize: vertical;
+  line-height: 1.8;
+  transition: border-color 0.2s;
+}
+.editor-textarea:focus { border-color: var(--sage); }
+.editor-hint { font-size: 0.75rem; font-weight: 300; color: var(--stone); margin-top: 0.5rem; line-height: 1.6; }
+
+.save-btn {
+  width: 100%;
+  padding: 1.1rem;
+  background: var(--terracotta);
+  color: white;
+  border: none;
+  border-radius: 100px;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+.save-btn:hover { background: var(--stone-dark); transform: translateY(-1px); }
+.save-btn:disabled { background: var(--mist); cursor: not-allowed; transform: none; }
+
+.success-msg { display: none; background: var(--sage-pale); border: 1px solid rgba(143,168,138,0.3); border-radius: 12px; padding: 1rem 1.5rem; margin-top: 1rem; font-size: 0.88rem; color: var(--sage); text-align: center; }
+.error-msg { display: none; background: var(--terracotta-pale); border: 1px solid rgba(196,120,90,0.2); border-radius: 12px; padding: 1rem 1.5rem; margin-top: 1rem; font-size: 0.88rem; color: var(--terracotta); text-align: center; }
+
+.loading-wrap { text-align: center; padding: 5rem 2rem; }
+.loading-text { font-size: 0.9rem; font-weight: 300; color: var(--stone); }
+
+.error-wrap { text-align: center; padding: 3rem; background: var(--terracotta-pale); border-radius: 1.5rem; }
+.error-wrap p { font-size: 0.9rem; color: var(--terracotta); }
+
+footer { border-top: 1px solid rgba(184,196,190,0.3); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.1em; }
+.footer-copy { font-size: 0.75rem; font-weight: 300; color: var(--stone); }
+
+@media (max-width: 768px) {
+  nav, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .page-wrap { padding: 2rem 1.5rem 4rem; }
+  .editor-card { padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">З<span>А</span>ЕДНО</a>
+</nav>
+
+<div class="page-wrap">
+  <a class="back-link" href="ognishta.html">← Назад към огнищата</a>
+
+  <div id="loading-state" class="loading-wrap">
+    <div class="loading-text">Зареждане...</div>
+  </div>
+
+  <div id="error-state" class="error-wrap" style="display:none;">
+    <p>Линкът е невалиден или е изтекъл. Моля свържете се с нас.</p>
+  </div>
+
+  <div id="content" style="display:none;">
+    <span class="page-label">Редактор на огнище</span>
+    <h1 class="page-title">Редактирай<br><em id="fire-name-title">огнището</em></h1>
+    <p class="page-sub">Напиши статия за твоето огнище. Тя ще се показва на страницата на огнището и ще вдъхновява разговора.</p>
+
+    <div class="info-card">
+      <div class="info-row"><span class="info-label">Огнище:</span><span class="info-value" id="info-name">—</span></div>
+      <div class="info-row"><span class="info-label">Описание:</span><span class="info-value" id="info-desc">—</span></div>
+      <div class="info-row"><span class="info-label">Контакт:</span><span class="info-value" id="info-contact">—</span></div>
+    </div>
+
+    <div class="editor-card">
+      <label class="editor-label" for="statia-textarea">Статия на огнището</label>
+      <textarea class="editor-textarea" id="statia-textarea" placeholder="Напиши тук статията за твоето огнище...
+
+Може да включиш:
+- Какво е целта на огнището
+- Какви проблеми искате да решите
+- Какво очаквате от членовете
+- Вашата история и вдъхновение"></textarea>
+      <p class="editor-hint">Използвай обикновен текст. Нови редове се запазват автоматично.</p>
+    </div>
+
+    <button class="save-btn" id="save-btn" onclick="saveStatia()">Запази статията</button>
+    <div class="success-msg" id="success-msg">✓ Статията е запазена успешно!</div>
+    <div class="error-msg" id="error-msg">✕ Грешка при запазване. Опитай отново.</div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">ЗАЕДНО</div>
+  <div class="footer-copy">Заедно за по-добър свят · 2026</div>
+</footer>
+
+<script>
+const MAKE_WEBHOOK = 'https://hook.eu1.make.com/v63ljepxc891k4xjtv6tkjp416w3xxi1';
+let recordId = null;
+let currentToken = null;
+
+function getTokenFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('token');
+}
+
+async function loadOgnishte() {
+  const token = getTokenFromUrl();
+  if (!token) { showError(); return; }
+  currentToken = token;
+
+  try {
+    const res = await fetch(MAKE_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'get_by_token', token: token })
+    });
+
+    const text = await res.text();
+    let record;
+    try { record = JSON.parse(text); } catch(e) { showError(); return; }
+
+    if (!record || !record['ИМЕ']) { showError(); return; }
+
+    recordId = record.id;
+
+    document.getElementById('fire-name-title').textContent = record['ИМЕ'];
+    document.getElementById('info-name').textContent = record['ИМЕ'] || '—';
+    document.getElementById('info-desc').textContent = record['ДЕТАЙЛИ'] || '—';
+    document.getElementById('info-contact').textContent = record['КОНТАКТ'] || '—';
+
+    if (record['СТАТИЯ']) {
+      document.getElementById('statia-textarea').value = record['СТАТИЯ'];
+    }
+
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+    document.title = `ЗАЕДНО — Редактирай: ${record['ИМЕ']}`;
+
+  } catch(e) {
+    showError();
+  }
+}
+
+async function saveStatia() {
+  if (!recordId) { showError(); return; }
+
+  const statia = document.getElementById('statia-textarea').value.trim();
+  const btn = document.getElementById('save-btn');
+
+  btn.disabled = true;
+  btn.textContent = 'Запазване...';
+  document.getElementById('success-msg').style.display = 'none';
+  document.getElementById('error-msg').style.display = 'none';
+
+  try {
+    const res = await fetch(MAKE_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'patch',
+        id: recordId,
+        statia: statia,
+        aktivno: true
+      })
+    });
+
+    if (res.ok) {
+      document.getElementById('success-msg').style.display = 'block';
+      btn.textContent = '✓ Запазено';
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = 'Запази статията';
+      }, 3000);
+    } else {
+      throw new Error();
+    }
+  } catch(e) {
+    document.getElementById('error-msg').style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Запази статията';
+  }
+}
+
+function showError() {
+  document.getElementById('loading-state').style.display = 'none';
+  document.getElementById('error-state').style.display = 'block';
+}
+
+loadOgnishte();
+</script>
+</body>
+</html>
