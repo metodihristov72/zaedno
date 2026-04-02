@@ -283,6 +283,8 @@
 </footer>
 
 <script>
+const MAKE_WEBHOOK = 'https://hook.eu1.make.com/v63ljepxc891k4xjtv6tkjp416w3xxi1';
+
 const T = {
   bg: {
     eyebrow: 'ЗАЕДНО · 2026',
@@ -323,7 +325,7 @@ const T = {
     ctaTitle: 'Готов ли си да<br><em>запалиш огнище?</em>',
     ctaSub: 'Утопия е само идея която чака своя момент.\nМоже би моментът е сега.',
     ctaBtn: 'Присъедини се',
-    counterLabel: 'човека вече са с нас',
+    counterLabel: 'посещения на сайта',
     namePlaceholder: 'Твоето име',
     emailPlaceholder: 'Твоят имейл',
     problemPlaceholder: 'Какъв проблем искаш да решиш заедно с други хора?',
@@ -375,7 +377,7 @@ const T = {
     ctaTitle: 'Ready to<br><em>light a hearth?</em>',
     ctaSub: 'A utopia is just an idea waiting for its moment.\nPerhaps the moment is now.',
     ctaBtn: 'Join us',
-    counterLabel: 'people already with us',
+    counterLabel: 'site visits',
     namePlaceholder: 'Your name',
     emailPlaceholder: 'Your email',
     problemPlaceholder: 'What problem would you like to solve together with others?',
@@ -428,7 +430,7 @@ const T = {
     ctaTitle: 'Bereit,<br><em>einen Herd zu entzünden?</em>',
     ctaSub: 'Eine Utopie ist nur eine Idee, die auf ihren Moment wartet.\nVielleicht ist der Moment jetzt.',
     ctaBtn: 'Mitmachen',
-    counterLabel: 'Menschen bereits dabei',
+    counterLabel: 'Seitenbesuche',
     namePlaceholder: 'Dein Name',
     emailPlaceholder: 'Deine E-Mail',
     problemPlaceholder: 'Welches Problem möchtest du gemeinsam lösen?',
@@ -481,7 +483,7 @@ const T = {
     ctaTitle: 'Готов<br><em>зажечь очаг?</em>',
     ctaSub: 'Утопия — это просто идея, ждущая своего момента.\nВозможно, момент настал.',
     ctaBtn: 'Присоединиться',
-    counterLabel: 'человек уже с нами',
+    counterLabel: 'посещений сайта',
     namePlaceholder: 'Твоё имя',
     emailPlaceholder: 'Твой email',
     problemPlaceholder: 'Какую проблему ты хочешь решить вместе с другими?',
@@ -498,12 +500,6 @@ const T = {
   }
 };
 
-let baseCount = 1;
-try {
-  const stored = localStorage.getItem('zaedno_count');
-  if (stored) baseCount = parseInt(stored);
-} catch(e) {}
-
 function animateCounter(target) {
   const el = document.getElementById('counter');
   if (!el) return;
@@ -514,6 +510,24 @@ function animateCounter(target) {
     el.textContent = current;
     if (current >= target) clearInterval(interval);
   }, 40);
+}
+
+async function incrementVisit() {
+  try {
+    const res = await fetch(MAKE_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'increment_visit' })
+    });
+    const data = await res.json();
+    if (data && data.посещения) {
+      animateCounter(data.посещения);
+    } else {
+      animateCounter(1);
+    }
+  } catch(e) {
+    animateCounter(1);
+  }
 }
 
 function submitForm() {
@@ -531,12 +545,6 @@ function submitForm() {
   })
   .then(res => {
     if (res.ok) {
-      const entries = JSON.parse(localStorage.getItem('zaedno_entries') || '[]');
-      entries.push({ name, email, problem, date: new Date().toISOString() });
-      localStorage.setItem('zaedno_entries', JSON.stringify(entries));
-      baseCount = entries.length + 1;
-      localStorage.setItem('zaedno_count', baseCount);
-      animateCounter(baseCount);
       document.getElementById('reg-form').style.display = 'none';
       document.getElementById('reg-success').style.display = 'block';
     } else {
@@ -580,7 +588,7 @@ function setLang(lang, btn) {
 
 window.addEventListener('DOMContentLoaded', () => {
   setLang('bg');
-  animateCounter(baseCount);
+  incrementVisit();
   const obs = new IntersectionObserver((entries) => {
     entries.forEach((e,i) => { if(e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i*80); });
   }, { threshold: 0.1 });
