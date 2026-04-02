@@ -47,7 +47,7 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 .search-bar input:focus { border-color: var(--sage); }
 
 .ognicha-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-.ognicha-card { background: var(--warm-white); border: 1px solid rgba(184,196,190,0.3); border-radius: 1.5rem; padding: 1.75rem; transition: border-color 0.2s, transform 0.2s; cursor: pointer; }
+.ognicha-card { background: var(--warm-white); border: 1px solid rgba(184,196,190,0.3); border-radius: 1.5rem; padding: 1.75rem; transition: border-color 0.2s, transform 0.2s; cursor: pointer; text-decoration: none; display: block; }
 .ognicha-card:hover { border-color: var(--terracotta); transform: translateY(-2px); }
 .card-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
 .fire-circle { width: 44px; height: 44px; border-radius: 50%; background: var(--terracotta-pale); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 20px; }
@@ -55,7 +55,6 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 .card-desc { font-size: 0.88rem; font-weight: 300; color: var(--stone); line-height: 1.6; margin-bottom: 1rem; }
 .card-footer { display: flex; align-items: center; justify-content: space-between; }
 .badge-members { background: var(--terracotta-pale); color: var(--terracotta); padding: 0.25rem 0.75rem; border-radius: 100px; font-size: 0.72rem; font-weight: 500; }
-.badge-status { font-size: 0.72rem; color: var(--mist); letter-spacing: 0.05em; }
 
 .loading { text-align: center; padding: 3rem; color: var(--stone); }
 .empty { text-align: center; padding: 3rem; color: var(--stone); font-size: 0.9rem; }
@@ -148,13 +147,13 @@ async function loadFromAirtable() {
         name:    r['ИМЕ']  || r.ime        || '—',
         desc:    r['ДЕТАЙЛИ'] || r.detayli || '',
         members: r['ЧЛЕНОВЕ'] || r.chlenovе || 0,
-        active:  r['АКТИВНО'] !== false && r.aktivno !== false,
+        active:  true,
         contact: r['КОНТАКТ'] || r.kontakt || '',
       }));
 
     document.getElementById('loading').style.display = 'none';
     updateStats();
-    renderCards(allRecords.filter(o => o.active));
+    renderCards(allRecords);
   } catch(e) {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('error-msg').style.display = 'block';
@@ -162,16 +161,15 @@ async function loadFromAirtable() {
 }
 
 function updateStats() {
-  const active = allRecords.filter(o => o.active);
-  document.getElementById('stat-total').textContent = active.length;
+  document.getElementById('stat-total').textContent = allRecords.length;
   document.getElementById('stat-cities').textContent = '—';
-  document.getElementById('stat-members').textContent = active.reduce((s,o) => s + Number(o.members||0), 0);
+  document.getElementById('stat-members').textContent = allRecords.reduce((s,o) => s + Number(o.members||0), 0);
 }
 
 function filterCards() {
   const q = document.getElementById('search-input').value.toLowerCase();
-  const filtered = allRecords.filter(o => o.active).filter(o => {
-    return !q || o.name.toLowerCase().includes(q) || o.desc.toLowerCase().includes(q);
+  const filtered = !q ? allRecords : allRecords.filter(o => {
+    return o.name.toLowerCase().includes(q) || o.desc.toLowerCase().includes(q);
   });
   renderCards(filtered);
 }
