@@ -155,9 +155,26 @@ async function loadOgnishte() {
     if (!record || !record['ИМЕ']) { showError(); return; }
 
     renderOgnishte(record, id);
+    loadStatia(id);
   } catch(e) {
     showError();
   }
+}
+
+async function loadStatia(id) {
+  try {
+    const res = await fetch(MAKE_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'get_statia', token: id })
+    });
+    const text = await res.text();
+    if (text && text.trim().length > 0 && text.trim() !== 'null') {
+      const el = document.getElementById('fire-article');
+      el.innerText = text.trim();
+      document.getElementById('article-section').style.display = 'block';
+    }
+  } catch(e) {}
 }
 
 function renderOgnishte(r, id) {
@@ -168,11 +185,6 @@ function renderOgnishte(r, id) {
   if (r['ДЕТАЙЛИ']) {
     document.getElementById('fire-desc').textContent = r['ДЕТАЙЛИ'];
     document.getElementById('desc-section').style.display = 'block';
-  }
-
-  if (r['СТАТИЯ']) {
-    document.getElementById('fire-article').innerHTML = r['СТАТИЯ'].replace(/\n/g, '<br>');
-    document.getElementById('article-section').style.display = 'block';
   }
 
   if (r['КОНТАКТ']) {
