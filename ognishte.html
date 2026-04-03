@@ -8,25 +8,23 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --cream: #F7F3EE;
-  --warm-white: #FDFAF7;
-  --amber: #C4785A;
-  --amber-light: #E8C4B0;
-  --amber-pale: #FAF0EA;
-  --sage: #8FA88A;
-  --sage-pale: #EBF2E9;
-  --stone: #8C8478;
-  --stone-dark: #4A4440;
-  --mist: #B8C4BE;
+  --cream: #F7F3EE; --warm-white: #FDFAF7;
+  --amber: #C4785A; --amber-light: #E8C4B0; --amber-pale: #FAF0EA;
+  --sage: #8FA88A; --sage-pale: #EBF2E9;
+  --stone: #8C8478; --stone-dark: #4A4440; --mist: #B8C4BE;
 }
 body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--stone-dark); min-height: 100vh; }
 body::before { content: ''; position: fixed; top: -20%; left: 50%; transform: translateX(-50%); width: 80vw; height: 60vh; background: radial-gradient(ellipse, rgba(196,120,90,0.12) 0%, transparent 70%); pointer-events: none; z-index: 0; }
 nav { position: relative; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 2rem 4rem; border-bottom: 1px solid rgba(184,196,190,0.2); }
 .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.12em; text-decoration: none; }
 .logo span { color: var(--amber); }
-.nav-links { display: flex; gap: 2rem; }
+.nav-links { display: flex; gap: 2rem; align-items: center; }
 .nav-links a { font-size: 0.85rem; color: var(--stone); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
 .nav-links a:hover { color: var(--stone-dark); }
+.lang-switcher { display: flex; gap: 0.3rem; align-items: center; }
+.lang-btn { background: none; border: 1px solid transparent; border-radius: 6px; padding: 0.3rem 0.6rem; font-family: 'Jost', sans-serif; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.1em; color: var(--stone); cursor: pointer; transition: all 0.2s ease; }
+.lang-btn:hover { color: var(--stone-dark); border-color: var(--mist); }
+.lang-btn.active { background: var(--amber-pale); border-color: var(--amber-light); color: var(--amber); font-weight: 500; }
 .page-wrap { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; padding: 4rem 2rem 8rem; }
 .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--amber); text-decoration: none; letter-spacing: 0.08em; margin-bottom: 3rem; transition: opacity 0.2s; }
 .back-link:hover { opacity: 0.7; }
@@ -67,47 +65,53 @@ footer { position: relative; z-index: 1; border-top: 1px solid rgba(184,196,190,
 <nav>
   <a class="logo" href="index.html">З<span>А</span>ЕДНО</a>
   <div class="nav-links">
-    <a href="ognishta.html">Огнища</a>
-    <a href="analiz.html">Анализ</a>
-    <a href="register.html">Присъединяване</a>
+    <a href="ognishta.html" data-i18n="navHearths">Огнища</a>
+    <a href="analiz.html" data-i18n="navAnalysis">Анализ</a>
+    <a href="register.html" data-i18n="navJoin">Присъединяване</a>
+  </div>
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLang('bg',this)">БГ</button>
+    <button class="lang-btn" onclick="setLang('en',this)">EN</button>
+    <button class="lang-btn" onclick="setLang('de',this)">DE</button>
+    <button class="lang-btn" onclick="setLang('ru',this)">РУ</button>
   </div>
 </nav>
 
 <div class="page-wrap">
-  <a class="back-link" href="ognishta.html">← Назад към огнищата</a>
+  <a class="back-link" href="ognishta.html" data-i18n="backLink">← Назад към огнищата</a>
 
   <div id="loading-state" class="loading-wrap">
     <div class="loading-fire">🔥</div>
-    <div class="loading-text">Разпалваме огнището...</div>
+    <div class="loading-text" data-i18n="loading">Разпалваме огнището...</div>
   </div>
 
   <div id="error-state" class="error-wrap" style="display:none;">
-    <div class="error-text">Огнището не беше намерено.</div>
+    <div class="error-text" data-i18n="errorText">Огнището не беше намерено.</div>
   </div>
 
   <div id="content" style="display:none;">
     <div class="fire-header">
       <span class="fire-emoji">🔥</span>
-      <span class="fire-label">Огнище</span>
+      <span class="fire-label" data-i18n="fireLabel">Огнище</span>
       <h1 class="fire-name" id="fire-name">—</h1>
       <div class="fire-badges">
         <span class="badge badge-members" id="fire-members">1 член</span>
-        <span class="badge badge-active">Активно</span>
+        <span class="badge badge-active" data-i18n="badgeActive">Активно</span>
       </div>
     </div>
 
     <div class="section" id="desc-section" style="display:none;">
-      <span class="section-label">За огнището</span>
+      <span class="section-label" data-i18n="labelAbout">За огнището</span>
       <p class="section-text" id="fire-desc"></p>
     </div>
 
     <div class="section" id="article-section" style="display:none;">
-      <span class="section-label">Статия</span>
+      <span class="section-label" data-i18n="labelArticle">Статия</span>
       <div class="section-text article-text" id="fire-article"></div>
     </div>
 
     <div class="section" id="contact-section" style="display:none;">
-      <span class="section-label">Свържи се</span>
+      <span class="section-label" data-i18n="labelContact">Свържи се</span>
       <p class="section-text" id="fire-contact"></p>
     </div>
 
@@ -118,7 +122,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid rgba(184,196,190,
     </div>
 
     <div class="comments-section">
-      <div class="comments-title">Разговорът около огнището</div>
+      <div class="comments-title" data-i18n="commentsTitle">Разговорът около огнището</div>
       <div id="giscus-container"></div>
     </div>
   </div>
@@ -126,11 +130,87 @@ footer { position: relative; z-index: 1; border-top: 1px solid rgba(184,196,190,
 
 <footer>
   <div class="footer-logo">ЗАЕДНО</div>
-  <div class="footer-copy">Заедно за по-добър свят · 2026</div>
+  <div class="footer-copy" data-i18n="footerCopy">Заедно за по-добър свят · 2026</div>
 </footer>
 
 <script>
 const MAKE_WEBHOOK = 'https://hook.eu1.make.com/v63ljepxc891k4xjtv6tkjp416w3xxi1';
+let currentLang = 'bg';
+
+const T = {
+  bg: {
+    navHearths: 'Огнища', navAnalysis: 'Анализ', navJoin: 'Присъединяване',
+    backLink: '← Назад към огнищата',
+    loading: 'Разпалваме огнището...',
+    errorText: 'Огнището не беше намерено.',
+    fireLabel: 'Огнище',
+    badgeActive: 'Активно',
+    labelAbout: 'За огнището',
+    labelArticle: 'Статия',
+    labelContact: 'Свържи се',
+    commentsTitle: 'Разговорът около огнището',
+    memberSingular: 'член', memberPlural: 'члена',
+    footerCopy: 'Заедно за по-добър свят · 2026',
+  },
+  en: {
+    navHearths: 'Hearths', navAnalysis: 'Analysis', navJoin: 'Join',
+    backLink: '← Back to hearths',
+    loading: 'Lighting the hearth...',
+    errorText: 'The hearth was not found.',
+    fireLabel: 'Hearth',
+    badgeActive: 'Active',
+    labelAbout: 'About the hearth',
+    labelArticle: 'Article',
+    labelContact: 'Contact',
+    commentsTitle: 'The conversation around the hearth',
+    memberSingular: 'member', memberPlural: 'members',
+    footerCopy: 'Together for a better world · 2026',
+  },
+  de: {
+    navHearths: 'Herde', navAnalysis: 'Analyse', navJoin: 'Beitreten',
+    backLink: '← Zurück zu den Herden',
+    loading: 'Herd wird entzündet...',
+    errorText: 'Der Herd wurde nicht gefunden.',
+    fireLabel: 'Herd',
+    badgeActive: 'Aktiv',
+    labelAbout: 'Über den Herd',
+    labelArticle: 'Artikel',
+    labelContact: 'Kontakt',
+    commentsTitle: 'Das Gespräch am Herd',
+    memberSingular: 'Mitglied', memberPlural: 'Mitglieder',
+    footerCopy: 'Gemeinsam für eine bessere Welt · 2026',
+  },
+  ru: {
+    navHearths: 'Очаги', navAnalysis: 'Анализ', navJoin: 'Присоединиться',
+    backLink: '← Назад к очагам',
+    loading: 'Разжигаем очаг...',
+    errorText: 'Очаг не найден.',
+    fireLabel: 'Очаг',
+    badgeActive: 'Активен',
+    labelAbout: 'Об очаге',
+    labelArticle: 'Статья',
+    labelContact: 'Связаться',
+    commentsTitle: 'Разговор у очага',
+    memberSingular: 'участник', memberPlural: 'участников',
+    footerCopy: 'Вместе для лучшего мира · 2026',
+  }
+};
+
+function setLang(lang, btn) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const t = T[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  const membersEl = document.getElementById('fire-members');
+  if (membersEl) {
+    const num = parseInt(membersEl.textContent) || 1;
+    membersEl.textContent = `${num} ${num === 1 ? t.memberSingular : t.memberPlural}`;
+  }
+}
 
 function getIdFromUrl() {
   const params = new URLSearchParams(window.location.search);
@@ -169,7 +249,7 @@ async function loadStatia(id) {
       body: JSON.stringify({ action: 'get_statia', token: id })
     });
     const text = await res.text();
-    if (text && text.trim().length > 0 && text.trim() !== 'null') {
+    if (text && text.trim().length > 0 && text.trim() !== 'null' && text.trim() !== 'Accepted') {
       const el = document.getElementById('fire-article');
       el.innerText = text.trim();
       document.getElementById('article-section').style.display = 'block';
@@ -178,9 +258,11 @@ async function loadStatia(id) {
 }
 
 function renderOgnishte(r, id) {
+  const t = T[currentLang];
   document.title = `ЗАЕДНО — ${r['ИМЕ'] || 'Огнище'}`;
   document.getElementById('fire-name').textContent = r['ИМЕ'] || '—';
-  document.getElementById('fire-members').textContent = `${r['ЧЛЕНОВЕ'] || 1} ${Number(r['ЧЛЕНОВЕ']) === 1 ? 'член' : 'члена'}`;
+  const members = Number(r['ЧЛЕНОВЕ']) || 1;
+  document.getElementById('fire-members').textContent = `${members} ${members === 1 ? t.memberSingular : t.memberPlural}`;
 
   if (r['ДЕТАЙЛИ']) {
     document.getElementById('fire-desc').textContent = r['ДЕТАЙЛИ'];
@@ -219,7 +301,7 @@ function loadGiscus(id) {
   script.setAttribute('data-emit-metadata', '0');
   script.setAttribute('data-input-position', 'bottom');
   script.setAttribute('data-theme', 'preferred_color_scheme');
-  script.setAttribute('data-lang', 'bg');
+  script.setAttribute('data-lang', currentLang === 'bg' ? 'bg' : currentLang === 'de' ? 'de' : currentLang === 'ru' ? 'ru' : 'en');
   script.setAttribute('crossorigin', 'anonymous');
   script.async = true;
   container.appendChild(script);
@@ -230,6 +312,7 @@ function showError() {
   document.getElementById('error-state').style.display = 'block';
 }
 
+setLang('bg');
 loadOgnishte();
 </script>
 </body>
