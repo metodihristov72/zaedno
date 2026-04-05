@@ -14,24 +14,19 @@
   --stone: #8C8478; --stone-dark: #4A4440; --mist: #B8C4BE;
 }
 body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--stone-dark); min-height: 100vh; }
-
-nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 4rem; border-bottom: 1px solid rgba(184,196,190,0.2); }
-.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.12em; text-decoration: none; }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4rem; border-bottom: 1px solid rgba(184,196,190,0.2); gap: 1rem; flex-wrap: wrap; }
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.12em; text-decoration: none; white-space: nowrap; }
 .logo span { color: var(--terracotta); }
 .nav-links { display: flex; gap: 2rem; }
-.nav-links a { font-size: 0.85rem; color: var(--stone); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
+.nav-links a { font-size: 0.85rem; color: var(--stone); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; white-space: nowrap; }
 .nav-links a:hover { color: var(--stone-dark); }
-
 .page-wrap { max-width: 680px; margin: 0 auto; padding: 4rem 2rem 6rem; }
-
 .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; color: var(--terracotta); text-decoration: none; letter-spacing: 0.08em; margin-bottom: 2.5rem; transition: opacity 0.2s; }
 .back-link:hover { opacity: 0.7; }
-
 .page-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); margin-bottom: 1rem; display: block; }
 .page-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.1; color: var(--stone-dark); margin-bottom: 0.75rem; }
 .page-title em { font-style: italic; color: var(--terracotta); }
 .page-sub { font-size: 0.9rem; font-weight: 300; color: var(--stone); margin-bottom: 3rem; line-height: 1.7; }
-
 .form-card { background: var(--warm-white); border: 1px solid rgba(184,196,190,0.3); border-radius: 1.5rem; padding: 2.5rem; }
 .form-row { margin-bottom: 1.25rem; }
 .form-label { display: block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--stone); margin-bottom: 0.5rem; }
@@ -49,7 +44,6 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 }
 .form-row input:focus, .form-row textarea:focus { border-color: var(--sage); }
 .form-row textarea { height: 110px; resize: vertical; }
-
 .submit-btn {
   width: 100%; padding: 1rem;
   background: var(--terracotta); color: white;
@@ -62,32 +56,33 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 }
 .submit-btn:hover { background: var(--stone-dark); transform: translateY(-1px); }
 .submit-btn:disabled { background: var(--mist); cursor: not-allowed; transform: none; }
-
 .note { font-size: 0.72rem; color: var(--stone); text-align: center; margin-top: 1rem; letter-spacing: 0.05em; }
-
 .success-msg {
   display: none; text-align: center; padding: 3rem 2rem;
   background: var(--sage-pale); border: 1px solid rgba(143,168,138,0.3);
   border-radius: 1.5rem; margin-top: 1.5rem;
 }
 .success-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-.success-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--stone-dark); margin-bottom: 0.5rem; }
-.success-sub { font-size: 0.9rem; font-weight: 300; color: var(--stone); line-height: 1.7; }
-
+.success-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--stone-dark); margin-bottom: 1rem; }
+.success-sub { font-size: 0.9rem; font-weight: 300; color: var(--stone); line-height: 1.8; }
+.success-step { display: flex; align-items: flex-start; gap: 0.75rem; background: white; border-radius: 1rem; padding: 1rem 1.25rem; margin-top: 1.25rem; text-align: left; border: 1px solid rgba(143,168,138,0.25); }
+.success-step-num { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; color: var(--terracotta); line-height: 1; flex-shrink: 0; }
+.success-step-text { font-size: 0.88rem; font-weight: 300; color: var(--stone-dark); line-height: 1.6; }
+.success-step-text strong { font-weight: 500; color: var(--stone-dark); }
 .error-msg { display: none; background: var(--terracotta-pale); color: var(--terracotta); border-radius: 8px; padding: 0.75rem 1rem; margin-top: 0.75rem; font-size: 0.85rem; }
-
 footer { border-top: 1px solid rgba(184,196,190,0.3); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
 .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.1em; }
 .footer-copy { font-size: 0.75rem; font-weight: 300; color: var(--stone); }
-
 @media (max-width: 768px) {
-  nav, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
-  .page-wrap { padding: 2rem 1.5rem 4rem; }
+  nav { padding: 1rem 1.2rem; }
+  .nav-links { order: 3; width: 100%; justify-content: center; gap: 1.2rem; border-top: 1px solid rgba(184,196,190,0.2); padding-top: 0.75rem; }
+  footer { padding: 1.5rem 1.2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  .page-wrap { padding: 2rem 1.2rem 4rem; }
+  .form-card { padding: 1.5rem; }
 }
 </style>
 </head>
 <body>
-
 <nav>
   <a class="logo" href="index.html">З<span>А</span>ЕДНО</a>
   <div class="nav-links">
@@ -96,14 +91,11 @@ footer { border-top: 1px solid rgba(184,196,190,0.3); padding: 2rem 4rem; displa
     <a href="register.html">Присъединяване</a>
   </div>
 </nav>
-
 <div class="page-wrap">
   <a class="back-link" href="ognishta.html">← Назад към огнищата</a>
-
   <span class="page-label">Нова заявка</span>
   <h1 class="page-title">Регистрирай<br><em>огнище</em></h1>
   <p class="page-sub">Разкажи ни за твоето огнище — ще се свържем с теб скоро.</p>
-
   <div class="form-card" id="form-card">
     <div class="form-row">
       <label class="form-label">Име на огнището <span>*</span></label>
@@ -118,45 +110,50 @@ footer { border-top: 1px solid rgba(184,196,190,0.3); padding: 2rem 4rem; displa
       <input type="number" id="f-chlenovе" placeholder="напр. 5" min="1" />
     </div>
     <div class="form-row">
-      <label class="form-label">Контакт <span>*</span></label>
-      <input type="text" id="f-kontakt" placeholder="имейл или телефон" />
+      <label class="form-label">Контакт (имейл) <span>*</span></label>
+      <input type="email" id="f-kontakt" placeholder="твоят@имейл.com" />
     </div>
     <button class="submit-btn" id="submit-btn" onclick="submitForm()">Изпрати заявката</button>
     <div class="error-msg" id="error-msg">Моля попълни всички задължителни полета.</div>
     <p class="note">Ще прегледаме заявката и ще се свържем с теб.</p>
   </div>
-
   <div class="success-msg" id="success-msg">
-    <div class="success-icon">🌱</div>
-    <div class="success-title">Благодарим!</div>
-    <div class="success-sub">Огнището е регистрирано успешно.<br>Ще се свържем с теб скоро.</div>
+    <div class="success-icon">🔥</div>
+    <div class="success-title">Огнището е запалено!</div>
+    <div class="success-sub">Заявката е получена успешно. Следвай стъпките по-долу:</div>
+    <div class="success-step">
+      <div class="success-step-num">1</div>
+      <div class="success-step-text"><strong>Провери имейла си</strong> — изпратихме ти съобщение с линк за потвърждение.</div>
+    </div>
+    <div class="success-step">
+      <div class="success-step-num">2</div>
+      <div class="success-step-text"><strong>Кликни върху линка</strong> в имейла за да активираш огнището и да публикуваш статията си.</div>
+    </div>
+    <div class="success-step">
+      <div class="success-step-num">3</div>
+      <div class="success-step-text"><strong>Огнището се появява</strong> в списъка и е видимо за всички в ЗАЕДНО.</div>
+    </div>
   </div>
 </div>
-
 <footer>
   <div class="footer-logo">ЗАЕДНО</div>
   <div class="footer-copy">Заедно за по-добър свят · 2026</div>
 </footer>
-
 <script>
 const MAKE_POST_WEBHOOK = 'https://hook.eu1.make.com/fy2xstomjf5eub7ya7mvmfnloymbhypu';
-
 async function submitForm() {
   const ime      = document.getElementById('f-ime').value.trim();
   const detayli  = document.getElementById('f-detayli').value.trim();
   const chlenovе = document.getElementById('f-chlenovе').value;
   const kontakt  = document.getElementById('f-kontakt').value.trim();
-
   document.getElementById('error-msg').style.display = 'none';
   if (!ime || !detayli || !kontakt) {
     document.getElementById('error-msg').style.display = 'block';
     return;
   }
-
   const btn = document.getElementById('submit-btn');
   btn.disabled = true;
   btn.textContent = 'Изпращане...';
-
   try {
     const res = await fetch(MAKE_POST_WEBHOOK, {
       method: 'POST',
