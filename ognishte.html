@@ -15,13 +15,13 @@
 }
 body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--stone-dark); min-height: 100vh; }
 body::before { content: ''; position: fixed; top: -20%; left: 50%; transform: translateX(-50%); width: 80vw; height: 60vh; background: radial-gradient(ellipse, rgba(196,120,90,0.12) 0%, transparent 70%); pointer-events: none; z-index: 0; }
-nav { position: relative; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 2rem 4rem; border-bottom: 1px solid rgba(184,196,190,0.2); }
-.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.12em; text-decoration: none; }
+nav { position: relative; z-index: 10; display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4rem; border-bottom: 1px solid rgba(184,196,190,0.2); gap: 1rem; }
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.12em; text-decoration: none; white-space: nowrap; }
 .logo span { color: var(--amber); }
 .nav-links { display: flex; gap: 2rem; align-items: center; }
-.nav-links a { font-size: 0.85rem; color: var(--stone); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
+.nav-links a { font-size: 0.85rem; color: var(--stone); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; white-space: nowrap; }
 .nav-links a:hover { color: var(--stone-dark); }
-.lang-switcher { display: flex; gap: 0.3rem; align-items: center; }
+.lang-switcher { display: flex; gap: 0.3rem; align-items: center; flex-wrap: wrap; }
 .lang-btn { background: none; border: 1px solid transparent; border-radius: 6px; padding: 0.3rem 0.6rem; font-family: 'Jost', sans-serif; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.1em; color: var(--stone); cursor: pointer; transition: all 0.2s ease; }
 .lang-btn:hover { color: var(--stone-dark); border-color: var(--mist); }
 .lang-btn.active { background: var(--amber-pale); border-color: var(--amber-light); color: var(--amber); font-weight: 500; }
@@ -33,7 +33,7 @@ nav { position: relative; z-index: 10; display: flex; justify-content: space-bet
 .fire-emoji { font-size: 4rem; margin-bottom: 1.5rem; display: block; animation: flicker 3s ease-in-out infinite; }
 @keyframes flicker { 0%, 100% { transform: scale(1) rotate(-1deg); } 25% { transform: scale(1.05) rotate(1deg); } 50% { transform: scale(0.98) rotate(-0.5deg); } 75% { transform: scale(1.03) rotate(0.5deg); } }
 .fire-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.4em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.75rem; display: block; }
-.fire-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 400; line-height: 1.15; color: var(--stone-dark); margin-bottom: 1rem; }
+.fire-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 4vw, 2.8rem); font-weight: 400; line-height: 1.15; color: var(--stone-dark); margin-bottom: 1rem; }
 .fire-badges { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
 .badge { padding: 0.35rem 1rem; border-radius: 100px; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em; }
 .badge-members { background: var(--amber-pale); color: var(--amber); border: 1px solid var(--amber-light); }
@@ -57,11 +57,22 @@ nav { position: relative; z-index: 10; display: flex; justify-content: space-bet
 footer { position: relative; z-index: 1; border-top: 1px solid rgba(184,196,190,0.3); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
 .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.1em; }
 .footer-copy { font-size: 0.75rem; font-weight: 300; color: var(--stone); }
-@media (max-width: 768px) { nav, footer { padding-left: 1.5rem; padding-right: 1.5rem; } .page-wrap { padding: 2rem 1.5rem 5rem; } .section { padding: 1.5rem; } .comments-section { padding: 1.5rem; } }
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.2rem; flex-wrap: wrap; gap: 0.5rem; }
+  .nav-links { order: 3; width: 100%; justify-content: center; gap: 1.2rem; border-top: 1px solid rgba(184,196,190,0.2); padding-top: 0.75rem; }
+  .nav-links a { font-size: 0.82rem; }
+  .lang-switcher { margin-left: auto; }
+  .page-wrap { padding: 2rem 1.2rem 5rem; }
+  .fire-header { padding: 2rem 1.5rem; border-radius: 1.5rem; }
+  .fire-emoji { font-size: 3rem; }
+  .section { padding: 1.5rem; border-radius: 1.2rem; }
+  .comments-section { padding: 1.5rem; border-radius: 1.2rem; }
+  footer { padding: 1.5rem 1.2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+}
 </style>
 </head>
 <body>
-
 <nav>
   <a class="logo" href="index.html">З<span>А</span>ЕДНО</a>
   <div class="nav-links">
@@ -76,19 +87,15 @@ footer { position: relative; z-index: 1; border-top: 1px solid rgba(184,196,190,
     <button class="lang-btn" onclick="setLang('ru',this)">РУ</button>
   </div>
 </nav>
-
 <div class="page-wrap">
   <a class="back-link" href="ognishta.html" data-i18n="backLink">← Назад към огнищата</a>
-
   <div id="loading-state" class="loading-wrap">
     <div class="loading-fire">🔥</div>
     <div class="loading-text" data-i18n="loading">Разпалваме огнището...</div>
   </div>
-
   <div id="error-state" class="error-wrap" style="display:none;">
     <div class="error-text" data-i18n="errorText">Огнището не беше намерено.</div>
   </div>
-
   <div id="content" style="display:none;">
     <div class="fire-header">
       <span class="fire-emoji">🔥</span>
@@ -99,103 +106,42 @@ footer { position: relative; z-index: 1; border-top: 1px solid rgba(184,196,190,
         <span class="badge badge-active" data-i18n="badgeActive">Активно</span>
       </div>
     </div>
-
     <div class="section" id="desc-section" style="display:none;">
       <span class="section-label" data-i18n="labelAbout">За огнището</span>
       <p class="section-text" id="fire-desc"></p>
     </div>
-
     <div class="section" id="article-section" style="display:none;">
       <span class="section-label" data-i18n="labelArticle">Статия</span>
       <div class="section-text article-text" id="fire-article"></div>
     </div>
-
     <div class="section" id="contact-section" style="display:none;">
       <span class="section-label" data-i18n="labelContact">Свържи се</span>
       <p class="section-text" id="fire-contact"></p>
     </div>
-
     <div class="divider">
       <div class="divider-line"></div>
       <div class="divider-icon">🌱</div>
       <div class="divider-line"></div>
     </div>
-
     <div class="comments-section">
       <div class="comments-title" data-i18n="commentsTitle">Разговорът около огнището</div>
       <div id="giscus-container"></div>
     </div>
   </div>
 </div>
-
 <footer>
   <div class="footer-logo">ЗАЕДНО</div>
   <div class="footer-copy" data-i18n="footerCopy">Заедно за по-добър свят · 2026</div>
 </footer>
-
 <script>
 const MAKE_WEBHOOK = 'https://hook.eu1.make.com/v63ljepxc891k4xjtv6tkjp416w3xxi1';
 let currentLang = 'bg';
-
 const T = {
-  bg: {
-    navHearths: 'Огнища', navAnalysis: 'Анализ', navJoin: 'Присъединяване',
-    backLink: '← Назад към огнищата',
-    loading: 'Разпалваме огнището...',
-    errorText: 'Огнището не беше намерено.',
-    fireLabel: 'Огнище',
-    badgeActive: 'Активно',
-    labelAbout: 'За огнището',
-    labelArticle: 'Статия',
-    labelContact: 'Свържи се',
-    commentsTitle: 'Разговорът около огнището',
-    memberSingular: 'член', memberPlural: 'члена',
-    footerCopy: 'Заедно за по-добър свят · 2026',
-  },
-  en: {
-    navHearths: 'Hearths', navAnalysis: 'Analysis', navJoin: 'Join',
-    backLink: '← Back to hearths',
-    loading: 'Lighting the hearth...',
-    errorText: 'The hearth was not found.',
-    fireLabel: 'Hearth',
-    badgeActive: 'Active',
-    labelAbout: 'About the hearth',
-    labelArticle: 'Article',
-    labelContact: 'Contact',
-    commentsTitle: 'The conversation around the hearth',
-    memberSingular: 'member', memberPlural: 'members',
-    footerCopy: 'Together for a better world · 2026',
-  },
-  de: {
-    navHearths: 'Herde', navAnalysis: 'Analyse', navJoin: 'Beitreten',
-    backLink: '← Zurück zu den Herden',
-    loading: 'Herd wird entzündet...',
-    errorText: 'Der Herd wurde nicht gefunden.',
-    fireLabel: 'Herd',
-    badgeActive: 'Aktiv',
-    labelAbout: 'Über den Herd',
-    labelArticle: 'Artikel',
-    labelContact: 'Kontakt',
-    commentsTitle: 'Das Gespräch am Herd',
-    memberSingular: 'Mitglied', memberPlural: 'Mitglieder',
-    footerCopy: 'Gemeinsam für eine bessere Welt · 2026',
-  },
-  ru: {
-    navHearths: 'Очаги', navAnalysis: 'Анализ', navJoin: 'Присоединиться',
-    backLink: '← Назад к очагам',
-    loading: 'Разжигаем очаг...',
-    errorText: 'Очаг не найден.',
-    fireLabel: 'Очаг',
-    badgeActive: 'Активен',
-    labelAbout: 'Об очаге',
-    labelArticle: 'Статья',
-    labelContact: 'Связаться',
-    commentsTitle: 'Разговор у очага',
-    memberSingular: 'участник', memberPlural: 'участников',
-    footerCopy: 'Вместе для лучшего мира · 2026',
-  }
+  bg: { navHearths:'Огнища',navAnalysis:'Анализ',navJoin:'Присъединяване',backLink:'← Назад към огнищата',loading:'Разпалваме огнището...',errorText:'Огнището не беше намерено.',fireLabel:'Огнище',badgeActive:'Активно',labelAbout:'За огнището',labelArticle:'Статия',labelContact:'Свържи се',commentsTitle:'Разговорът около огнището',memberSingular:'член',memberPlural:'члена',footerCopy:'Заедно за по-добър свят · 2026' },
+  en: { navHearths:'Hearths',navAnalysis:'Analysis',navJoin:'Join',backLink:'← Back to hearths',loading:'Lighting the hearth...',errorText:'The hearth was not found.',fireLabel:'Hearth',badgeActive:'Active',labelAbout:'About the hearth',labelArticle:'Article',labelContact:'Contact',commentsTitle:'The conversation around the hearth',memberSingular:'member',memberPlural:'members',footerCopy:'Together for a better world · 2026' },
+  de: { navHearths:'Herde',navAnalysis:'Analyse',navJoin:'Beitreten',backLink:'← Zurück zu den Herden',loading:'Herd wird entzündet...',errorText:'Der Herd wurde nicht gefunden.',fireLabel:'Herd',badgeActive:'Aktiv',labelAbout:'Über den Herd',labelArticle:'Artikel',labelContact:'Kontakt',commentsTitle:'Das Gespräch am Herd',memberSingular:'Mitglied',memberPlural:'Mitglieder',footerCopy:'Gemeinsam für eine bessere Welt · 2026' },
+  ru: { navHearths:'Очаги',navAnalysis:'Анализ',navJoin:'Присоединиться',backLink:'← Назад к очагам',loading:'Разжигаем очаг...',errorText:'Очаг не найден.',fireLabel:'Очаг',badgeActive:'Активен',labelAbout:'Об очаге',labelArticle:'Статья',labelContact:'Связаться',commentsTitle:'Разговор у очага',memberSingular:'участник',memberPlural:'участников',footerCopy:'Вместе для лучшего мира · 2026' }
 };
-
 function setLang(lang, btn) {
   currentLang = lang;
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
@@ -205,42 +151,28 @@ function setLang(lang, btn) {
     const key = el.getAttribute('data-i18n');
     if (t[key] !== undefined) el.innerHTML = t[key];
   });
-  const membersEl = document.getElementById('fire-members');
-  if (membersEl) {
-    const num = parseInt(membersEl.textContent) || 1;
-    membersEl.textContent = `${num} ${num === 1 ? t.memberSingular : t.memberPlural}`;
-  }
 }
-
 function getIdFromUrl() {
   const params = new URLSearchParams(window.location.search);
   return params.get('id');
 }
-
 async function loadOgnishte() {
   const id = getIdFromUrl();
   if (!id) { showError(); return; }
-
   try {
     const res = await fetch(MAKE_WEBHOOK, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'get_by_token', token: id })
     });
-
     const text = await res.text();
     let record;
     try { record = JSON.parse(text); } catch(e) { showError(); return; }
-
     if (!record || !record['ИМЕ']) { showError(); return; }
-
     renderOgnishte(record, id);
     loadStatia(id);
-  } catch(e) {
-    showError();
-  }
+  } catch(e) { showError(); }
 }
-
 async function loadStatia(id) {
   try {
     const res = await fetch(MAKE_WEBHOOK, {
@@ -256,19 +188,16 @@ async function loadStatia(id) {
     }
   } catch(e) {}
 }
-
 function renderOgnishte(r, id) {
   const t = T[currentLang];
   document.title = `ЗАЕДНО — ${r['ИМЕ'] || 'Огнище'}`;
   document.getElementById('fire-name').textContent = r['ИМЕ'] || '—';
   const members = Number(r['ЧЛЕНОВЕ']) || 1;
   document.getElementById('fire-members').textContent = `${members} ${members === 1 ? t.memberSingular : t.memberPlural}`;
-
   if (r['ДЕТАЙЛИ']) {
     document.getElementById('fire-desc').textContent = r['ДЕТАЙЛИ'];
     document.getElementById('desc-section').style.display = 'block';
   }
-
   if (r['КОНТАКТ']) {
     const contact = r['КОНТАКТ'];
     const el = document.getElementById('fire-contact');
@@ -279,13 +208,10 @@ function renderOgnishte(r, id) {
     }
     document.getElementById('contact-section').style.display = 'block';
   }
-
   document.getElementById('loading-state').style.display = 'none';
   document.getElementById('content').style.display = 'block';
-
   loadGiscus(id);
 }
-
 function loadGiscus(id) {
   const container = document.getElementById('giscus-container');
   const script = document.createElement('script');
@@ -306,12 +232,10 @@ function loadGiscus(id) {
   script.async = true;
   container.appendChild(script);
 }
-
 function showError() {
   document.getElementById('loading-state').style.display = 'none';
   document.getElementById('error-state').style.display = 'block';
 }
-
 setLang('bg');
 loadOgnishte();
 </script>
