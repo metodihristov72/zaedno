@@ -15,137 +15,130 @@
   }
   html { scroll-behavior: smooth; }
   body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--stone-dark); overflow-x: hidden; }
-
-  .lang-switcher { display: flex; gap: 0.3rem; align-items: center; }
+  .lang-switcher { display: flex; gap: 0.3rem; align-items: center; flex-wrap: wrap; }
   .lang-btn { background: none; border: 1px solid transparent; border-radius: 6px; padding: 0.3rem 0.6rem; font-family: 'Jost', sans-serif; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.1em; color: var(--stone); cursor: pointer; transition: all 0.2s ease; }
   .lang-btn:hover { color: var(--stone-dark); border-color: var(--mist); }
   .lang-btn.active { background: var(--terracotta-pale); border-color: var(--terracotta-light); color: var(--terracotta); font-weight: 500; }
-
   .hero { min-height: 100vh; display: grid; grid-template-rows: auto 1fr auto; position: relative; overflow: hidden; }
-  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 20% 50%, rgba(143,168,138,0.18) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 30%, rgba(196,120,90,0.10) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 60% 80%, rgba(201,169,110,0.10) 0%, transparent 50%); pointer-events: none; }
-  nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 4rem; position: relative; z-index: 10; }
-  .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.12em; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 20% 50%, rgba(143,168,138,0.18) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 30%, rgba(196,120,90,0.10) 0%, transparent 60%); pointer-events: none; }
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4rem; position: relative; z-index: 10; gap: 1rem; }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.12em; white-space: nowrap; }
   .logo span { color: var(--terracotta); }
-  .hero-content { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 4rem; position: relative; z-index: 10; }
-  .hero-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--stone); margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards; }
-  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(4rem, 10vw, 9rem); font-weight: 300; line-height: 0.95; color: var(--stone-dark); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards; }
+  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+  .nav-links a { font-size: 0.85rem; color: var(--stone); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; white-space: nowrap; }
+  .nav-links a:hover { color: var(--stone-dark); }
+  .hero-content { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 3rem 2rem; position: relative; z-index: 10; }
+  .hero-eyebrow { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--stone); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards; }
+  .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 10vw, 9rem); font-weight: 300; line-height: 0.95; color: var(--stone-dark); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards; }
   .hero-title em { font-style: italic; color: var(--terracotta); }
-  .hero-sub { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 300; font-style: italic; color: var(--stone); max-width: 640px; line-height: 1.7; margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards; }
-  .hero-slogan { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight: 600; color: var(--stone-dark); margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.8s ease 0.7s forwards; letter-spacing: 0.03em; }
+  .hero-sub { font-family: 'Cormorant Garamond', serif; font-size: clamp(1rem, 2.5vw, 1.5rem); font-weight: 300; font-style: italic; color: var(--stone); max-width: 640px; line-height: 1.7; margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards; }
+  .hero-slogan { font-family: 'Cormorant Garamond', serif; font-size: clamp(1rem, 2.5vw, 1.6rem); font-weight: 600; color: var(--stone-dark); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s ease 0.7s forwards; letter-spacing: 0.03em; }
   .hero-slogan em { font-style: italic; color: var(--terracotta); }
-  .hero-rule { font-size: 1rem; font-weight: 500; letter-spacing: 0.04em; color: var(--stone-dark); background: var(--terracotta-pale); border: 1px solid var(--terracotta-light); padding: 1rem 2.2rem; border-radius: 100px; opacity: 0; animation: fadeUp 0.8s ease 0.8s forwards; }
+  .hero-rule { font-size: clamp(0.82rem, 2vw, 1rem); font-weight: 500; letter-spacing: 0.04em; color: var(--stone-dark); background: var(--terracotta-pale); border: 1px solid var(--terracotta-light); padding: 0.9rem 1.8rem; border-radius: 100px; opacity: 0; animation: fadeUp 0.8s ease 0.8s forwards; text-align: center; max-width: 90%; }
   .hero-rule strong { color: var(--terracotta); }
   .hero-scroll { padding: 2rem; display: flex; justify-content: center; position: relative; z-index: 10; opacity: 0; animation: fadeUp 0.8s ease 1.2s forwards; }
   .scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, var(--mist), transparent); }
-
   .divider { display: flex; align-items: center; gap: 1.5rem; margin: 1rem 0; }
   .divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--mist), transparent); }
   .divider-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--sage-light); }
-  section { padding: 5rem 4rem; max-width: 1100px; margin: 0 auto; }
+  section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
   .section-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); margin-bottom: 1rem; }
-  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.2; color: var(--stone-dark); margin-bottom: 1.5rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.2; color: var(--stone-dark); margin-bottom: 1.5rem; }
   .section-title em { font-style: italic; color: var(--terracotta); }
   .section-body { font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--stone); max-width: 680px; }
-
-  .philosophy { background: var(--warm-white); border-radius: 2rem; padding: 4rem; margin: 2rem 0; border: 1px solid rgba(143,168,138,0.2); position: relative; overflow: hidden; }
-  .philosophy::before { content: '"'; font-family: 'Cormorant Garamond', serif; font-size: 20rem; color: var(--sage-pale); position: absolute; top: -4rem; left: 1rem; line-height: 1; pointer-events: none; }
-  .philosophy-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 300; font-style: italic; line-height: 1.6; color: var(--stone-dark); position: relative; z-index: 1; max-width: 700px; }
+  .philosophy { background: var(--warm-white); border-radius: 2rem; padding: 3rem 2rem; margin: 2rem 0; border: 1px solid rgba(143,168,138,0.2); position: relative; overflow: hidden; }
+  .philosophy::before { content: '"'; font-family: 'Cormorant Garamond', serif; font-size: 14rem; color: var(--sage-pale); position: absolute; top: -3rem; left: 1rem; line-height: 1; pointer-events: none; }
+  .philosophy-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.1rem, 2.5vw, 1.8rem); font-weight: 300; font-style: italic; line-height: 1.6; color: var(--stone-dark); position: relative; z-index: 1; max-width: 700px; }
   .philosophy-author { margin-top: 1.5rem; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terracotta); font-weight: 400; position: relative; z-index: 1; }
-
   .steps { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 3rem; }
   .step { display: flex; gap: 2rem; align-items: flex-start; background: var(--warm-white); border-radius: 1.5rem; padding: 2rem; border: 1px solid rgba(184,196,190,0.3); }
   .step-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--terracotta); line-height: 1; min-width: 3rem; }
   .step-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--stone-dark); margin-bottom: 0.5rem; }
   .step-body { font-size: 0.95rem; font-weight: 300; line-height: 1.8; color: var(--stone); }
-
   .pillars-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
-  .pillar { background: var(--warm-white); border-radius: 1.5rem; padding: 2.5rem; border: 1px solid rgba(184,196,190,0.3); transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; overflow: hidden; }
-  .pillar::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(to right, var(--sage-light), var(--terracotta-light)); opacity: 0; transition: opacity 0.3s ease; }
-  .pillar:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(74,68,64,0.08); }
-  .pillar:hover::after { opacity: 1; }
+  .pillar { background: var(--warm-white); border-radius: 1.5rem; padding: 2rem; border: 1px solid rgba(184,196,190,0.3); transition: transform 0.3s ease; }
+  .pillar:hover { transform: translateY(-4px); }
   .pillar-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
   .pillar-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--stone-dark); margin-bottom: 0.75rem; }
   .pillar-body { font-size: 0.88rem; font-weight: 300; line-height: 1.8; color: var(--stone); }
-
   .lifecycle { display: flex; margin-top: 3rem; position: relative; }
   .lifecycle::before { content: ''; position: absolute; top: 2.5rem; left: 2.5rem; right: 2.5rem; height: 1px; background: linear-gradient(to right, var(--sage-light), var(--terracotta-light), var(--gold-soft)); }
-  .lifecycle-step { flex: 1; text-align: center; padding: 0 1rem; position: relative; }
-  .lifecycle-dot { width: 5rem; height: 5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem; position: relative; z-index: 1; border: 2px solid transparent; transition: transform 0.3s ease; }
-  .lifecycle-step:hover .lifecycle-dot { transform: scale(1.1); }
+  .lifecycle-step { flex: 1; text-align: center; padding: 0 0.5rem; position: relative; }
+  .lifecycle-dot { width: 5rem; height: 5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 1rem; position: relative; z-index: 1; border: 2px solid transparent; }
   .lifecycle-step:nth-child(1) .lifecycle-dot { background: var(--sage-pale); border-color: var(--sage-light); }
   .lifecycle-step:nth-child(2) .lifecycle-dot { background: #EEF0F8; border-color: #B8BDD9; }
   .lifecycle-step:nth-child(3) .lifecycle-dot { background: var(--terracotta-pale); border-color: var(--terracotta-light); }
   .lifecycle-step:nth-child(4) .lifecycle-dot { background: #F5F0E8; border-color: var(--gold-soft); }
   .lifecycle-step:nth-child(5) .lifecycle-dot { background: var(--sage-pale); border-color: var(--sage); }
-  .lifecycle-label { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--stone-dark); margin-bottom: 0.4rem; }
-  .lifecycle-desc { font-size: 0.75rem; font-weight: 300; color: var(--stone); line-height: 1.5; }
-
-  .one-rule { background: linear-gradient(135deg, var(--sage-pale) 0%, var(--terracotta-pale) 100%); border-radius: 2rem; padding: 5rem 4rem; text-align: center; border: 1px solid rgba(143,168,138,0.25); margin: 3rem 0; }
+  .lifecycle-label { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; font-weight: 600; color: var(--stone-dark); margin-bottom: 0.4rem; }
+  .lifecycle-desc { font-size: 0.72rem; font-weight: 300; color: var(--stone); line-height: 1.5; }
+  .one-rule { background: linear-gradient(135deg, var(--sage-pale) 0%, var(--terracotta-pale) 100%); border-radius: 2rem; padding: 4rem 2rem; text-align: center; border: 1px solid rgba(143,168,138,0.25); margin: 3rem 0; }
   .one-rule-label { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); margin-bottom: 1.5rem; display: block; }
-  .one-rule-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 300; font-style: italic; color: var(--stone-dark); line-height: 1.4; margin-bottom: 1rem; }
-  .one-rule-sub { font-size: 0.88rem; font-weight: 300; color: var(--stone); letter-spacing: 0.05em; }
-
-  .cta-section { text-align: center; padding: 6rem 4rem; }
-  .cta-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; color: var(--stone-dark); margin-bottom: 1rem; }
+  .one-rule-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 300; font-style: italic; color: var(--stone-dark); line-height: 1.4; margin-bottom: 1rem; }
+  .one-rule-sub { font-size: 0.88rem; font-weight: 300; color: var(--stone); }
+  .cta-section { text-align: center; padding: 4rem 1.5rem; }
+  .cta-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 300; color: var(--stone-dark); margin-bottom: 1rem; }
   .cta-title em { font-style: italic; color: var(--terracotta); }
   .cta-sub { font-size: 0.9rem; font-weight: 300; color: var(--stone); margin-bottom: 2rem; line-height: 1.7; white-space: pre-line; }
-  .cta-btn { display: inline-block; background: var(--terracotta); color: white; padding: 1rem 3rem; border-radius: 100px; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: background 0.3s ease, transform 0.2s ease; font-family: 'Jost', sans-serif; }
-  .cta-btn:hover { background: var(--stone-dark); transform: translateY(-2px); }
-
+  .cta-btn { display: inline-block; background: var(--terracotta); color: white; padding: 1rem 3rem; border-radius: 100px; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: background 0.3s ease; font-family: 'Jost', sans-serif; }
+  .cta-btn:hover { background: var(--stone-dark); }
   .counter-wrap { margin: 0 auto 2.5rem; display: inline-block; background: var(--sage-pale); border: 1px solid var(--sage-light); border-radius: 1.5rem; padding: 1.2rem 3rem; }
   .counter-num { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; color: var(--stone-dark); line-height: 1; }
   .counter-label { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); margin-top: 0.3rem; }
-
   .reg-form { max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
-  .reg-input { width: 100%; padding: 0.9rem 1.2rem; border: 1px solid rgba(184,196,190,0.5); border-radius: 12px; font-family: 'Jost', sans-serif; font-size: 0.9rem; font-weight: 300; color: var(--stone-dark); background: var(--warm-white); outline: none; transition: border-color 0.2s ease; resize: none; box-sizing: border-box; }
+  .reg-input { width: 100%; padding: 0.9rem 1.2rem; border: 1px solid rgba(184,196,190,0.5); border-radius: 12px; font-family: 'Jost', sans-serif; font-size: 0.9rem; font-weight: 300; color: var(--stone-dark); background: var(--warm-white); outline: none; transition: border-color 0.2s ease; resize: none; }
   .reg-input:focus { border-color: var(--sage); }
   .reg-textarea { min-height: 100px; }
-  .reg-note { font-size: 0.72rem; color: var(--stone); margin-top: 0.3rem; letter-spacing: 0.05em; }
-
+  .reg-note { font-size: 0.72rem; color: var(--stone); margin-top: 0.3rem; }
   .reg-success { text-align: center; padding: 2rem; }
   .success-icon { font-size: 3rem; margin-bottom: 1rem; }
   .success-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--stone-dark); margin-bottom: 0.5rem; }
   .success-sub { font-size: 0.9rem; color: var(--stone); line-height: 1.7; }
-
-  .hearth-section { text-align: center; padding: 2rem 4rem 6rem; }
+  .hearth-section { text-align: center; padding: 2rem 1.5rem 4rem; }
   .hearth-label { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--stone); margin-bottom: 1rem; }
   .hearth-btn { background: none; border: 2px solid var(--terracotta); color: var(--terracotta); padding: 0.9rem 2.5rem; border-radius: 100px; font-family: 'Jost', sans-serif; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; }
-  .hearth-btn:hover { background: var(--terracotta); color: white; transform: translateY(-2px); }
-  .hearth-modal { position: fixed; inset: 0; background: rgba(74,68,64,0.6); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 2rem; backdrop-filter: blur(4px); }
-  .hearth-modal-inner { background: var(--warm-white); border-radius: 2rem; padding: 3rem; max-width: 480px; width: 100%; text-align: center; }
-  .hearth-modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: var(--stone-dark); margin-bottom: 1.5rem; }
-  .hearth-cancel { background: none; border: 1px solid var(--mist); color: var(--stone); padding: 1rem 2rem; border-radius: 100px; font-family: 'Jost', sans-serif; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease; }
-  .hearth-cancel:hover { border-color: var(--stone); color: var(--stone-dark); }
-
-  footer { border-top: 1px solid rgba(184,196,190,0.3); padding: 2.5rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+  .hearth-btn:hover { background: var(--terracotta); color: white; }
+  footer { border-top: 1px solid rgba(184,196,190,0.3); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
   .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.1em; }
   .footer-copy { font-size: 0.75rem; font-weight: 300; color: var(--stone); }
-
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
-  [data-i18n] { transition: opacity 0.2s ease; }
-  .lang-fade { opacity: 0; }
 
   @media (max-width: 768px) {
-    nav, section, footer { padding-left: 2rem; padding-right: 2rem; }
-    .pillars-grid { grid-template-columns: 1fr; }
-    .lifecycle { flex-direction: column; gap: 2rem; }
+    nav { padding: 1rem 1.2rem; flex-wrap: wrap; gap: 0.5rem; }
+    .nav-links { order: 3; width: 100%; justify-content: center; gap: 1.2rem; border-top: 1px solid rgba(184,196,190,0.2); padding-top: 0.75rem; }
+    .nav-links a { font-size: 0.82rem; }
+    .lang-switcher { margin-left: auto; }
+    section { padding: 2.5rem 1.2rem; }
+    .hero-content { padding: 2rem 1.2rem; }
+    .hero-rule { padding: 0.75rem 1.2rem; }
+    .philosophy { padding: 2rem 1.5rem; }
+    .philosophy::before { font-size: 8rem; }
+    .step { flex-direction: column; gap: 0.5rem; padding: 1.5rem; }
+    .step-num { font-size: 2.5rem; min-width: auto; }
+    .pillars-grid { grid-template-columns: 1fr; gap: 1rem; }
+    .pillar { padding: 1.5rem; }
+    .lifecycle { flex-direction: column; gap: 1.5rem; }
     .lifecycle::before { display: none; }
-    .philosophy, .one-rule { padding: 2.5rem 2rem; }
-    .step { flex-direction: column; gap: 1rem; }
+    .lifecycle-step { display: flex; align-items: center; gap: 1rem; text-align: left; padding: 0; }
+    .lifecycle-dot { width: 3.5rem; height: 3.5rem; font-size: 1.2rem; flex-shrink: 0; margin: 0; }
+    .one-rule { padding: 2.5rem 1.5rem; }
+    .cta-section { padding: 2.5rem 1.2rem; }
+    .counter-wrap { padding: 1rem 2rem; }
+    .hearth-section { padding: 1.5rem 1.2rem 3rem; }
+    footer { padding: 1.5rem 1.2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
   }
 </style>
 </head>
 <body>
-
 <div class="hero">
   <nav>
     <div class="logo">З<span>А</span>ЕДНО</div>
-    <div style="display:flex;align-items:center;gap:2rem;">
-      <a href="ognishta.html" style="font-family:'Jost',sans-serif;font-size:0.85rem;color:var(--stone);text-decoration:none;letter-spacing:0.08em;transition:color 0.2s" onmouseover="this.style.color='var(--stone-dark)'" onmouseout="this.style.color='var(--stone)'">Огнища</a>
-      <a href="analiz.html" style="font-family:'Jost',sans-serif;font-size:0.85rem;color:var(--stone);text-decoration:none;letter-spacing:0.08em;transition:color 0.2s" onmouseover="this.style.color='var(--stone-dark)'" onmouseout="this.style.color='var(--stone)'">Анализ</a>
-      <a href="za-nas.html" style="font-family:'Jost',sans-serif;font-size:0.85rem;color:var(--stone);text-decoration:none;letter-spacing:0.08em;transition:color 0.2s" onmouseover="this.style.color='var(--stone-dark)'" onmouseout="this.style.color='var(--stone)'">За нас</a>
+    <div class="nav-links">
+      <a href="ognishta.html" data-i18n="navHearths">Огнища</a>
+      <a href="analiz.html" data-i18n="navAnalysis">Анализ</a>
+      <a href="za-nas.html" data-i18n="navAbout">За нас</a>
     </div>
     <div class="lang-switcher">
       <button class="lang-btn active" onclick="setLang('bg',this)">БГ</button>
@@ -163,7 +156,6 @@
   </div>
   <div class="hero-scroll"><div class="scroll-line"></div></div>
 </div>
-
 <section>
   <div class="divider reveal"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
   <div class="philosophy reveal">
@@ -171,7 +163,6 @@
     <div class="philosophy-author" data-i18n="philosophyAuthor"></div>
   </div>
 </section>
-
 <section>
   <div class="reveal">
     <div class="section-label" data-i18n="howLabel"></div>
@@ -179,30 +170,11 @@
     <p class="section-body" data-i18n="howSub"></p>
   </div>
   <div class="steps">
-    <div class="step reveal">
-      <div class="step-num">1</div>
-      <div class="step-content">
-        <div class="step-title" data-i18n="s1title"></div>
-        <p class="step-body" data-i18n="s1body"></p>
-      </div>
-    </div>
-    <div class="step reveal">
-      <div class="step-num">2</div>
-      <div class="step-content">
-        <div class="step-title" data-i18n="s2title"></div>
-        <p class="step-body" data-i18n="s2body"></p>
-      </div>
-    </div>
-    <div class="step reveal">
-      <div class="step-num">3</div>
-      <div class="step-content">
-        <div class="step-title" data-i18n="s3title"></div>
-        <p class="step-body" data-i18n="s3body"></p>
-      </div>
-    </div>
+    <div class="step reveal"><div class="step-num">1</div><div class="step-content"><div class="step-title" data-i18n="s1title"></div><p class="step-body" data-i18n="s1body"></p></div></div>
+    <div class="step reveal"><div class="step-num">2</div><div class="step-content"><div class="step-title" data-i18n="s2title"></div><p class="step-body" data-i18n="s2body"></p></div></div>
+    <div class="step reveal"><div class="step-num">3</div><div class="step-content"><div class="step-title" data-i18n="s3title"></div><p class="step-body" data-i18n="s3body"></p></div></div>
   </div>
 </section>
-
 <section>
   <div class="reveal">
     <div class="section-label" data-i18n="pillarsLabel"></div>
@@ -216,7 +188,6 @@
     <div class="pillar reveal"><span class="pillar-icon">🤝</span><div class="pillar-title" data-i18n="p4title"></div><p class="pillar-body" data-i18n="p4body"></p></div>
   </div>
 </section>
-
 <section>
   <div class="reveal">
     <div class="section-label" data-i18n="lifecycleLabel"></div>
@@ -224,14 +195,13 @@
     <p class="section-body" data-i18n="lifecycleSub"></p>
   </div>
   <div class="lifecycle reveal">
-    <div class="lifecycle-step"><div class="lifecycle-dot">🌱</div><div class="lifecycle-label" data-i18n="l1"></div><div class="lifecycle-desc" data-i18n="l1d"></div></div>
-    <div class="lifecycle-step"><div class="lifecycle-dot">🥚</div><div class="lifecycle-label" data-i18n="l2"></div><div class="lifecycle-desc" data-i18n="l2d"></div></div>
-    <div class="lifecycle-step"><div class="lifecycle-dot">🔥</div><div class="lifecycle-label" data-i18n="l3"></div><div class="lifecycle-desc" data-i18n="l3d"></div></div>
-    <div class="lifecycle-step"><div class="lifecycle-dot">🧑</div><div class="lifecycle-label" data-i18n="l4"></div><div class="lifecycle-desc" data-i18n="l4d"></div></div>
-    <div class="lifecycle-step"><div class="lifecycle-dot">🏛️</div><div class="lifecycle-label" data-i18n="l5"></div><div class="lifecycle-desc" data-i18n="l5d"></div></div>
+    <div class="lifecycle-step"><div class="lifecycle-dot">🌱</div><div><div class="lifecycle-label" data-i18n="l1"></div><div class="lifecycle-desc" data-i18n="l1d"></div></div></div>
+    <div class="lifecycle-step"><div class="lifecycle-dot">🥚</div><div><div class="lifecycle-label" data-i18n="l2"></div><div class="lifecycle-desc" data-i18n="l2d"></div></div></div>
+    <div class="lifecycle-step"><div class="lifecycle-dot">🔥</div><div><div class="lifecycle-label" data-i18n="l3"></div><div class="lifecycle-desc" data-i18n="l3d"></div></div></div>
+    <div class="lifecycle-step"><div class="lifecycle-dot">🧑</div><div><div class="lifecycle-label" data-i18n="l4"></div><div class="lifecycle-desc" data-i18n="l4d"></div></div></div>
+    <div class="lifecycle-step"><div class="lifecycle-dot">🏛️</div><div><div class="lifecycle-label" data-i18n="l5"></div><div class="lifecycle-desc" data-i18n="l5d"></div></div></div>
   </div>
 </section>
-
 <section>
   <div class="one-rule reveal">
     <span class="one-rule-label" data-i18n="ruleLabel"></span>
@@ -239,7 +209,6 @@
     <div class="one-rule-sub" data-i18n="ruleSub"></div>
   </div>
 </section>
-
 <div class="cta-section reveal">
   <h2 class="cta-title" data-i18n="ctaTitle"></h2>
   <p class="cta-sub" data-i18n="ctaSub"></p>
@@ -260,246 +229,116 @@
     <div class="success-sub" data-i18n="successSub"></div>
   </div>
 </div>
-
 <div class="hearth-section reveal">
   <div class="hearth-label" data-i18n="hearthLabel"></div>
-  <button class="hearth-btn" onclick="openHearth()" data-i18n="hearthBtn"></button>
-  <div class="hearth-modal" id="hearth-modal" style="display:none;">
-    <div class="hearth-modal-inner">
-      <div class="hearth-modal-title" data-i18n="hearthModalTitle"></div>
-      <input class="reg-input" type="text" id="hearth-topic" data-placeholder="hearthTopicPlaceholder" placeholder="Опиши темата или проблема..." />
-      <input class="reg-input" type="email" id="hearth-email" data-placeholder="emailPlaceholder" placeholder="Твоят имейл" />
-      <div style="display:flex;gap:1rem;justify-content:center;margin-top:1rem;">
-        <button class="cta-btn" onclick="submitHearth()" data-i18n="hearthSubmit"></button>
-        <button class="hearth-cancel" onclick="closeHearth()" data-i18n="hearthCancel"></button>
-      </div>
-    </div>
-  </div>
+  <button class="hearth-btn" onclick="window.location.href='register.html'" data-i18n="hearthBtn"></button>
 </div>
-
 <footer>
   <div class="footer-logo">ЗАЕДНО</div>
   <div class="footer-copy" data-i18n="footerCopy"></div>
 </footer>
-
 <script>
 const MAKE_WEBHOOK = 'https://hook.eu1.make.com/v63ljepxc891k4xjtv6tkjp416w3xxi1';
-
 const T = {
   bg: {
-    eyebrow: 'ЗАЕДНО · 2026',
-    title: 'Не се<br><em>борим.</em><br>Помагаме.',
-    sub: 'Дигитално пространство където хората се срещат около идеи, решават реални проблеми и изграждат по-добър свят чрез взаимопомощ.',
-    slogan: '„<em>Заедно за по-добър свят.</em>"',
-    footerCopy: 'Заедно за по-добър свят · 2026',
-    rule: '<strong>Едното правило:</strong> Не вреди на останалите. Ако можеш — помогни.',
-    philosophy: 'Светът е устроен за конкуренция. Ти печелиш — някой друг губи. ЗАЕДНО предлага друг път: хората не се борят помежду си — те се допълват. Защото заедно можем повече.',
-    philosophyAuthor: 'Философията на ЗАЕДНО',
-    howLabel: 'Как работи',
-    howTitle: 'Три прости стъпки<br><em>към промяната</em>',
-    howSub: 'Без сложни правила. Без йерархия. Само хора, идеи и желание за промяна.',
-    s1title: 'Предлагаш тема или проблем',
-    s1body: 'Виждаш нещо несправедливо или имаш идея за промяна? Отваряш огнище — дигитално пространство около тази тема. Без предварително одобрение. Без бюрокрация.',
-    s2title: 'Намират те правилните хора',
-    s2body: 'Платформата свързва хора с различни умения около твоята тема. Не само тези които мислят като теб — а тези които се допълват с теб. Юрист, инженер, гражданин, журналист — всеки носи нещо различно.',
-    s3title: 'Заедно създавате нещо реално',
-    s3body: 'Огнището не угасва с разговор. То ражда продукт — документ, предложение, решение — което може да бъде изпратено към институция, споделено с медия или приложено директно в общността.',
-    pillarsLabel: 'Четирите стълба',
-    pillarsTitle: 'Как е построена<br><em>платформата</em>',
-    pillarsSub: 'Всяка функция произтича от една идея — хората се допълват, не се борят.',
-    p1title: 'Живото дърво', p1body: 'Темите се разклоняват органично. Виждаш платформата като жива карта — не като списък. Активните огнища светят, угасналите избледняват.',
-    p2title: 'Инкубатор на идеи', p2body: 'Суровата мисъл влиза като семе. Общността я полива с интерес. При достатъчен отклик — идеята се излюпва в огнище за дискусия.',
-    p3title: 'Огнището расте', p3body: 'Огнището има жизнен цикъл — ражда се, расте, зрее и създава продукт. Колкото повече хора участват, толкова по-силно гори. Накрая оставя наследство.',
-    p4title: 'Среща на уменията', p4body: 'За тема "Екология" не търсим само еколози. Търсим отбор: инженер + икономист + биолог + гражданин. Различни умения, обща цел, реален резултат.',
-    lifecycleLabel: 'Жизненият цикъл на огнището',
-    lifecycleTitle: 'От искра до<br><em>наследство</em>',
-    lifecycleSub: 'Всяко огнище започва с една мисъл и може да завърши с реална промяна.',
-    l1: 'Искра', l1d: 'Идеята се ражда в един човек',
-    l2: 'Запалване', l2d: 'Общността се събира около нея',
-    l3: 'Огън', l3d: 'Огнището гори — дискусията е жива',
-    l4: 'Жар', l4d: 'Създава се реален продукт',
-    l5: 'Наследство', l5d: 'Промяната остава завинаги',
-    ruleLabel: 'Основата на всичко',
-    ruleText: '"Не вреди на останалите.<br>Ако можеш — помогни."',
-    ruleSub: 'По-древно от всяка конституция. По-чисто от всеки закон.',
-    ctaTitle: 'Готов ли си да<br><em>запалиш огнище?</em>',
-    ctaSub: 'Утопия е само идея която чака своя момент.\nМоже би моментът е сега.',
-    ctaBtn: 'Присъедини се',
-    counterLabel: 'посещения на сайта',
-    namePlaceholder: 'Твоето име',
-    emailPlaceholder: 'Твоят имейл',
-    problemPlaceholder: 'Какъв проблем искаш да решиш заедно с други хора?',
-    regNote: 'Без спам. Само когато ЗАЕДНО оживее.',
-    successTitle: 'Добре дошъл в ЗАЕДНО!',
-    successSub: 'Ще те уведомим когато платформата оживее.\nБлагодарим че вярваш в идеята.',
-    hearthLabel: 'Имаш идея или проблем за решаване?',
-    hearthBtn: '🔥 Запали огнище',
-    hearthModalTitle: 'Запали огнище',
-    hearthTopicPlaceholder: 'Опиши темата или проблема...',
-    hearthSubmit: 'Изпрати',
-    hearthCancel: 'Отказ',
+    navHearths:'Огнища',navAnalysis:'Анализ',navAbout:'За нас',
+    eyebrow:'ЗАЕДНО · 2026',
+    title:'Не се<br><em>борим.</em><br>Помагаме.',
+    sub:'Дигитално пространство където хората се срещат около идеи, решават реални проблеми и изграждат по-добър свят чрез взаимопомощ.',
+    slogan:'„<em>Заедно за по-добър свят.</em>"',
+    rule:'<strong>Едното правило:</strong> Не вреди на останалите. Ако можеш — помогни.',
+    philosophy:'Светът е устроен за конкуренция. Ти печелиш — някой друг губи. ЗАЕДНО предлага друг път: хората не се борят помежду си — те се допълват. Защото заедно можем повече.',
+    philosophyAuthor:'Философията на ЗАЕДНО',
+    howLabel:'Как работи',howTitle:'Три прости стъпки<br><em>към промяната</em>',howSub:'Без сложни правила. Без йерархия. Само хора, идеи и желание за промяна.',
+    s1title:'Предлагаш тема или проблем',s1body:'Виждаш нещо несправедливо или имаш идея за промяна? Отваряш огнище — дигитално пространство около тази тема.',
+    s2title:'Намират те правилните хора',s2body:'Платформата свързва хора с различни умения около твоята тема.',
+    s3title:'Заедно създавате нещо реално',s3body:'Огнището не угасва с разговор. То ражда продукт — документ, предложение, решение.',
+    pillarsLabel:'Четирите стълба',pillarsTitle:'Как е построена<br><em>платформата</em>',pillarsSub:'Всяка функция произтича от една идея — хората се допълват, не се борят.',
+    p1title:'Живото дърво',p1body:'Темите се разклоняват органично. Виждаш платформата като жива карта.',
+    p2title:'Инкубатор на идеи',p2body:'Суровата мисъл влиза като семе. Общността я полива с интерес.',
+    p3title:'Огнището расте',p3body:'Огнището има жизнен цикъл — ражда се, расте, зрее и създава продукт.',
+    p4title:'Среща на уменията',p4body:'За тема "Екология" не търсим само еколози. Търсим отбор.',
+    lifecycleLabel:'Жизненият цикъл на огнището',lifecycleTitle:'От искра до<br><em>наследство</em>',lifecycleSub:'Всяко огнище започва с една мисъл и може да завърши с реална промяна.',
+    l1:'Искра',l1d:'Идеята се ражда в един човек',l2:'Запалване',l2d:'Общността се събира около нея',
+    l3:'Огън',l3d:'Огнището гори — дискусията е жива',l4:'Жар',l4d:'Създава се реален продукт',l5:'Наследство',l5d:'Промяната остава завинаги',
+    ruleLabel:'Основата на всичко',ruleText:'"Не вреди на останалите.<br>Ако можеш — помогни."',ruleSub:'По-древно от всяка конституция. По-чисто от всеки закон.',
+    ctaTitle:'Готов ли си да<br><em>запалиш огнище?</em>',ctaSub:'Утопия е само идея която чака своя момент.\nМоже би моментът е сега.',ctaBtn:'Присъедини се',
+    counterLabel:'посещения на сайта',namePlaceholder:'Твоето име',emailPlaceholder:'Твоят имейл',problemPlaceholder:'Какъв проблем искаш да решиш заедно с други хора?',
+    regNote:'Без спам. Само когато ЗАЕДНО оживее.',successTitle:'Добре дошъл в ЗАЕДНО!',successSub:'Ще те уведомим когато платформата оживее.',
+    hearthLabel:'Имаш идея или проблем за решаване?',hearthBtn:'🔥 Запали огнище',footerCopy:'Заедно за по-добър свят · 2026',
   },
   en: {
-    eyebrow: 'ZAEDNO · 2026',
-    title: 'We don\'t<br><em>compete.</em><br>We help.',
-    sub: 'Together for a better world — a digital space where people gather around ideas and solve real problems through mutual aid.',
-    slogan: '"<em>Together for a better world.</em>"',
-    rule: '<strong>The one rule:</strong> Do no harm. If you can — help.',
-    philosophy: 'The world is built for competition. You win — someone else loses. ZAEDNO offers a different path: people don\'t fight each other — they complement each other. Because together we can do more.',
-    philosophyAuthor: 'The philosophy of ZAEDNO',
-    howLabel: 'How it works',
-    howTitle: 'Three simple steps<br><em>toward change</em>',
-    howSub: 'No complex rules. No hierarchy. Just people, ideas and the will to change things.',
-    s1title: 'You propose a topic or problem',
-    s1body: 'See something unjust or have an idea for change? You open a hearth — a digital space around that topic. No prior approval. No bureaucracy.',
-    s2title: 'The right people find you',
-    s2body: 'The platform connects people with different skills around your topic. Not only those who think like you — but those who complement you.',
-    s3title: 'Together you create something real',
-    s3body: 'The hearth doesn\'t end with conversation. It produces something — a document, a proposal, a solution — that can be sent to an institution or applied in the community.',
-    pillarsLabel: 'The four pillars',
-    pillarsTitle: 'How the platform<br><em>is built</em>',
-    pillarsSub: 'Every feature flows from one idea — people complement each other, not compete.',
-    p1title: 'The Living Tree', p1body: 'Topics branch organically. You see the platform as a living map. Active hearths glow, dormant ones fade.',
-    p2title: 'Idea Incubator', p2body: 'A raw thought enters as a seed. The community nurtures it. With enough interest — the idea hatches into a hearth.',
-    p3title: 'The Hearth Grows', p3body: 'The hearth has a lifecycle — born, grows, matures and creates a product. The more people participate, the stronger it burns.',
-    p4title: 'Meeting of Skills', p4body: 'For "Ecology" we don\'t seek only ecologists. We build a team: engineer + economist + biologist + citizen.',
-    lifecycleLabel: 'The lifecycle of the hearth',
-    lifecycleTitle: 'From a spark to<br><em>a legacy</em>',
-    lifecycleSub: 'Every hearth begins with one thought and can end with real change.',
-    l1: 'Spark', l1d: 'The idea is born in one person',
-    l2: 'Ignition', l2d: 'The community gathers around it',
-    l3: 'Fire', l3d: 'The hearth burns — discussion is alive',
-    l4: 'Embers', l4d: 'A real product is created',
-    l5: 'Legacy', l5d: 'The change remains forever',
-    ruleLabel: 'The foundation of everything',
-    ruleText: '"Do no harm to others.<br>If you can — help."',
-    ruleSub: 'Older than any constitution. Purer than any law.',
-    ctaTitle: 'Ready to<br><em>light a hearth?</em>',
-    ctaSub: 'A utopia is just an idea waiting for its moment.\nPerhaps the moment is now.',
-    ctaBtn: 'Join us',
-    counterLabel: 'site visits',
-    namePlaceholder: 'Your name',
-    emailPlaceholder: 'Your email',
-    problemPlaceholder: 'What problem would you like to solve together with others?',
-    regNote: 'No spam. Only when ZAEDNO goes live.',
-    successTitle: 'Welcome to ZAEDNO!',
-    successSub: 'We will notify you when the platform goes live.\nThank you for believing in the idea.',
-    hearthLabel: 'Have an idea or problem to solve?',
-    hearthBtn: '🔥 Light a hearth',
-    hearthModalTitle: 'Light a hearth',
-    hearthTopicPlaceholder: 'Describe the topic or problem...',
-    hearthSubmit: 'Send',
-    hearthCancel: 'Cancel',
-    footerCopy: 'Together for a better world · 2026',
+    navHearths:'Hearths',navAnalysis:'Analysis',navAbout:'About',
+    eyebrow:'ZAEDNO · 2026',title:'We don\'t<br><em>compete.</em><br>We help.',
+    sub:'Together for a better world — a digital space where people gather around ideas and solve real problems through mutual aid.',
+    slogan:'"<em>Together for a better world.</em>"',rule:'<strong>The one rule:</strong> Do no harm. If you can — help.',
+    philosophy:'The world is built for competition. You win — someone else loses. ZAEDNO offers a different path: people don\'t fight each other — they complement each other.',
+    philosophyAuthor:'The philosophy of ZAEDNO',
+    howLabel:'How it works',howTitle:'Three simple steps<br><em>toward change</em>',howSub:'No complex rules. No hierarchy.',
+    s1title:'You propose a topic',s1body:'See something unjust? You open a hearth — a digital space around that topic.',
+    s2title:'The right people find you',s2body:'The platform connects people with different skills around your topic.',
+    s3title:'Together you create something real',s3body:'The hearth doesn\'t end with conversation. It produces a document, a proposal, a solution.',
+    pillarsLabel:'The four pillars',pillarsTitle:'How the platform<br><em>is built</em>',pillarsSub:'Every feature flows from one idea — people complement each other.',
+    p1title:'The Living Tree',p1body:'Topics branch organically. You see the platform as a living map.',
+    p2title:'Idea Incubator',p2body:'A raw thought enters as a seed. The community nurtures it.',
+    p3title:'The Hearth Grows',p3body:'The hearth has a lifecycle — born, grows, matures and creates a product.',
+    p4title:'Meeting of Skills',p4body:'For "Ecology" we don\'t seek only ecologists. We build a team.',
+    lifecycleLabel:'The lifecycle of the hearth',lifecycleTitle:'From a spark to<br><em>a legacy</em>',lifecycleSub:'Every hearth begins with one thought and can end with real change.',
+    l1:'Spark',l1d:'The idea is born',l2:'Ignition',l2d:'The community gathers',
+    l3:'Fire',l3d:'The hearth burns',l4:'Embers',l4d:'A real product is created',l5:'Legacy',l5d:'The change remains',
+    ruleLabel:'The foundation',ruleText:'"Do no harm to others.<br>If you can — help."',ruleSub:'Older than any constitution. Purer than any law.',
+    ctaTitle:'Ready to<br><em>light a hearth?</em>',ctaSub:'A utopia is just an idea waiting for its moment.\nPerhaps the moment is now.',ctaBtn:'Join us',
+    counterLabel:'site visits',namePlaceholder:'Your name',emailPlaceholder:'Your email',problemPlaceholder:'What problem would you like to solve together?',
+    regNote:'No spam.',successTitle:'Welcome to ZAEDNO!',successSub:'We will notify you when the platform goes live.',
+    hearthLabel:'Have an idea or problem?',hearthBtn:'🔥 Light a hearth',footerCopy:'Together for a better world · 2026',
   },
   de: {
-    eyebrow: 'ZAEDNO · 2026',
-    title: 'Wir kämpfen<br><em>nicht.</em><br>Wir helfen.',
-    sub: 'Gemeinsam für eine bessere Welt — ein digitaler Raum, wo Menschen Ideen entwickeln und echte Probleme durch gegenseitige Hilfe lösen.',
-    slogan: '"<em>Gemeinsam für eine bessere Welt.</em>"',
-    rule: '<strong>Die eine Regel:</strong> Schade niemandem. Wenn du kannst — hilf.',
-    philosophy: 'Die Welt ist auf Wettbewerb ausgerichtet. Du gewinnst — jemand anderes verliert. ZAEDNO bietet einen anderen Weg: Menschen kämpfen nicht gegeneinander — sie ergänzen sich.',
-    philosophyAuthor: 'Die Philosophie von ZAEDNO',
-    howLabel: 'Wie es funktioniert',
-    howTitle: 'Drei einfache Schritte<br><em>zum Wandel</em>',
-    howSub: 'Keine komplexen Regeln. Keine Hierarchie. Nur Menschen, Ideen und der Wille zur Veränderung.',
-    s1title: 'Du schlägst ein Thema vor',
-    s1body: 'Siehst du etwas Ungerechtes? Du öffnest einen Herd — einen digitalen Raum rund um dieses Thema.',
-    s2title: 'Die richtigen Menschen finden dich',
-    s2body: 'Die Plattform verbindet Menschen mit unterschiedlichen Fähigkeiten rund um dein Thema.',
-    s3title: 'Gemeinsam erschafft ihr etwas Reales',
-    s3body: 'Der Herd endet nicht mit einem Gespräch. Er produziert etwas — ein Dokument, einen Vorschlag, eine Lösung.',
-    pillarsLabel: 'Die vier Säulen',
-    pillarsTitle: 'Wie die Plattform<br><em>aufgebaut ist</em>',
-    pillarsSub: 'Jede Funktion entspringt einer Idee — Menschen ergänzen sich, statt zu konkurrieren.',
-    p1title: 'Der lebende Baum', p1body: 'Themen verzweigen sich organisch. Du siehst die Plattform als lebendige Karte.',
-    p2title: 'Ideeninkubator', p2body: 'Ein roher Gedanke kommt als Samen. Die Gemeinschaft pflegt ihn.',
-    p3title: 'Der Herd wächst', p3body: 'Der Herd hat einen Lebenszyklus — er wird geboren, wächst, reift und erschafft ein Produkt.',
-    p4title: 'Begegnung der Fähigkeiten', p4body: 'Für "Ökologie" suchen wir nicht nur Ökologen. Wir bauen ein Team.',
-    lifecycleLabel: 'Der Lebenszyklus des Herdes',
-    lifecycleTitle: 'Von einem Funken<br><em>zum Erbe</em>',
-    lifecycleSub: 'Jeder Herd beginnt mit einem Gedanken und kann mit echtem Wandel enden.',
-    l1: 'Funke', l1d: 'Die Idee entsteht',
-    l2: 'Entzündung', l2d: 'Die Gemeinschaft versammelt sich',
-    l3: 'Feuer', l3d: 'Der Herd brennt',
-    l4: 'Glut', l4d: 'Ein echtes Produkt entsteht',
-    l5: 'Erbe', l5d: 'Die Veränderung bleibt',
-    ruleLabel: 'Das Fundament von allem',
-    ruleText: '"Schade niemandem.<br>Wenn du kannst — hilf."',
-    ruleSub: 'Älter als jede Verfassung. Reiner als jedes Gesetz.',
-    ctaTitle: 'Bereit,<br><em>einen Herd zu entzünden?</em>',
-    ctaSub: 'Eine Utopie ist nur eine Idee, die auf ihren Moment wartet.\nVielleicht ist der Moment jetzt.',
-    ctaBtn: 'Mitmachen',
-    counterLabel: 'Seitenbesuche',
-    namePlaceholder: 'Dein Name',
-    emailPlaceholder: 'Deine E-Mail',
-    problemPlaceholder: 'Welches Problem möchtest du gemeinsam lösen?',
-    regNote: 'Kein Spam. Nur wenn ZAEDNO live geht.',
-    successTitle: 'Willkommen bei ZAEDNO!',
-    successSub: 'Wir benachrichtigen dich, wenn die Plattform live geht.',
-    hearthLabel: 'Hast du eine Idee oder ein Problem?',
-    hearthBtn: '🔥 Einen Herd entzünden',
-    hearthModalTitle: 'Einen Herd entzünden',
-    hearthTopicPlaceholder: 'Beschreibe das Thema...',
-    hearthSubmit: 'Senden',
-    hearthCancel: 'Abbrechen',
-    footerCopy: 'Gemeinsam für eine bessere Welt · 2026',
+    navHearths:'Herde',navAnalysis:'Analyse',navAbout:'Über uns',
+    eyebrow:'ZAEDNO · 2026',title:'Wir kämpfen<br><em>nicht.</em><br>Wir helfen.',
+    sub:'Gemeinsam für eine bessere Welt — ein digitaler Raum, wo Menschen Ideen entwickeln.',
+    slogan:'"<em>Gemeinsam für eine bessere Welt.</em>"',rule:'<strong>Die eine Regel:</strong> Schade niemandem. Wenn du kannst — hilf.',
+    philosophy:'Die Welt ist auf Wettbewerb ausgerichtet. ZAEDNO bietet einen anderen Weg: Menschen ergänzen sich.',
+    philosophyAuthor:'Die Philosophie von ZAEDNO',
+    howLabel:'Wie es funktioniert',howTitle:'Drei einfache Schritte<br><em>zum Wandel</em>',howSub:'Keine komplexen Regeln.',
+    s1title:'Du schlägst ein Thema vor',s1body:'Du öffnest einen Herd — einen digitalen Raum.',
+    s2title:'Die richtigen Menschen finden dich',s2body:'Die Plattform verbindet Menschen mit unterschiedlichen Fähigkeiten.',
+    s3title:'Gemeinsam erschafft ihr etwas Reales',s3body:'Der Herd produziert ein Dokument, einen Vorschlag, eine Lösung.',
+    pillarsLabel:'Die vier Säulen',pillarsTitle:'Wie die Plattform<br><em>aufgebaut ist</em>',pillarsSub:'Jede Funktion entspringt einer Idee.',
+    p1title:'Der lebende Baum',p1body:'Themen verzweigen sich organisch.',p2title:'Ideeninkubator',p2body:'Ein roher Gedanke kommt als Samen.',
+    p3title:'Der Herd wächst',p3body:'Der Herd hat einen Lebenszyklus.',p4title:'Begegnung der Fähigkeiten',p4body:'Wir bauen ein Team.',
+    lifecycleLabel:'Der Lebenszyklus',lifecycleTitle:'Von einem Funken<br><em>zum Erbe</em>',lifecycleSub:'Jeder Herd beginnt mit einem Gedanken.',
+    l1:'Funke',l1d:'Die Idee entsteht',l2:'Entzündung',l2d:'Die Gemeinschaft versammelt sich',
+    l3:'Feuer',l3d:'Der Herd brennt',l4:'Glut',l4d:'Ein Produkt entsteht',l5:'Erbe',l5d:'Die Veränderung bleibt',
+    ruleLabel:'Das Fundament',ruleText:'"Schade niemandem.<br>Wenn du kannst — hilf."',ruleSub:'Älter als jede Verfassung.',
+    ctaTitle:'Bereit,<br><em>einen Herd zu entzünden?</em>',ctaSub:'Vielleicht ist der Moment jetzt.',ctaBtn:'Mitmachen',
+    counterLabel:'Seitenbesuche',namePlaceholder:'Dein Name',emailPlaceholder:'Deine E-Mail',problemPlaceholder:'Welches Problem möchtest du lösen?',
+    regNote:'Kein Spam.',successTitle:'Willkommen bei ZAEDNO!',successSub:'Wir benachrichtigen dich.',
+    hearthLabel:'Hast du eine Idee?',hearthBtn:'🔥 Einen Herd entzünden',footerCopy:'Gemeinsam für eine bessere Welt · 2026',
   },
   ru: {
-    eyebrow: 'ЗАЕДНО · 2026',
-    title: 'Мы не<br><em>соперничаем.</em><br>Мы помогаем.',
-    sub: 'Вместе для лучшего мира — цифровое пространство, где люди собираются вокруг идей и решают реальные проблемы через взаимопомощь.',
-    slogan: '"<em>Вместе для лучшего мира.</em>"',
-    rule: '<strong>Одно правило:</strong> Не причиняй вреда. Если можешь — помоги.',
-    philosophy: 'Мир устроен для конкуренции. Ты выигрываешь — кто-то проигрывает. ЗАЕДНО предлагает другой путь: люди не борются друг с другом — они дополняют друг друга.',
-    philosophyAuthor: 'Философия ЗАЕДНО',
-    howLabel: 'Как это работает',
-    howTitle: 'Три простых шага<br><em>к переменам</em>',
-    howSub: 'Никаких сложных правил. Никакой иерархии. Только люди, идеи и желание перемен.',
-    s1title: 'Ты предлагаешь тему',
-    s1body: 'Видишь что-то несправедливое? Ты открываешь очаг — цифровое пространство вокруг этой темы.',
-    s2title: 'Нужные люди находят тебя',
-    s2body: 'Платформа соединяет людей с разными навыками вокруг твоей темы.',
-    s3title: 'Вместе вы создаёте что-то реальное',
-    s3body: 'Очаг не гаснет разговором. Он рождает продукт — документ, предложение, решение.',
-    pillarsLabel: 'Четыре столпа',
-    pillarsTitle: 'Как построена<br><em>платформа</em>',
-    pillarsSub: 'Каждая функция вытекает из одной идеи — люди дополняют друг друга.',
-    p1title: 'Живое дерево', p1body: 'Темы разветвляются органично. Ты видишь платформу как живую карту.',
-    p2title: 'Инкубатор идей', p2body: 'Сырая мысль входит как семя. Сообщество её питает.',
-    p3title: 'Очаг растёт', p3body: 'Очаг имеет жизненный цикл — рождается, растёт, созревает и создаёт продукт.',
-    p4title: 'Встреча умений', p4body: 'Для "Экологии" мы ищем не только экологов. Мы собираем команду.',
-    lifecycleLabel: 'Жизненный цикл очага',
-    lifecycleTitle: 'От искры до<br><em>наследия</em>',
-    lifecycleSub: 'Каждый очаг начинается с одной мысли и может завершиться реальными переменами.',
-    l1: 'Искра', l1d: 'Идея рождается',
-    l2: 'Возгорание', l2d: 'Сообщество собирается',
-    l3: 'Огонь', l3d: 'Очаг горит',
-    l4: 'Жар', l4d: 'Создаётся продукт',
-    l5: 'Наследие', l5d: 'Перемены остаются',
-    ruleLabel: 'Основа всего',
-    ruleText: '"Не причиняй вреда другим.<br>Если можешь — помоги."',
-    ruleSub: 'Древнее любой конституции. Чище любого закона.',
-    ctaTitle: 'Готов<br><em>зажечь очаг?</em>',
-    ctaSub: 'Утопия — это просто идея, ждущая своего момента.\nВозможно, момент настал.',
-    ctaBtn: 'Присоединиться',
-    counterLabel: 'посещений сайта',
-    namePlaceholder: 'Твоё имя',
-    emailPlaceholder: 'Твой email',
-    problemPlaceholder: 'Какую проблему ты хочешь решить вместе с другими?',
-    regNote: 'Без спама. Только когда ЗАЕДНО оживёт.',
-    successTitle: 'Добро пожаловать в ЗАЕДНО!',
-    successSub: 'Мы уведомим тебя, когда платформа заработает.',
-    hearthLabel: 'Есть идея или проблема?',
-    hearthBtn: '🔥 Зажечь очаг',
-    hearthModalTitle: 'Зажечь очаг',
-    hearthTopicPlaceholder: 'Опиши тему или проблему...',
-    hearthSubmit: 'Отправить',
-    hearthCancel: 'Отмена',
-    footerCopy: 'Вместе для лучшего мира · 2026',
+    navHearths:'Очаги',navAnalysis:'Анализ',navAbout:'О нас',
+    eyebrow:'ЗАЕДНО · 2026',title:'Мы не<br><em>соперничаем.</em><br>Мы помогаем.',
+    sub:'Вместе для лучшего мира — цифровое пространство для решения реальных проблем.',
+    slogan:'"<em>Вместе для лучшего мира.</em>"',rule:'<strong>Одно правило:</strong> Не причиняй вреда. Если можешь — помоги.',
+    philosophy:'Мир устроен для конкуренции. ЗАЕДНО предлагает другой путь: люди дополняют друг друга.',
+    philosophyAuthor:'Философия ЗАЕДНО',
+    howLabel:'Как это работает',howTitle:'Три простых шага<br><em>к переменам</em>',howSub:'Никаких сложных правил.',
+    s1title:'Ты предлагаешь тему',s1body:'Ты открываешь очаг — цифровое пространство.',
+    s2title:'Нужные люди находят тебя',s2body:'Платформа соединяет людей с разными навыками.',
+    s3title:'Вместе вы создаёте реальное',s3body:'Очаг рождает документ, предложение, решение.',
+    pillarsLabel:'Четыре столпа',pillarsTitle:'Как построена<br><em>платформа</em>',pillarsSub:'Люди дополняют друг друга.',
+    p1title:'Живое дерево',p1body:'Темы разветвляются органично.',p2title:'Инкубатор идей',p2body:'Сырая мысль входит как семя.',
+    p3title:'Очаг растёт',p3body:'Очаг имеет жизненный цикл.',p4title:'Встреча умений',p4body:'Мы собираем команду.',
+    lifecycleLabel:'Жизненный цикл',lifecycleTitle:'От искры до<br><em>наследия</em>',lifecycleSub:'Каждый очаг начинается с одной мысли.',
+    l1:'Искра',l1d:'Идея рождается',l2:'Возгорание',l2d:'Сообщество собирается',
+    l3:'Огонь',l3d:'Очаг горит',l4:'Жар',l4d:'Создаётся продукт',l5:'Наследие',l5d:'Перемены остаются',
+    ruleLabel:'Основа всего',ruleText:'"Не причиняй вреда.<br>Если можешь — помоги."',ruleSub:'Древнее любой конституции.',
+    ctaTitle:'Готов<br><em>зажечь очаг?</em>',ctaSub:'Возможно, момент настал.',ctaBtn:'Присоединиться',
+    counterLabel:'посещений сайта',namePlaceholder:'Твоё имя',emailPlaceholder:'Твой email',problemPlaceholder:'Какую проблему хочешь решить?',
+    regNote:'Без спама.',successTitle:'Добро пожаловать!',successSub:'Мы уведомим тебя.',
+    hearthLabel:'Есть идея?',hearthBtn:'🔥 Зажечь очаг',footerCopy:'Вместе для лучшего мира · 2026',
   }
 };
-
 function animateCounter(target) {
   const el = document.getElementById('counter');
   if (!el) return;
@@ -511,7 +350,6 @@ function animateCounter(target) {
     if (current >= target) clearInterval(interval);
   }, 40);
 }
-
 async function incrementVisit() {
   try {
     const res = await fetch(MAKE_WEBHOOK, {
@@ -520,61 +358,31 @@ async function incrementVisit() {
       body: JSON.stringify({ action: 'increment_visit' })
     });
     const data = await res.json();
-    if (data && data.посещения) {
-      animateCounter(data.посещения);
-    } else {
-      animateCounter(1);
-    }
-  } catch(e) {
-    animateCounter(1);
-  }
+    if (data && data.посещения) animateCounter(data.посещения);
+    else animateCounter(1);
+  } catch(e) { animateCounter(1); }
 }
-
 function submitForm() {
   const name = document.getElementById('reg-name').value.trim();
   const email = document.getElementById('reg-email').value.trim();
   const problem = document.getElementById('reg-problem').value.trim();
   if (!name || !email) { document.getElementById('reg-name').focus(); return; }
   const btn = document.getElementById('reg-btn');
-  btn.disabled = true;
-  btn.textContent = '...';
+  btn.disabled = true; btn.textContent = '...';
   fetch('https://formspree.io/f/xkoqyzgk', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
     body: JSON.stringify({ name, email, problem })
-  })
-  .then(res => {
-    if (res.ok) {
-      document.getElementById('reg-form').style.display = 'none';
-      document.getElementById('reg-success').style.display = 'block';
-    } else {
-      btn.disabled = false;
-      btn.textContent = 'Опитай пак';
-    }
-  })
-  .catch(() => {
-    document.getElementById('reg-form').style.display = 'none';
-    document.getElementById('reg-success').style.display = 'block';
-  });
+  }).then(res => {
+    if (res.ok) { document.getElementById('reg-form').style.display='none'; document.getElementById('reg-success').style.display='block'; }
+    else { btn.disabled=false; btn.textContent='Опитай пак'; }
+  }).catch(() => { document.getElementById('reg-form').style.display='none'; document.getElementById('reg-success').style.display='block'; });
 }
-
-function openHearth() { window.location.href = 'register.html'; }
-function closeHearth() { document.getElementById('hearth-modal').style.display = 'none'; document.body.style.overflow = ''; }
-function submitHearth() {
-  const topic = document.getElementById('hearth-topic').value.trim();
-  const email = document.getElementById('hearth-email').value.trim();
-  if (!topic || !email) return;
-  closeHearth();
-  alert('🔥 Огнището е запалено!');
-}
-
 function setLang(lang, btn) {
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
   if(btn) btn.classList.add('active');
-  const els = document.querySelectorAll('[data-i18n]');
-  els.forEach(el => el.classList.add('lang-fade'));
   setTimeout(() => {
-    els.forEach(el => {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if(T[lang][key] !== undefined) el.innerHTML = T[lang][key];
     });
@@ -582,10 +390,8 @@ function setLang(lang, btn) {
       const key = el.getAttribute('data-placeholder');
       if(T[lang][key]) el.placeholder = T[lang][key];
     });
-    els.forEach(el => el.classList.remove('lang-fade'));
   }, 200);
 }
-
 window.addEventListener('DOMContentLoaded', () => {
   setLang('bg');
   incrementVisit();
