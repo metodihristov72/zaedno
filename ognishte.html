@@ -21,6 +21,8 @@ nav { position: relative; z-index: 10; display: flex; justify-content: space-bet
 .nav-links { display: flex; gap: 2rem; align-items: center; }
 .nav-links a { font-size: 0.85rem; color: var(--stone); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; white-space: nowrap; }
 .nav-links a:hover { color: var(--stone-dark); }
+.nav-links a.nav-lora { color: var(--amber); }
+.nav-links a.nav-lora:hover { color: var(--stone-dark); }
 .lang-switcher { display: flex; gap: 0.3rem; align-items: center; flex-wrap: wrap; }
 .lang-btn { background: none; border: 1px solid transparent; border-radius: 6px; padding: 0.3rem 0.6rem; font-family: 'Jost', sans-serif; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.1em; color: var(--stone); cursor: pointer; transition: all 0.2s ease; }
 .lang-btn:hover { color: var(--stone-dark); border-color: var(--mist); }
@@ -77,6 +79,7 @@ footer { position: relative; z-index: 1; border-top: 1px solid rgba(184,196,190,
   <a class="logo" href="index.html">З<span>А</span>ЕДНО</a>
   <div class="nav-links">
     <a href="ognishta.html" data-i18n="navHearths">Огнища</a>
+    <a href="lora.html" class="nav-lora">📡 LoRa Мрежа</a>
     <a href="analiz.html" data-i18n="navAnalysis">Анализ</a>
     <a href="register.html" data-i18n="navJoin">Присъединяване</a>
   </div>
