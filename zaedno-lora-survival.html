@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЗАЕДНО · LoRa Огнища · Устойчивост</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:    #f5f0e8;
+    --bg2:   #ede7d9;
+    --bg3:   #e4dcc8;
+    --ink:   #1a1612;
+    --ink2:  #3d3530;
+    --ink3:  #6b5e54;
+    --amber: #b5750a;
+    --green: #2d6e4e;
+    --red:   #8b2e1a;
+    --border: rgba(26,22,18,0.12);
+    --bs: rgba(26,22,18,0.25);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--ink2);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.75;overflow-x:hidden;}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.5;}
+  *{position:relative;z-index:1;}
+
+  /* HEADER */
+  header{background:var(--ink);color:var(--bg);padding:70px 24px 60px;overflow:hidden;}
+  header::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(181,117,10,0.15) 0%,transparent 70%);pointer-events:none;}
+  .signal-rings{position:absolute;top:50%;right:60px;transform:translateY(-50%);width:320px;height:320px;pointer-events:none;}
+  .ring{position:absolute;border-radius:50%;border:1px solid rgba(181,117,10,0.5);top:50%;left:50%;transform:translate(-50%,-50%) scale(0);animation:pulse 4s ease-out infinite;}
+  .ring:nth-child(1){width:80px;height:80px;animation-delay:0s;}
+  .ring:nth-child(2){width:160px;height:160px;animation-delay:1s;}
+  .ring:nth-child(3){width:250px;height:250px;animation-delay:2s;}
+  .ring:nth-child(4){width:320px;height:320px;animation-delay:3s;}
+  @keyframes pulse{0%{transform:translate(-50%,-50%) scale(0);opacity:0.7;}100%{transform:translate(-50%,-50%) scale(1);opacity:0;}}
+  .hero-inner{max-width:900px;margin:0 auto;}
+  .hero-tag{display:inline-block;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--amber);border:1px solid rgba(181,117,10,0.4);padding:5px 14px;margin-bottom:28px;}
+  header h1{font-family:'Syne',sans-serif;font-size:clamp(40px,9vw,96px);font-weight:800;line-height:0.95;color:var(--bg);margin-bottom:24px;}
+  header h1 em{color:var(--amber);font-style:normal;}
+  .hero-lead{font-size:clamp(15px,2vw,18px);color:rgba(245,240,232,0.7);max-width:540px;margin-bottom:48px;line-height:1.7;}
+  .hero-stats{display:flex;flex-wrap:wrap;gap:40px;padding-top:40px;border-top:1px solid rgba(245,240,232,0.12);}
+  .stat-num{font-family:'Syne',sans-serif;font-size:34px;font-weight:800;color:var(--amber);display:block;line-height:1;}
+  .stat-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,240,232,0.4);margin-top:5px;display:block;}
+
+  /* LAYOUT */
+  .wrap{max-width:900px;margin:0 auto;padding:0 24px;}
+  .sec{padding:72px 0 0;}
+  .sec-label{font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
+  .sec h2{font-family:'Syne',sans-serif;font-size:clamp(24px,5vw,42px);font-weight:800;color:var(--ink);line-height:1.15;margin-bottom:16px;padding-bottom:16px;border-bottom:3px solid var(--ink);}
+  .sec-intro{font-size:15px;color:var(--ink3);max-width:640px;margin-bottom:36px;line-height:1.8;}
+  .stripe{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:72px 24px;}
+
+  /* NOTICES */
+  .note{padding:20px 24px;margin:28px 0;font-size:14px;line-height:1.7;color:var(--ink2);}
+  .note.amber{background:rgba(181,117,10,0.08);border-left:4px solid var(--amber);}
+  .note.green{background:rgba(45,110,78,0.08);border-left:4px solid var(--green);}
+  .note.amber strong{color:var(--amber);}
+  .note.green strong{color:var(--green);}
+
+  /* CARDS */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--bs);margin:32px 0;}
+  .card{background:var(--bg);padding:28px 24px;transition:background 0.25s;}
+  .card:hover{background:var(--bg3);}
+  .card-stripe{background:var(--bg2);}
+  .card-stripe:hover{background:var(--bg3);}
+  .card-icon{font-size:30px;margin-bottom:14px;display:block;}
+  .card-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--ink);margin-bottom:12px;}
+  .card p{font-size:13px;color:var(--ink3);line-height:1.75;}
+
+  /* LAYERS */
+  .layers{margin:36px 0;}
+  .layer{display:grid;grid-template-columns:72px 1fr;gap:20px;padding:28px 0;border-bottom:1px solid var(--border);align-items:start;}
+  .layer:last-child{border-bottom:none;}
+  .layer-num{font-family:'Syne',sans-serif;font-size:52px;font-weight:800;color:var(--border);line-height:1;transition:color 0.3s;}
+  .layer:hover .layer-num{color:var(--amber);}
+  .layer-badge{display:inline-block;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;margin-bottom:10px;border-radius:2px;}
+  .badge-green{background:rgba(45,110,78,0.12);color:var(--green);border:1px solid rgba(45,110,78,0.3);}
+  .badge-amber{background:rgba(181,117,10,0.12);color:var(--amber);border:1px solid rgba(181,117,10,0.3);}
+  .layer-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--ink);margin-bottom:10px;}
+  .layer-body{font-size:14px;color:var(--ink2);margin-bottom:16px;line-height:1.8;}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .tag{font-size:12px;padding:4px 12px;background:var(--bg3);border:1px solid var(--bs);color:var(--ink3);border-radius:2px;}
+
+  /* HARDWARE */
+  .hw-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--bs);margin:32px 0;}
+  .hw-card{background:var(--bg2);padding:28px 24px;position:relative;overflow:hidden;}
+  .hw-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--amber);transform:scaleX(0);transform-origin:left;transition:transform 0.4s;}
+  .hw-card:hover::after{transform:scaleX(1);}
+  .hw-price{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--amber);line-height:1;margin-bottom:4px;}
+  .hw-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--ink);margin-bottom:18px;}
+  .hw-list{list-style:none;}
+  .hw-list li{font-size:13px;color:var(--ink2);padding:7px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:10px;line-height:1.5;}
+  .hw-list li:last-child{border-bottom:none;}
+  .hw-list li::before{content:'→';color:var(--amber);font-size:11px;margin-top:2px;flex-shrink:0;}
+
+  /* COMPARISON */
+  .cmp-table{width:100%;border-collapse:collapse;margin:28px 0;font-size:13px;}
+  .cmp-table th{background:var(--ink);color:var(--bg);padding:12px 16px;text-align:left;font-family:'Syne',sans-serif;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;}
+  .cmp-table td{padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg2);color:var(--ink2);vertical-align:top;line-height:1.6;}
+  .cmp-table tr:last-child td{border-bottom:none;}
+  .cmp-table td:first-child{font-weight:500;color:var(--ink);background:var(--bg3);}
+
+  /* SURVIVAL */
+  .sv-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:32px 0;}
+  .sv-card{background:var(--bg);border:1px solid var(--bs);padding:26px;transition:border-color 0.3s,transform 0.3s;}
+  .sv-card:hover{border-color:var(--amber);transform:translateY(-2px);}
+  .sv-card.crit{border-color:rgba(139,46,26,0.4);background:rgba(139,46,26,0.04);}
+  .sv-icon{font-size:30px;margin-bottom:14px;display:block;}
+  .sv-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--ink);margin-bottom:14px;}
+  .sv-list{list-style:none;}
+  .sv-list li{font-size:13px;color:var(--ink2);padding:5px 0 5px 18px;border-bottom:1px solid var(--border);position:relative;line-height:1.6;}
+  .sv-list li:last-child{border-bottom:none;}
+  .sv-list li::before{content:'·';position:absolute;left:0;color:var(--amber);font-size:20px;line-height:1.2;}
+
+  /* STEPS */
+  .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--bs);margin:32px 0;}
+  .step-card{background:var(--bg);padding:28px 22px;transition:background 0.25s;}
+  .step-card:hover{background:var(--bg3);}
+  .step-num{font-family:'Syne',sans-serif;font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+  .step-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--ink);margin-bottom:10px;}
+  .step-text{font-size:13px;color:var(--ink3);line-height:1.75;}
+
+  /* QUOTE */
+  .quote-sec{background:var(--ink);color:var(--bg);padding:80px 24px;text-align:center;}
+  blockquote{font-family:'Syne',sans-serif;font-size:clamp(20px,4vw,36px);font-weight:700;line-height:1.4;color:var(--bg);max-width:680px;margin:0 auto 20px;}
+  blockquote em{color:var(--amber);font-style:normal;}
+  cite{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:rgba(245,240,232,0.35);}
+
+  /* FOOTER */
+  footer{background:var(--ink2);padding:40px 24px;text-align:center;border-top:3px solid var(--amber);}
+  .footer-logo{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--bg);margin-bottom:6px;}
+  .footer-logo span{color:var(--amber);}
+  .footer-sub{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(245,240,232,0.3);}
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  @media(max-width:640px){
+    .grid2,.hw-grid,.sv-grid,.steps-grid{grid-template-columns:1fr;}
+    .layer{grid-template-columns:48px 1fr;}
+    .signal-rings{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="signal-rings">
+    <div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-tag">ЗАЕДНО · LoRa Огнища · Устойчивост</div>
+    <h1>НЕЗАВИСИМИ.<br><em>СВЪРЗАНИ.</em><br>ГОТОВИ.</h1>
+    <p class="hero-lead">Представи си общност от съседи и приятели, която комуникира без интернет, без GSM кула, без такси — само чрез малки радио устройства в джоба. Добавете офлайн карти, чиста вода и план. Това е ЗАЕДНО огнището.</p>
+    <div class="hero-stats">
+      <div><span class="stat-num">50км</span><span class="stat-label">обхват без интернет</span></div>
+      <div><span class="stat-num">€65</span><span class="stat-label">цена на устройство</span></div>
+      <div><span class="stat-num">€0</span><span class="stat-label">такси месечно</span></div>
+      <div><span class="stat-num">∞</span><span class="stat-label">живот на мрежата</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ФИЛОСОФИЯ -->
+<div class="stripe">
+  <div class="wrap reveal">
+    <div class="sec-label">Основа</div>
+    <h2 class="sec" style="padding-top:0;">Не се борим. Помагаме.</h2>
+    <p class="sec-intro">Кризата не е момент за запознанства. Общността се изгражда сега — в тишина, в мир, с търпение. Когато дойде нуждата, хората се познават, доверието е изградено и системата работи. Технологията е само последният слой — върху основата от човешки отношения.</p>
+    <div class="grid2">
+      <div class="card card-stripe">
+        <span class="card-icon">🔥</span>
+        <div class="card-title">Огнище — хората са основата</div>
+        <p>Огнището е малка локална група от хора които се познават и си вярват — съседи, приятели, роднини в радиус от няколко квартала или села. Числото не е важно — важно е качеството на доверието. Преди да купиш каквото и да е устройство, намери 3-5 семейства с които искаш да изградиш това. Без хора технологията е безсмислена.</p>
+      </div>
+      <div class="card card-stripe">
+        <span class="card-icon">📡</span>
+        <div class="card-title">Мрежа — всеки е ретранслатор</div>
+        <p>LoRa мрежата работи по принципа на меша — всяко устройство едновременно получава и препраща сигнали. Колкото повече огнища се присъединят, толкова по-силна и далечна става мрежата. Едно устройство в центъра на София може да свързва огнища в Банкя, Бояна и Горна Баня без нито един централен сървър.</p>
+      </div>
+      <div class="card card-stripe">
+        <span class="card-icon">🗺️</span>
+        <div class="card-title">Навигация — офлайн и независима</div>
+        <p>GPS сигналът идва директно от сателит — не минава през интернет, не се плаща, не може да бъде спрян. Картите се свалят веднъж у дома и след това работят завинаги на телефона. Mapy.cz, Sygic, OsmAnd — всяко от тях работи перфектно без нито байт мобилни данни. Спираш интернета — картата продължава.</p>
+      </div>
+      <div class="card card-stripe">
+        <span class="card-icon">🛡️</span>
+        <div class="card-title">Устойчивост — за най-лошото</div>
+        <p>Системата е проектирана да работи именно когато другото спре. Земетресение, наводнение, прекъсване на тока, кибератака срещу телекомуникациите — при всеки сценарий LoRa мрежата продължава. Захранва се от малка батерия или соларен панел. Не зависи от никаква инфраструктура която може да се повреди.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- РАЗЛИКА С РАДИОСТАНЦИЯ -->
+<div class="wrap">
+  <div class="sec reveal">
+    <div class="sec-label">Разбиране</div>
+    <h2>Каква е разликата с радиостанцията в селото?</h2>
+    <p class="sec-intro">Много хора познават радиостанциите — те съществуват в България от десетилетия. LoRa е различна технология с различна философия. Нито едното не замества другото — но разликите са важни за да разбереш защо LoRa е по-подходяща за общностна координация.</p>
+    <table class="cmp-table">
+      <tr><th>Характеристика</th><th>Радиостанция</th><th>LoRa / Meshtastic</th></tr>
+      <tr><td>Вид комуникация</td><td>Гласова в реално време — чуваш човека директно</td><td>Текстови съобщения — като SMS без SIM карта</td></tr>
+      <tr><td>Поверителност</td><td>Всеки с приемник чува всичко — никаква поверителност</td><td>AES-256 криптиране — само твоята мрежа чете</td></tr>
+      <tr><td>Обхват</td><td>5-15км при директна видимост, по-малко в града</td><td>10-50км — зависи от терена и позицията на антената</td></tr>
+      <tr><td>Консумация</td><td>Висока — батерията трае часове при предаване</td><td>Много ниска — устройството работи седмици на батерия</td></tr>
+      <tr><td>Цена</td><td>€50-200 за устройство, понякога лиценз</td><td>€25-65 за устройство, нула такси завинаги</td></tr>
+      <tr><td>Писмен запис</td><td>Няма — казаното изчезва</td><td>Всички съобщения се запазват на устройството</td></tr>
+      <tr><td>GPS позиции</td><td>Не — не знаеш къде е другият</td><td>Да — виждаш позициите на всички в мрежата на картата</td></tr>
+      <tr><td>Мрежа от точки</td><td>Не — само пряка връзка</td><td>Да — всеки е ретранслатор, мрежата расте сама</td></tr>
+    </table>
+    <div class="note amber"><strong>Важно:</strong> Радиостанцията и LoRa не се изключват. При криза може да имаш и двете — гласова за спешни случаи и LoRa за координация, позиции и съобщения. Много подготвени общности ги комбинират.</div>
+  </div>
+</div>
+
+<!-- ТРИ СЛОЯ -->
+<div class="stripe">
+  <div class="wrap reveal">
+    <div class="sec-label">Архитектура</div>
+    <h2 class="sec" style="padding-top:0;">Три слоя на независимост</h2>
+    <p class="sec-intro">Системата не е монолитна — изградена е от три независими слоя, всеки от които работи самостоятелно. Дори да се повреди единият, другите продължават. Добавяш слоевете постепенно — не е нужно всичко наведнъж.</p>
+    <div class="layers">
+      <div class="layer">
+        <div class="layer-num">01</div>
+        <div>
+          <span class="layer-badge badge-green">Имаш вече ✓</span>
+          <div class="layer-title">Лична навигация — офлайн карти</div>
+          <p class="layer-body">Това е най-простият слой — и най-вероятно вече го имаш. Свалените офлайн карти на телефона работят единствено от GPS сигнал, идващ директно от сателит. Нито интернет, нито SIM карта, нито никаква инфраструктура не е необходима. Mapy.cz е сред най-добрите за планински пътеки и малки пътища в България и Гърция. Sygic е отличен за навигация с кола с гласови указания. OsmAnd предлага топографски карти с хоризонтали — незаменими при офроуд и планини. Можеш да имаш и трите едновременно на телефона за различни ситуации.</p>
+          <div class="tags"><span class="tag">Mapy.cz</span><span class="tag">Sygic</span><span class="tag">OsmAnd</span><span class="tag">GPS сателит</span><span class="tag">Без интернет</span><span class="tag">Без такси</span></div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="layer-num">02</div>
+        <div>
+          <span class="layer-badge badge-amber">Следваща стъпка</span>
+          <div class="layer-title">LoRa комуникация — огнището е свързано</div>
+          <p class="layer-body">T-Echo Plus е малко устройство с размерите на дебел телефон, съдържащо LoRa радио предавател, GPS приемник и e-paper дисплей. Свързва се с телефона ти по Bluetooth и чрез Meshtastic виждаш на картата позициите на всички в огнището — дори без интернет, дори без GSM сигнал. Пишеш текстови съобщения, координираш движение, изпращаш своята позиция. Устройството работи седмици на батерия и може да се зарежда от соларен панел. Обхватът в София между квартали е 3-10км, на открито от покрив до покрив — 20-50км.</p>
+          <div class="tags"><span class="tag">T-Echo Plus 868MHz</span><span class="tag">Meshtastic</span><span class="tag">GPS вграден</span><span class="tag">AES-256</span><span class="tag">Меш мрежа</span><span class="tag">Соларно зареждане</span></div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="layer-num">03</div>
+        <div>
+          <span class="layer-badge badge-green">Платформа</span>
+          <div class="layer-title">ЗАЕДНО — дигиталният слой при нормални условия</div>
+          <p class="layer-body">Когато интернетът работи, ЗАЕДНО на zaedno.online е пълноценна платформа — статии, взаимопомощ, координация на дейности, архив на знания. Огнищата регистрират членовете си, комуникират с другите огнища, споделят ресурси. При криза LoRa поема в ограничен вид — кратките съобщения и позициите продължават. Двата слоя се допълват: ЗАЕДНО изгражда доверието в мирно време, LoRa го поддържа когато всичко друго спре.</p>
+          <div class="tags"><span class="tag">zaedno.online</span><span class="tag">Огнища</span><span class="tag">Взаимопомощ</span><span class="tag">Архив</span><span class="tag">Общност</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ХАРДУЕР -->
+<div class="wrap">
+  <div class="sec reveal">
+    <div class="sec-label">Хардуер</div>
+    <h2>Какво купуваш и защо</h2>
+    <p class="sec-intro">Не трябва да купуваш всичко наведнъж. Започни с офлайн картите — струват нула. После добави T-Echo Plus. Соларният панел идва когато искаш пълна независимост от контакта.</p>
+    <div class="hw-grid">
+      <div class="hw-card">
+        <div class="hw-price">€65</div>
+        <div class="hw-name">LilyGO T-Echo · 868MHz за Европа</div>
+        <ul class="hw-list">
+          <li>LoRa SX1262 на 868 MHz — европейската честота, легална без лиценз в България</li>
+          <li>L76K GPS — поддържа GPS, GLONASS, BeiDou и QZSS едновременно за бърз и точен сигнал</li>
+          <li>E-Paper дисплей — вижда се перфектно на директно слънце, консумира ток само при обновяване</li>
+          <li>NRF52840 чип — значително по-пестелив от ESP32 алтернативите, батерията трае седмици</li>
+          <li>Bluetooth 5 — свързва се с телефона и Meshtastic приложението без кабел</li>
+          <li>Внимавай при поръчка: избери задължително 868MHz, не 915MHz (за САЩ)</li>
+        </ul>
+      </div>
+      <div class="hw-card">
+        <div class="hw-price">€0</div>
+        <div class="hw-name">Meshtastic — приложението</div>
+        <ul class="hw-list">
+          <li>Безплатно за Android и iOS — сваляш от магазина, свързваш с T-Echo по Bluetooth</li>
+          <li>Показва позициите на всички в огнището върху карта в реално време без интернет</li>
+          <li>Текстови съобщения с AES-256 криптиране — само хората в мрежата ти ги четат</li>
+          <li>Работи напълно офлайн — не изпраща нищо към сървър, всичко е локално на устройствата</li>
+          <li>Канали — имаш отделен канал за огнището и отделен за по-широката регионална мрежа</li>
+          <li>Open source с активна общност — редовни обновления и нови функции</li>
+        </ul>
+      </div>
+      <div class="hw-card">
+        <div class="hw-price">€0</div>
+        <div class="hw-name">Офлайн карти — вече ги имаш</div>
+        <ul class="hw-list">
+          <li>Mapy.cz — най-детайлни планински пътеки за България и Балканите, тествано офлайн</li>
+          <li>Sygic — навигация с гласови указания за кола, работи перфектно без интернет</li>
+          <li>OsmAnd — топографски карти с хоризонтали, офроуд профили, записване на маршрути</li>
+          <li>Свалянето е веднъж — след това картата работи без интернет и без такси завинаги</li>
+          <li>GPS идва от сателит — спирането на интернета или GSM мрежата не засяга навигацията</li>
+          <li>Трите приложения може да стоят едновременно — превключваш за различни ситуации</li>
+        </ul>
+      </div>
+      <div class="hw-card">
+        <div class="hw-price">€25+</div>
+        <div class="hw-name">Соларен панел + power bank</div>
+        <ul class="hw-list">
+          <li>5W панел зарежда T-Echo и телефон едновременно при слънчев ден — достатъчно</li>
+          <li>Power bank 20 000mAh е буферът — зарежда се денем от слънцето, захранва нощем</li>
+          <li>При облачно работи с 30-50% редукция — все още достатъчно за T-Echo и телефон</li>
+          <li>T-Echo консумира толкова малко ток, че 5W панел го поддържа практически безкрайно</li>
+          <li>Панел + power bank + T-Echo на покрива = постоянен ретранслатор за целия квартал</li>
+          <li>Инвестицията се изплаща и в нормален живот — зареждаш телефона без контакт всеки ден</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ОЦЕЛЯВАНЕ -->
+<div class="stripe">
+  <div class="wrap reveal">
+    <div class="sec-label">Кризисна подготовка</div>
+    <h2 class="sec" style="padding-top:0;">Семейство в кризисна обстановка</h2>
+    <p class="sec-intro">Технологията е само един слой. Истинската подготовка е в знанието, запасите и хората около теб. Конкретният сценарий: семейство в града, криза, липса на ток, вода и гориво — как се действа.</p>
+    <div class="sv-grid">
+      <div class="sv-card crit">
+        <span class="sv-icon">💧</span>
+        <div class="sv-title">Вода — приоритет номер едно</div>
+        <ul class="sv-list">
+          <li>Минимум 4 литра на ден на човек — пиене, готвене и базова хигиена</li>
+          <li>Кладенецът е ресурс — дестилиран или филтриран с активен въглен е безопасен</li>
+          <li>Дъждовната вода е естествено дестилирана от природата — събирай и дестилирай</li>
+          <li>Дестилатор на газ или дърва работи без ток — ключов резерв при дълга криза</li>
+          <li>Изхвърляй първите 100мл от всяка дестилация — "главата" съдържа летливи вещества</li>
+          <li>Активен въглен от аптека или зоомагазин замества оригиналния филтър перфектно</li>
+        </ul>
+      </div>
+      <div class="sv-card crit">
+        <span class="sv-icon">🍱</span>
+        <div class="sv-title">Храна — ротационен запас</div>
+        <ul class="sv-list">
+          <li>Консерви, ориз, бобови, паста — купувай с излишък и го ротирай редовно</li>
+          <li>Целта е минимум 2 седмици за семейството без да ходиш до магазин</li>
+          <li>При стрес и физическо натоварване нуждата от калории се увеличава значително</li>
+          <li>Газова печка с резервни бутилки — готвиш без ток и без общински газ</li>
+          <li>Сол, захар, олио, оцет — без тях дори богатият запас е ограничен</li>
+          <li>Детето има специфични нужди — запасявай и детска храна която харесва</li>
+        </ul>
+      </div>
+      <div class="sv-card">
+        <span class="sv-icon">📡</span>
+        <div class="sv-title">Комуникация без инфраструктура</div>
+        <ul class="sv-list">
+          <li>T-Echo — пишеш съобщения и виждаш позициите на огнището без GSM и интернет</li>
+          <li>Офлайн карти на телефона — навигираш само с GPS сателит независимо от мрежата</li>
+          <li>Договори точки за среща с близките предварително — при криза не разчитай на телефон</li>
+          <li>Хартиена карта на региона — резерват ако телефонът се повреди или батерията свърши</li>
+          <li>AM/FM радио с батерии — следиш новини и официални съобщения от властите</li>
+          <li>Power station зарежда всичко — телефон, T-Echo, радио, осветление</li>
+        </ul>
+      </div>
+      <div class="sv-card">
+        <span class="sv-icon">🔋</span>
+        <div class="sv-title">Енергия и осветление</div>
+        <ul class="sv-list">
+          <li>Power station е сърцето — зарежда всичко важно и дава независимост от мрежата</li>
+          <li>Соларен панел презарежда power station — при слънце имаш практически безкраен цикъл</li>
+          <li>LED фенерчета с презареждащи батерии — по-ефективни от свещи при движение</li>
+          <li>Свещи са важни — без движещи се части, без батерии, работят при всякакви условия</li>
+          <li>Топлите дрехи са алтернативно "отопление" — намаляват нуждата от нагряване</li>
+          <li>Пестенето е стратегия — ползвай T-Echo и телефона само когато е необходимо</li>
+        </ul>
+      </div>
+      <div class="sv-card">
+        <span class="sv-icon">🚲</span>
+        <div class="sv-title">Придвижване без гориво — 50км</div>
+        <ul class="sv-list">
+          <li>Велосипедът е независим транспорт — не зависи от бензиностанции или пътна инфраструктура</li>
+          <li>Ремарке за колело (~€50-80) носи 40кг — power station, вода, храна, целия багаж</li>
+          <li>50км с колела е реалистично за деня — тръгни рано, преди масите да разберат</li>
+          <li>Тествай маршрута предварително в нормална обстановка — знай го наизуст с алтернативи</li>
+          <li>Малките пътища са по-безопасни при враждебна обстановка — по-бавно, но по-тихо</li>
+          <li>Детето между двамата възрастни — водачът напред, партньорът зад за защита</li>
+        </ul>
+      </div>
+      <div class="sv-card">
+        <span class="sv-icon">🧠</span>
+        <div class="sv-title">Психология на кризата</div>
+        <ul class="sv-list">
+          <li>Децата четат емоцията на родителя директно — твоето спокойствие е тяхната сигурност</li>
+          <li>Рутината успокоява при хаос — запази я дори при коренно променени условия</li>
+          <li>Дай на всеки член задача, включително детето — контролът намалява страха</li>
+          <li>Общността рязко намалява паниката — хората в огнището не са сами с проблема</li>
+          <li>Медитацията и контролираното дишане са инструменти — практикувай ги сега, в мир</li>
+          <li>Самата подготовка намалява тревожността — знаещият и подготвен човек не паникьосва</li>
+        </ul>
+      </div>
+      <div class="sv-card">
+        <span class="sv-icon">🏥</span>
+        <div class="sv-title">Медицина и здраве</div>
+        <ul class="sv-list">
+          <li>Лични медикаменти в 30-дневен запас — не разчитай на аптека при криза</li>
+          <li>Аптечка с превръзки, антисептик, болкоуспокояващи, антиалергични средства</li>
+          <li>Знай кръвните групи на всеки член на семейството — може да спаси живот</li>
+          <li>Наръчник за първа помощ в PDF — свален офлайн на телефона, достъпен без интернет</li>
+          <li>При дестилирана вода дълго — добавяй щипка морска сол за електролити</li>
+          <li>Физическата форма е превантивна медицина — добрата кондиция намалява нуждата от всичко</li>
+        </ul>
+      </div>
+      <div class="sv-card">
+        <span class="sv-icon">🤝</span>
+        <div class="sv-title">Огнището — истинският ключ</div>
+        <ul class="sv-list">
+          <li>3-5 семейства са несравнимо по-силни от едно семейство само — математиката на общността</li>
+          <li>Различните умения се допълват — лекар, механик, земеделец, строител в едно огнище</li>
+          <li>Запознай се с тях сега в мир — кризата не е момент за запознанства и изграждане на доверие</li>
+          <li>Споделените запаси намаляват индивидуалната тежест и разхода за всеки член</li>
+          <li>LoRa мрежата свързва огнищата — дори на различни квартали или съседни села</li>
+          <li>Огнището е и дигиталната точка за координация в ЗАЕДНО когато всичко е нормално</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- СТЪПКИ -->
+<div class="wrap">
+  <div class="sec reveal">
+    <div class="sec-label">Действие</div>
+    <h2>Как да започнеш — шест стъпки</h2>
+    <p class="sec-intro">Не е нужно всичко наведнъж. Всяка стъпка е завършена сама по себе си и носи стойност дори без следващата. Започни от там където си сега.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">Стъпка 01</div>
+        <div class="step-title">Свали офлайн карти</div>
+        <p class="step-text">Mapy.cz или OsmAnd — свали България и всеки регион който те интересува. Спри интернета и провери дали работи. Нула разход, нула риск — и вече имаш Слой 1 от цялата система.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">Стъпка 02</div>
+        <div class="step-title">Намери 2-3 семейства</div>
+        <p class="step-text">Съседи, приятели, роднини на които имаш доверие. Покажи им тази страница. Разговорът е по-важен от технологията — хората са основата на всичко което следва след това.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">Стъпка 03</div>
+        <div class="step-title">Регистрирай огнище</div>
+        <p class="step-text">zaedno.online — създай огнище за вашата група. Дай му име, опиши района, покани членовете. Свързва ви с другите общности в платформата и дава видимост на инициативата.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">Стъпка 04</div>
+        <div class="step-title">Вода и храна за 72 часа</div>
+        <p class="step-text">Минималният буфер — 4л вода на ден на човек плюс консерви за 3 дни. Не е параноя: 72-часов запас е официалната препоръка на Червения кръст за всяко домакинство.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">Стъпка 05</div>
+        <div class="step-title">T-Echo 868MHz</div>
+        <p class="step-text">Поръчай от AliExpress (~€65). Задължително 868MHz версия. Инсталирай Meshtastic. Когато двама в района имат устройство — мрежата вече работи и огнището е свързано.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">Стъпка 06</div>
+        <div class="step-title">Сплоти общността редовно</div>
+        <p class="step-text">Среща веднъж месечно — кафе, разходка, споделена дейност. Не чакай кризата за да се познавате. Огнището което се вижда редовно е несравнимо по-силно от група само в приложение.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ПОЛЗИ БЕЗ КРИЗА -->
+<div class="stripe">
+  <div class="wrap reveal">
+    <div class="sec-label">Всеки ден · Без криза</div>
+    <h2 class="sec" style="padding-top:0;">Какво печелиш сега — дори кризата да не дойде</h2>
+    <p class="sec-intro">Повечето хора не се подготвят защото мислят "при мен няма да се случи." Но подготовката носи конкретна полза всеки ден — независимо от кризата. Това не е параноя. Това е по-добър живот.</p>
+    <div class="grid2">
+      <div class="card card-stripe">
+        <span class="card-icon">💧</span>
+        <div class="card-title">Чиста вода всеки ден</div>
+        <p>Дестилираната вода не е само за кризи. Пиеш без бактерии, тежки метали, хлор и микропластмаса от ПЕТ бутилки. Спестяваш стотици левове годишно за минерална вода. Знаеш точно какво влиза в тялото ти. Независим си от водоснабдяването — не само при спиране, а постоянно всеки ден.</p>
+      </div>
+      <div class="card card-stripe">
+        <span class="card-icon">🧠</span>
+        <div class="card-title">Спокойствие и яснота</div>
+        <p>Когато имаш план — новините за криза, война или природно бедствие не те парализират. Не реагираш от паника, а от подготовка. Семейството усеща твоята стабилност. Детето расте с усещане за сигурност което идва от увереността на родителя, не от илюзията че "нищо лошо не може да се случи."</p>
+      </div>
+      <div class="card card-stripe">
+        <span class="card-icon">💰</span>
+        <div class="card-title">Финансов буфер срещу инфлация</div>
+        <p>Запасите от храна купени при нормални цени са реална защита срещу инфлацията. Когато цените скочат — ти вече го имаш. Power station намалява сметката за ток. Соларният панел работи всеки ден. Купуваш когато е изгодно, не когато трябва — и тази разлика се натрупва с времето.</p>
+      </div>
+      <div class="card card-stripe">
+        <span class="card-icon">🚲</span>
+        <div class="card-title">Здраве и физическа форма</div>
+        <p>Тестването на евакуационния маршрут с колела е редовна тренировка. 50км не е подвиг ако го правиш периодично — ставаш по-здрав, семейството ти също. Съвместните излети по маршрута са качествено преживяване: знаете го наизуст, детето обича природата, тялото е готово.</p>
+      </div>
+      <div class="card card-stripe">
+        <span class="card-icon">🌱</span>
+        <div class="card-title">Връзка със земята и селото</div>
+        <p>Редовните посещения поддържат имота жив. Познаваш съседите — те стават мрежата ти и в нормален живот. Градинарството, управлението на вода и дърва са умения за цял живот. Детето учи откъде идва храната и как функционира природата — знание което градът не може да даде.</p>
+      </div>
+      <div class="card card-stripe">
+        <span class="card-icon">🤝</span>
+        <div class="card-title">По-силна общност около теб</div>
+        <p>Хората с план привличат хора с план. Когато споделяш знанието — ставаш ресурс, не тежест. Огнището свързва семейства и в нормален живот — организирате дейности, помагате си, обменяте умения. Общността която изграждаш сега е твоята реална социална мрежа — не виртуалната.</p>
+      </div>
+    </div>
+    <div class="note green" style="margin-top:36px;"><strong>Същността:</strong> Подготовката не е за края на света. Тя е за по-добър живот сега — по-чиста вода, по-спокоен ум, по-здраво тяло, по-силна общност. Кризата е просто моментът когато тази инвестиция се изплаща изцяло наведнъж. Но стойността тече всеки ден.</div>
+  </div>
+</div>
+
+<!-- ЦИТАТ -->
+<div class="quote-sec">
+  <blockquote>"Всичко е вътре във вас —<br><em>извън вас не съществува нищо.</em>"</blockquote>
+  <cite>— Методи Христов · ЗАЕДНО</cite>
+</div>
+
+<footer>
+  <div class="footer-logo">ЗАЕДНО<span>.</span></div>
+  <div class="footer-sub">Не се борим · Помагаме · zaedno.online</div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:0.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
