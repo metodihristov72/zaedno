@@ -21,6 +21,8 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 .nav-links { display: flex; gap: 2rem; align-items: center; }
 .nav-links a { font-size: 0.85rem; color: var(--stone); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
 .nav-links a:hover { color: var(--stone-dark); }
+.nav-links a.nav-lora { color: var(--terracotta); }
+.nav-links a.nav-lora:hover { color: var(--stone-dark); }
 
 .lang-switcher { display: flex; gap: 0.3rem; align-items: center; }
 .lang-btn { background: none; border: 1px solid transparent; border-radius: 6px; padding: 0.3rem 0.6rem; font-family: 'Jost', sans-serif; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.1em; color: var(--stone); cursor: pointer; transition: all 0.2s ease; }
@@ -86,6 +88,7 @@ footer { border-top: 1px solid rgba(184,196,190,0.3); padding: 2rem 4rem; displa
   <a class="logo" href="index.html">З<span>А</span>ЕДНО</a>
   <div class="nav-links">
     <a href="ognishta.html" data-i18n="navHearths">Огнища</a>
+    <a href="lora.html" class="nav-lora">📡 LoRa Мрежа</a>
     <a href="analiz.html" data-i18n="navAnalysis">Анализ</a>
     <a href="register.html" data-i18n="navJoin">Присъединяване</a>
   </div>
@@ -115,7 +118,7 @@ footer { border-top: 1px solid rgba(184,196,190,0.3); padding: 2rem 4rem; displa
   <div class="error-msg" id="error-msg" data-i18n="errorMsg">Грешка при зареждане. Опитайте по-късно.</div>
 
   <div class="search-bar">
-    <input type="text" id="search-input" placeholder="Търси по име или описание..." oninput="filterCards()" />
+    <input type="text" id="search-input" placeholder="Търси по ime или описание..." oninput="filterCards()" />
   </div>
 
   <div class="loading" id="loading" data-i18n="loading">Зареждане на огнищата...</div>
@@ -142,7 +145,7 @@ const T = {
     errorMsg: 'Грешка при зареждане. Опитайте по-късно.',
     loading: 'Зареждане на огнищата...',
     empty: 'Няма намерени огнища',
-    searchPlaceholder: 'Търси по име или описание...',
+    searchPlaceholder: 'Търси по ime или описание...',
     memberSingular: 'член', memberPlural: 'члена',
     noDesc: 'Няма описание.',
     footerCopy: 'Заедно за по-добър свят · 2026',
