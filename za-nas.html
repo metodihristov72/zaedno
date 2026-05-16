@@ -21,6 +21,8 @@ nav { display: flex; justify-content: space-between; align-items: center; paddin
 .nav-links a { font-size: 0.85rem; color: var(--stone); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; }
 .nav-links a:hover { color: var(--stone-dark); }
 .nav-links a.active { color: var(--terracotta); }
+.nav-links a.nav-lora { color: var(--terracotta); }
+.nav-links a.nav-lora:hover { color: var(--stone-dark); }
 
 .opening { max-width: 780px; margin: 0 auto; padding: 6rem 2rem 3rem; text-align: center; }
 .opening-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.4em; text-transform: uppercase; color: var(--sage); margin-bottom: 2rem; display: block; }
@@ -89,6 +91,7 @@ footer { border-top: 1px solid rgba(184,196,190,0.3); padding: 2rem 4rem; displa
 
 @media (max-width: 768px) {
   nav, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .nav-links { gap: 1rem; flex-wrap: wrap; }
   .opening { padding: 4rem 1.5rem 2rem; }
   .page-wrap { padding: 0 1.5rem 5rem; }
   .philosophy-grid { grid-template-columns: 1fr; }
@@ -102,6 +105,7 @@ footer { border-top: 1px solid rgba(184,196,190,0.3); padding: 2rem 4rem; displa
   <a class="logo" href="index.html">З<span>А</span>ЕДНО</a>
   <div class="nav-links">
     <a href="ognishta.html">Огнища</a>
+    <a href="lora.html" class="nav-lora">📡 LoRa Мрежа</a>
     <a href="za-nas.html" class="active">За нас</a>
     <a href="register.html">Присъединяване</a>
   </div>

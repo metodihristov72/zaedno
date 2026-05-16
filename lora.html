@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LoRa Огнища — ЗАЕДНО</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #F7F3EE; --warm-white: #FDFAF7;
+    --sage: #8FA88A; --sage-light: #C8D9C4; --sage-pale: #EBF2E9;
+    --terracotta: #C4785A; --terracotta-light: #E8C4B0; --terracotta-pale: #FAF0EA;
+    --stone: #8C8478; --stone-dark: #4A4440; --mist: #B8C4BE; --gold-soft: #C9A96E;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--stone-dark); overflow-x: hidden; }
+
+  /* NAV */
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4rem; position: relative; z-index: 10; gap: 1rem; border-bottom: 1px solid rgba(184,196,190,0.2); }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.12em; white-space: nowrap; text-decoration: none; }
+  .logo span { color: var(--terracotta); }
+  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+  .nav-links a { font-size: 0.85rem; color: var(--stone); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; white-space: nowrap; }
+  .nav-links a:hover, .nav-links a.active { color: var(--stone-dark); }
+  .nav-links a.active { border-bottom: 1px solid var(--terracotta); padding-bottom: 2px; color: var(--terracotta); }
+  .lang-switcher { display: flex; gap: 0.3rem; align-items: center; }
+  .lang-btn { background: none; border: 1px solid transparent; border-radius: 6px; padding: 0.3rem 0.6rem; font-family: 'Jost', sans-serif; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.1em; color: var(--stone); cursor: pointer; transition: all 0.2s; }
+  .lang-btn:hover { color: var(--stone-dark); border-color: var(--mist); }
+  .lang-btn.active { background: var(--terracotta-pale); border-color: var(--terracotta-light); color: var(--terracotta); font-weight: 500; }
+
+  /* HERO */
+  .page-hero { padding: 5rem 4rem 3rem; position: relative; overflow: hidden; text-align: center; }
+  .page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 20% 50%, rgba(143,168,138,0.15) 0%, transparent 60%), radial-gradient(ellipse 60% 80% at 80% 30%, rgba(196,120,90,0.08) 0%, transparent 60%); pointer-events: none; }
+  .hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
+  .page-eyebrow { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); margin-bottom: 1rem; display: block; }
+  .page-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 8vw, 7rem); font-weight: 300; line-height: 0.95; color: var(--stone-dark); margin-bottom: 1.5rem; }
+  .page-title em { font-style: italic; color: var(--terracotta); }
+  .page-sub { font-family: 'Cormorant Garamond', serif; font-size: clamp(1rem, 2.5vw, 1.4rem); font-weight: 300; font-style: italic; color: var(--stone); max-width: 620px; line-height: 1.7; margin-bottom: 2rem; }
+  .hero-stats { display: flex; flex-wrap: wrap; gap: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(184,196,190,0.3); justify-content: center; }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--terracotta); display: block; line-height: 1; }
+  .stat-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--stone); margin-top: 0.3rem; display: block; }
+
+  /* DIVIDER */
+  .divider { display: flex; align-items: center; gap: 1.5rem; margin: 1rem 0; }
+  .divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--mist), transparent); }
+  .divider-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--sage-light); }
+
+  /* SECTIONS */
+  section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); margin-bottom: 1rem; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.2; color: var(--stone-dark); margin-bottom: 1.5rem; }
+  .section-title em { font-style: italic; color: var(--terracotta); }
+  .section-body { font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--stone); max-width: 680px; }
+
+  /* PHILOSOPHY BOX */
+  .philosophy { background: var(--warm-white); border-radius: 2rem; padding: 3rem 2rem; margin: 2rem 0; border: 1px solid rgba(143,168,138,0.2); position: relative; overflow: hidden; }
+  .philosophy::before { content: '"'; font-family: 'Cormorant Garamond', serif; font-size: 14rem; color: var(--sage-pale); position: absolute; top: -3rem; left: 1rem; line-height: 1; pointer-events: none; }
+  .philosophy-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.1rem, 2.5vw, 1.8rem); font-weight: 300; font-style: italic; line-height: 1.6; color: var(--stone-dark); position: relative; z-index: 1; max-width: 700px; }
+  .philosophy-author { margin-top: 1.5rem; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--terracotta); font-weight: 400; position: relative; z-index: 1; }
+
+  /* STRIPE SECTION */
+  .stripe-section { background: var(--warm-white); border-top: 1px solid rgba(184,196,190,0.2); border-bottom: 1px solid rgba(184,196,190,0.2); padding: 4rem 2rem; }
+  .stripe-inner { max-width: 1100px; margin: 0 auto; }
+
+  /* PILLARS */
+  .pillars-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .pillar { background: var(--warm-white); border-radius: 1.5rem; padding: 2rem; border: 1px solid rgba(184,196,190,0.3); transition: transform 0.3s ease; }
+  .pillar:hover { transform: translateY(-4px); }
+  .pillar-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .pillar-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--stone-dark); margin-bottom: 0.75rem; }
+  .pillar-body { font-size: 0.88rem; font-weight: 300; line-height: 1.85; color: var(--stone); }
+
+  /* COMPARISON TABLE */
+  .cmp-wrap { margin-top: 3rem; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  thead tr { background: var(--stone-dark); color: var(--cream); }
+  thead th { padding: 1rem 1.2rem; text-align: left; font-family: 'Jost', sans-serif; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; }
+  tbody tr { border-bottom: 1px solid rgba(184,196,190,0.3); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--terracotta-pale); }
+  tbody td { padding: 0.9rem 1.2rem; color: var(--stone); font-weight: 300; line-height: 1.6; vertical-align: top; }
+  tbody td:first-child { font-weight: 500; color: var(--stone-dark); background: rgba(184,196,190,0.1); }
+
+  /* STEPS / LAYERS */
+  .steps { display: flex; flex-direction: column; gap: 0; margin-top: 3rem; }
+  .step { display: grid; grid-template-columns: 80px 1fr; gap: 2rem; align-items: start; padding: 2rem 0; border-bottom: 1px solid rgba(184,196,190,0.3); }
+  .step:last-child { border-bottom: none; }
+  .step-num { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; color: rgba(184,196,190,0.6); line-height: 1; transition: color 0.3s; }
+  .step:hover .step-num { color: var(--terracotta); }
+  .step-badge { display: inline-block; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.25rem 0.8rem; border-radius: 100px; margin-bottom: 0.75rem; }
+  .badge-sage { background: var(--sage-pale); color: var(--sage); border: 1px solid var(--sage-light); }
+  .badge-terra { background: var(--terracotta-pale); color: var(--terracotta); border: 1px solid var(--terracotta-light); }
+  .step-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--stone-dark); margin-bottom: 0.5rem; }
+  .step-body { font-size: 0.9rem; font-weight: 300; line-height: 1.85; color: var(--stone); margin-bottom: 1rem; }
+  .step-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag { font-size: 0.7rem; padding: 0.2rem 0.8rem; background: var(--cream); border: 1px solid rgba(184,196,190,0.5); color: var(--stone); border-radius: 100px; }
+
+  /* HARDWARE CARDS */
+  .hw-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .hw-card { background: var(--warm-white); border-radius: 1.5rem; padding: 2rem; border: 1px solid rgba(184,196,190,0.3); position: relative; overflow: hidden; transition: transform 0.3s; }
+  .hw-card:hover { transform: translateY(-4px); }
+  .hw-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(to right, var(--sage-light), var(--terracotta-light)); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+  .hw-card:hover::after { transform: scaleX(1); }
+  .hw-price { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--terracotta); line-height: 1; margin-bottom: 0.25rem; }
+  .hw-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--stone-dark); margin-bottom: 1.5rem; }
+  .hw-list { list-style: none; }
+  .hw-list li { font-size: 0.85rem; font-weight: 300; color: var(--stone); padding: 0.55rem 0; border-bottom: 1px solid rgba(184,196,190,0.2); display: flex; gap: 0.75rem; align-items: flex-start; line-height: 1.5; }
+  .hw-list li:last-child { border-bottom: none; }
+  .hw-list li::before { content: '→'; color: var(--terracotta); font-size: 0.75rem; margin-top: 0.2rem; flex-shrink: 0; }
+
+  /* SURVIVAL GRID */
+  .sv-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .sv-card { background: var(--warm-white); border-radius: 1.5rem; padding: 2rem; border: 1px solid rgba(184,196,190,0.3); transition: transform 0.3s; }
+  .sv-card:hover { transform: translateY(-4px); }
+  .sv-card.critical { border-color: var(--terracotta-light); background: var(--terracotta-pale); }
+  .sv-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .sv-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--stone-dark); margin-bottom: 1rem; }
+  .sv-list { list-style: none; }
+  .sv-list li { font-size: 0.85rem; font-weight: 300; color: var(--stone); padding: 0.45rem 0 0.45rem 1rem; border-bottom: 1px solid rgba(184,196,190,0.2); position: relative; line-height: 1.6; }
+  .sv-list li:last-child { border-bottom: none; }
+  .sv-list li::before { content: '·'; position: absolute; left: 0; color: var(--terracotta); font-size: 1.2rem; line-height: 1.3; }
+
+  /* ONE RULE */
+  .one-rule { background: linear-gradient(135deg, var(--sage-pale) 0%, var(--terracotta-pale) 100%); border-radius: 2rem; padding: 4rem 2rem; text-align: center; border: 1px solid rgba(143,168,138,0.25); margin: 3rem 0; }
+  .one-rule-label { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sage); margin-bottom: 1.5rem; display: block; }
+  .one-rule-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.5rem, 4vw, 3rem); font-weight: 300; font-style: italic; color: var(--stone-dark); line-height: 1.4; margin-bottom: 1rem; }
+  .one-rule-sub { font-size: 0.88rem; font-weight: 300; color: var(--stone); }
+
+  /* NOTICE */
+  .notice { padding: 1.2rem 1.5rem; margin: 1.5rem 0; font-size: 0.88rem; font-weight: 300; line-height: 1.7; border-radius: 1rem; }
+  .notice.sage { background: var(--sage-pale); border: 1px solid var(--sage-light); color: var(--stone-dark); }
+  .notice.terra { background: var(--terracotta-pale); border: 1px solid var(--terracotta-light); color: var(--stone-dark); }
+  .notice strong { color: var(--terracotta); font-weight: 500; }
+  .notice.sage strong { color: var(--sage); }
+
+  /* STEPS ACTION */
+  .action-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .action-card { background: var(--warm-white); border-radius: 1.5rem; padding: 1.8rem; border: 1px solid rgba(184,196,190,0.3); transition: transform 0.3s; }
+  .action-card:hover { transform: translateY(-4px); }
+  .action-num { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--terracotta); margin-bottom: 0.75rem; font-weight: 500; }
+  .action-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--stone-dark); margin-bottom: 0.5rem; }
+  .action-body { font-size: 0.83rem; font-weight: 300; line-height: 1.8; color: var(--stone); }
+
+  /* BENEFITS */
+  .benefits-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .benefit { background: var(--warm-white); border-radius: 1.5rem; padding: 2rem; border: 1px solid rgba(184,196,190,0.3); transition: transform 0.3s; }
+  .benefit:hover { transform: translateY(-4px); }
+  .benefit-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
+  .benefit-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--stone-dark); margin-bottom: 0.75rem; }
+  .benefit-body { font-size: 0.85rem; font-weight: 300; line-height: 1.85; color: var(--stone); }
+
+  /* CTA */
+  .cta-section { text-align: center; padding: 4rem 1.5rem; }
+  .cta-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 300; color: var(--stone-dark); margin-bottom: 1rem; }
+  .cta-title em { font-style: italic; color: var(--terracotta); }
+  .cta-sub { font-size: 0.9rem; font-weight: 300; color: var(--stone); margin-bottom: 2rem; line-height: 1.7; }
+  .cta-btn { display: inline-block; background: var(--terracotta); color: white; padding: 1rem 3rem; border-radius: 100px; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: background 0.3s; }
+  .cta-btn:hover { background: var(--stone-dark); }
+  .cta-btn-outline { display: inline-block; border: 2px solid var(--terracotta); color: var(--terracotta); padding: 1rem 3rem; border-radius: 100px; font-size: 0.85rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: all 0.3s; margin-left: 1rem; }
+  .cta-btn-outline:hover { background: var(--terracotta); color: white; }
+
+  /* FOOTER */
+  footer { border-top: 1px solid rgba(184,196,190,0.3); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.1em; }
+  .footer-copy { font-size: 0.75rem; font-weight: 300; color: var(--stone); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.2rem; flex-wrap: wrap; gap: 0.5rem; }
+    .nav-links { order: 3; width: 100%; justify-content: center; gap: 1.2rem; border-top: 1px solid rgba(184,196,190,0.2); padding-top: 0.75rem; }
+    .page-hero { padding: 3rem 1.2rem 2rem; }
+    section { padding: 2.5rem 1.2rem; }
+    .stripe-section { padding: 2.5rem 1.2rem; }
+    .pillars-grid, .hw-grid, .sv-grid, .action-steps, .benefits-grid { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 48px 1fr; gap: 1rem; }
+    .step-num { font-size: 2.5rem; }
+    .hero-stats { gap: 1.5rem; }
+    footer { padding: 1.5rem 1.2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    .cta-btn-outline { margin-left: 0; margin-top: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">З<span>А</span>ЕДНО</a>
+  <div class="nav-links">
+    <a href="ognishta.html">Огнища</a>
+    <a href="lora.html" class="active">LoRa Мрежа</a>
+    <a href="analiz.html">Анализ</a>
+    <a href="za-nas.html">За нас</a>
+  </div>
+  <div class="lang-switcher">
+    <button class="lang-btn active">БГ</button>
+    <button class="lang-btn">EN</button>
+    <button class="lang-btn">DE</button>
+    <button class="lang-btn">РУ</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="hero-inner">
+    <span class="page-eyebrow">ЗАЕДНО · LoRa Огнища · Устойчивост</span>
+    <h1 class="page-title">Независими.<br><em>Свързани.</em><br>Готови.</h1>
+    <p class="page-sub">Общност от съседи и приятели, която комуникира без интернет, без GSM кула, без такси — само чрез малки радио устройства в джоба. Добавете офлайн карти, чиста вода и план. Това е ЗАЕДНО огнището.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">50км</span><span class="stat-label">обхват без интернет</span></div>
+      <div class="stat"><span class="stat-num">€65</span><span class="stat-label">цена на устройство</span></div>
+      <div class="stat"><span class="stat-num">€0</span><span class="stat-label">такси месечно</span></div>
+      <div class="stat"><span class="stat-num">∞</span><span class="stat-label">живот на мрежата</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ФИЛОСОФИЯ -->
+<section>
+  <div class="divider reveal"><div class="divider-line"></div><div class="divider-dot"></div><div class="divider-line"></div></div>
+  <div class="philosophy reveal">
+    <p class="philosophy-text">Кризата не е момент за запознанства. Общността се изгражда сега — в тишина, в мир, с търпение. Технологията е само последният слой — върху основата от човешки отношения.</p>
+    <div class="philosophy-author">Философията на LoRa огнищата</div>
+  </div>
+</section>
+
+<!-- КАКВО Е LORA -->
+<div class="stripe-section">
+  <div class="stripe-inner">
+    <div class="reveal">
+      <div class="section-label">Разбиране</div>
+      <h2 class="section-title">Каква е разликата<br><em>с радиостанцията в селото?</em></h2>
+      <p class="section-body">Много хора познават радиостанциите. LoRa е различна технология с различна философия — не замества радиото, а допълва с нещо което радиото не може да даде.</p>
+    </div>
+    <div class="cmp-wrap reveal">
+      <table>
+        <thead>
+          <tr>
+            <th>Характеристика</th>
+            <th>Радиостанция</th>
+            <th>LoRa / Meshtastic</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Вид комуникация</td><td>Гласова в реално време</td><td>Текстови съобщения — като SMS без SIM карта</td></tr>
+          <tr><td>Поверителност</td><td>Всеки с приемник чува всичко</td><td>AES-256 криптиране — само твоята мрежа чете</td></tr>
+          <tr><td>Обхват</td><td>5–15км при директна видимост</td><td>10–50км в зависимост от терена</td></tr>
+          <tr><td>Консумация</td><td>Висока — батерията трае часове</td><td>Много ниска — устройството работи седмици</td></tr>
+          <tr><td>Цена</td><td>€50–200, понякога лиценз</td><td>€25–65, нула такси завинаги</td></tr>
+          <tr><td>GPS позиции</td><td>Не — не знаеш къде е другият</td><td>Да — виждаш всички на картата</td></tr>
+          <tr><td>Писмен запис</td><td>Няма — казаното изчезва</td><td>Всички съобщения се запазват</td></tr>
+          <tr><td>Мрежа от точки</td><td>Само пряка връзка</td><td>Меш — всеки е ретранслатор</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="notice sage reveal">
+      <strong>Важно:</strong> Радиостанцията и LoRa не се изключват. При криза може да имаш и двете — гласова за спешни случаи и LoRa за координация, позиции и съобщения. Много подготвени общности ги комбинират.
+    </div>
+  </div>
+</div>
+
+<!-- ТРИ СЛОЯ -->
+<section>
+  <div class="reveal">
+    <div class="section-label">Архитектура</div>
+    <h2 class="section-title">Три слоя на<br><em>независимост</em></h2>
+    <p class="section-body">Системата е изградена от три независими слоя. Всеки работи самостоятелно. Добавяш ги постепенно — не е нужно всичко наведнъж.</p>
+  </div>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <div>
+        <span class="step-badge badge-sage">Имаш вече ✓</span>
+        <div class="step-title">Лична навигация — офлайн карти</div>
+        <p class="step-body">Свалените офлайн карти на телефона работят единствено от GPS сигнал, идващ директно от сателит. Нито интернет, нито SIM карта, нито никаква инфраструктура. Mapy.cz е сред най-добрите за планински пътеки в България и Гърция. Sygic е отличен за навигация с кола. OsmAnd дава топографски карти с хоризонтали. Можеш да имаш и трите едновременно.</p>
+        <div class="step-tags">
+          <span class="tag">Mapy.cz</span><span class="tag">Sygic</span><span class="tag">OsmAnd</span>
+          <span class="tag">GPS сателит</span><span class="tag">Без интернет</span><span class="tag">Без такси</span>
+        </div>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">02</div>
+      <div>
+        <span class="step-badge badge-terra">Следваща стъпка</span>
+        <div class="step-title">LoRa комуникация — огнището е свързано</div>
+        <p class="step-body">T-Echo е малко устройство с размерите на дебел телефон — LoRa радио, GPS приемник и e-paper дисплей. Свързва се с телефона по Bluetooth. Чрез Meshtastic виждаш позициите на всички в огнището на картата — без интернет, без GSM. Пишеш съобщения, координираш, изпращаш позиция. Работи седмици на батерия. Може да се зарежда от соларен панел.</p>
+        <div class="step-tags">
+          <span class="tag">T-Echo 868MHz</span><span class="tag">Meshtastic</span><span class="tag">GPS вграден</span>
+          <span class="tag">AES-256</span><span class="tag">Меш мрежа</span><span class="tag">Соларно</span>
+        </div>
+      </div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">03</div>
+      <div>
+        <span class="step-badge badge-sage">Платформа</span>
+        <div class="step-title">ЗАЕДНО — дигиталният слой при нормални условия</div>
+        <p class="step-body">Когато интернетът работи, ЗАЕДНО е пълноценна платформа — статии, взаимопомощ, координация, архив на знания. При криза LoRa поема — кратките съобщения и позициите продължават. Двата слоя се допълват: ЗАЕДНО изгражда доверието в мирно време, LoRa го поддържа когато всичко друго спре.</p>
+        <div class="step-tags">
+          <span class="tag">zaedno.online</span><span class="tag">Огнища</span>
+          <span class="tag">Взаимопомощ</span><span class="tag">Архив</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ХАРДУЕР -->
+<div class="stripe-section">
+  <div class="stripe-inner">
+    <div class="reveal">
+      <div class="section-label">Хардуер</div>
+      <h2 class="section-title">Какво купуваш<br><em>и защо</em></h2>
+      <p class="section-body">Не е нужно всичко наведнъж. Офлайн картите струват нула. T-Echo е следващата стъпка. Соларният панел идва когато искаш пълна независимост.</p>
+    </div>
+    <div class="hw-grid">
+      <div class="hw-card reveal">
+        <div class="hw-price">€65</div>
+        <div class="hw-name">LilyGO T-Echo · 868MHz за Европа</div>
+        <ul class="hw-list">
+          <li>LoRa SX1262 на 868 MHz — европейската честота, легална без лиценз в България</li>
+          <li>L76K GPS — поддържа GPS, GLONASS, BeiDou и QZSS едновременно</li>
+          <li>E-Paper дисплей — вижда се на директно слънце, пести ток</li>
+          <li>NRF52840 чип — по-пестелив от ESP32, батерията трае седмици</li>
+          <li>Bluetooth 5 — свързва се с телефона и Meshtastic без кабел</li>
+          <li>Внимавай: задължително 868MHz, не 915MHz (за САЩ)</li>
+        </ul>
+      </div>
+      <div class="hw-card reveal">
+        <div class="hw-price">€0</div>
+        <div class="hw-name">Meshtastic — приложението</div>
+        <ul class="hw-list">
+          <li>Безплатно за Android и iOS — сваляш от магазина</li>
+          <li>Показва позициите на всички в огнището в реално време без интернет</li>
+          <li>AES-256 криптиране — само хората в мрежата ти четат</li>
+          <li>Работи напълно офлайн — нищо не се изпраща към сървър</li>
+          <li>Канали — отделен за огнището, отделен за регионалната мрежа</li>
+          <li>Open source — активна общност, редовни обновления</li>
+        </ul>
+      </div>
+      <div class="hw-card reveal">
+        <div class="hw-price">€0</div>
+        <div class="hw-name">Офлайн карти — вече ги имаш</div>
+        <ul class="hw-list">
+          <li>Mapy.cz — най-детайлни планински пътеки за Балканите</li>
+          <li>Sygic — навигация с гласови указания за кола офлайн</li>
+          <li>OsmAnd — топографски карти, офроуд профили, GPX маршрути</li>
+          <li>Свалянето е веднъж — работи без интернет и без такси завинаги</li>
+          <li>GPS от сателит — спирането на GSM мрежата не засяга навигацията</li>
+          <li>Трите приложения едновременно — за различни ситуации</li>
+        </ul>
+      </div>
+      <div class="hw-card reveal">
+        <div class="hw-price">€25+</div>
+        <div class="hw-name">Соларен панел + power bank</div>
+        <ul class="hw-list">
+          <li>5W панел зарежда T-Echo и телефон едновременно при слънце</li>
+          <li>Power bank 20 000mAh — зарежда се денем, захранва нощем</li>
+          <li>При облачно — 30–50% редукция, все още достатъчно за T-Echo</li>
+          <li>Панел + power bank + T-Echo на покрива = постоянен ретранслатор</li>
+          <li>Инвестицията се изплаща и в нормален живот — зареждаш без контакт</li>
+          <li>Комбиниран с power station — пълна енергийна независимост</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ОЦЕЛЯВАНЕ -->
+<section>
+  <div class="reveal">
+    <div class="section-label">Кризисна подготовка</div>
+    <h2 class="section-title">Семейство в<br><em>кризисна обстановка</em></h2>
+    <p class="section-body">Технологията е само един слой. Истинската подготовка е в знанието, запасите и хората около теб.</p>
+  </div>
+  <div class="sv-grid">
+    <div class="sv-card critical reveal">
+      <span class="sv-icon">💧</span>
+      <div class="sv-title">Вода — приоритет номер едно</div>
+      <ul class="sv-list">
+        <li>Минимум 4 литра на ден на човек — пиене, готвене и базова хигиена</li>
+        <li>Кладенецът е ресурс — дестилиран с активен въглен е безопасен</li>
+        <li>Дъждовна вода — събирай и дестилирай, природно чиста преди покрива</li>
+        <li>Дестилатор на газ или дърва работи без ток — ключов резерв</li>
+        <li>Изхвърляй първите 100мл от всяка дестилация</li>
+        <li>Активен въглен от аптека замества оригиналния филтър перфектно</li>
+      </ul>
+    </div>
+    <div class="sv-card critical reveal">
+      <span class="sv-icon">🍱</span>
+      <div class="sv-title">Храна — ротационен запас</div>
+      <ul class="sv-list">
+        <li>Консерви, ориз, бобови — купувай с излишък и ротирай редовно</li>
+        <li>Минимум 2 седмици за семейството без магазин</li>
+        <li>При стрес нуждата от калории се увеличава значително</li>
+        <li>Газова печка с резервни бутилки — готвиш без ток</li>
+        <li>Сол, захар, олио — без тях дори богатият запас е ограничен</li>
+        <li>Детска храна в запас — децата имат специфични нужди</li>
+      </ul>
+    </div>
+    <div class="sv-card reveal">
+      <span class="sv-icon">📡</span>
+      <div class="sv-title">Комуникация без инфраструктура</div>
+      <ul class="sv-list">
+        <li>T-Echo — съобщения и позиции без GSM и интернет</li>
+        <li>Офлайн карти — навигираш само с GPS сателит</li>
+        <li>Договори точки за среща предварително — не разчитай на телефон</li>
+        <li>Хартиена карта на региона — резерват при изтощена батерия</li>
+        <li>AM/FM радио с батерии — следиш новини и официални съобщения</li>
+      </ul>
+    </div>
+    <div class="sv-card reveal">
+      <span class="sv-icon">🚲</span>
+      <div class="sv-title">Придвижване без гориво</div>
+      <ul class="sv-list">
+        <li>Велосипедът не зависи от бензиностанции — независим транспорт</li>
+        <li>Ремарке за колело (~€50–80) носи 40кг товар</li>
+        <li>50км с колела е реалистично — тръгни рано преди масите</li>
+        <li>Тествай маршрута предварително — знай го наизуст с алтернативи</li>
+        <li>Малките пътища са по-безопасни при враждебна обстановка</li>
+        <li>Детето между двамата възрастни — водачът напред</li>
+      </ul>
+    </div>
+    <div class="sv-card reveal">
+      <span class="sv-icon">🔋</span>
+      <div class="sv-title">Енергия и независимост</div>
+      <ul class="sv-list">
+        <li>Power station зарежда всичко — телефон, T-Echo, осветление</li>
+        <li>Соларен панел презарежда — при слънце имаш безкраен цикъл</li>
+        <li>LED фенерчета с презареждащи батерии — ефективни при движение</li>
+        <li>Свещи — без движещи се части, работят при всякакви условия</li>
+        <li>Пестенето е стратегия — ползвай устройствата само когато трябва</li>
+      </ul>
+    </div>
+    <div class="sv-card reveal">
+      <span class="sv-icon">🤝</span>
+      <div class="sv-title">Огнището — истинският ключ</div>
+      <ul class="sv-list">
+        <li>3–5 семейства са несравнимо по-силни от едно само</li>
+        <li>Различните умения се допълват — лекар, механик, земеделец</li>
+        <li>Запознай се сега в мир — кризата не е момент за запознанства</li>
+        <li>Споделените запаси намаляват индивидуалната тежест</li>
+        <li>LoRa мрежата свързва огнищата дори на различни квартали</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ПОЛЗИ БЕЗ КРИЗА -->
+<div class="stripe-section">
+  <div class="stripe-inner">
+    <div class="reveal">
+      <div class="section-label">Всеки ден · Без криза</div>
+      <h2 class="section-title">Какво печелиш сега —<br><em>дори кризата да не дойде</em></h2>
+      <p class="section-body">Подготовката носи конкретна полза всеки ден. Това не е параноя. Това е по-добър живот.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit reveal">
+        <span class="benefit-icon">💧</span>
+        <div class="benefit-title">Чиста вода всеки ден</div>
+        <p class="benefit-body">Дестилираната вода не е само за кризи. Пиеш без бактерии, тежки метали, хлор и микропластмаса от ПЕТ бутилки. Спестяваш стотици левове годишно. Независим си от водоснабдяването — не само при спиране, а постоянно.</p>
+      </div>
+      <div class="benefit reveal">
+        <span class="benefit-icon">🧠</span>
+        <div class="benefit-title">Спокойствие и яснота</div>
+        <p class="benefit-body">Когато имаш план — лошите новини не те парализират. Реагираш от подготовка, не от паника. Семейството усеща стабилността ти. Детето расте с усещане за сигурност, идващо от увереността на родителя.</p>
+      </div>
+      <div class="benefit reveal">
+        <span class="benefit-icon">💰</span>
+        <div class="benefit-title">Финансов буфер</div>
+        <p class="benefit-body">Запаси от храна купени при нормални цени са защита срещу инфлацията. Power station намалява сметката за ток. Соларният панел работи всеки ден. Купуваш когато е изгодно, не когато трябва.</p>
+      </div>
+      <div class="benefit reveal">
+        <span class="benefit-icon">🌱</span>
+        <div class="benefit-title">Връзка със земята</div>
+        <p class="benefit-body">Редовните посещения поддържат имота жив. Познаваш съседите. Градинарството, управлението на вода и дърва са умения за цял живот. Детето учи откъде идва храната — нещо което градът не може да даде.</p>
+      </div>
+      <div class="benefit reveal">
+        <span class="benefit-icon">🚲</span>
+        <div class="benefit-title">Здраве и форма</div>
+        <p class="benefit-body">Тестването на маршрута е редовна тренировка. 50км не е подвиг ако го правиш периодично. Семейните излети по маршрута са качествено преживяване — детето обича природата, тялото е готово.</p>
+      </div>
+      <div class="benefit reveal">
+        <span class="benefit-icon">🤝</span>
+        <div class="benefit-title">По-силна общност</div>
+        <p class="benefit-body">Хората с план привличат хора с план. Ставаш ресурс за близките, не тежест. Огнището свързва семейства и в нормален живот — дейности, взаимопомощ, обмен на умения. Твоята реална социална мрежа.</p>
+      </div>
+    </div>
+    <div class="notice sage reveal" style="margin-top:2rem;">
+      <strong>Същността:</strong> Подготовката не е за края на света. Тя е за по-добър живот сега — по-чиста вода, по-спокоен ум, по-здраво тяло, по-силна общност. Кризата е просто моментът когато тази инвестиция се изплаща изцяло наведнъж.
+    </div>
+  </div>
+</div>
+
+<!-- СТЪПКИ -->
+<section>
+  <div class="reveal">
+    <div class="section-label">Действие</div>
+    <h2 class="section-title">Как да започнеш —<br><em>шест стъпки</em></h2>
+    <p class="section-body">Всяка стъпка е завършена сама по себе си. Започни от там където си сега.</p>
+  </div>
+  <div class="action-steps">
+    <div class="action-card reveal">
+      <div class="action-num">Стъпка 01</div>
+      <div class="action-title">Свали офлайн карти</div>
+      <p class="action-body">Mapy.cz или OsmAnd. Свали България и региона около теб. Спри интернета и провери дали работи. Нула разход — и вече имаш Слой 1.</p>
+    </div>
+    <div class="action-card reveal">
+      <div class="action-num">Стъпка 02</div>
+      <div class="action-title">Намери 2–3 семейства</div>
+      <p class="action-body">Съседи, приятели, роднини на които имаш доверие. Покажи им тази страница. Разговорът е по-важен от технологията.</p>
+    </div>
+    <div class="action-card reveal">
+      <div class="action-num">Стъпка 03</div>
+      <div class="action-title">Регистрирай огнище</div>
+      <p class="action-body">zaedno.online — дай му име, опиши района, покани членовете. Свързва ви с другите общности в платформата.</p>
+    </div>
+    <div class="action-card reveal">
+      <div class="action-num">Стъпка 04</div>
+      <div class="action-title">Вода и храна за 72ч</div>
+      <p class="action-body">4л вода на ден на човек плюс консерви за 3 дни. Препоръката на Червения кръст за всяко домакинство.</p>
+    </div>
+    <div class="action-card reveal">
+      <div class="action-num">Стъпка 05</div>
+      <div class="action-title">T-Echo 868MHz</div>
+      <p class="action-body">Поръчай от AliExpress (~€65). Задължително 868MHz. Инсталирай Meshtastic. Двама в района — мрежата работи.</p>
+    </div>
+    <div class="action-card reveal">
+      <div class="action-num">Стъпка 06</div>
+      <div class="action-title">Сплоти редовно</div>
+      <p class="action-body">Среща веднъж месечно. Огнището което се вижда редовно е несравнимо по-силно от група само в приложение.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ЦИТАТ -->
+<section>
+  <div class="one-rule reveal">
+    <span class="one-rule-label">Философията на ЗАЕДНО</span>
+    <div class="one-rule-text">"Не се борим.<br>Помагаме."</div>
+    <div class="one-rule-sub">Кризата не е момент за запознанства. Общността се изгражда сега.</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section reveal">
+  <h2 class="cta-title">Готов ли си да<br><em>свържеш огнището?</em></h2>
+  <p class="cta-sub">Регистрирай огнище в ЗАЕДНО и стани част от мрежата.</p>
+  <a href="register.html" class="cta-btn">🔥 Запали огнище</a>
+  <a href="ognishta.html" class="cta-btn-outline">Виж огнищата</a>
+</div>
+
+<footer>
+  <div class="footer-logo">ЗАЕДНО</div>
+  <div class="footer-copy">Заедно за по-добър свят · 2026</div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 60);
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
