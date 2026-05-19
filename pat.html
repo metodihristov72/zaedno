@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Пътят · ЗАЕДНО</title>
+<meta name="description" content="Как се променя система, без да се воюва с нея. Не отгоре. Отдолу. Не масово. По пет до седем души.">
+<meta property="og:title" content="Пътят · ЗАЕДНО">
+<meta property="og:description" content="Как се променя система, без да се воюва с нея.">
+<meta property="og:image" content="https://zaedno.online/images/ognishte-fire.png">
+<meta property="og:url" content="https://zaedno.online/pat.html">
+<meta property="og:type" content="article">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --cream: #F7F3EE; --warm-white: #FDFAF7;
+  --sage: #8FA88A; --sage-light: #C8D9C4; --sage-pale: #EBF2E9;
+  --terracotta: #C4785A; --terracotta-light: #E8C4B0; --terracotta-pale: #FAF0EA;
+  --stone: #8C8478; --stone-dark: #4A4440; --mist: #B8C4BE; --gold-soft: #C9A96E;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--stone-dark); overflow-x: hidden; }
+
+/* NAV */
+nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4rem; border-bottom: 1px solid rgba(184,196,190,0.2); position: sticky; top: 0; background: var(--cream); z-index: 100; gap: 1rem; }
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.12em; text-decoration: none; white-space: nowrap; }
+.logo span { color: var(--terracotta); }
+.nav-links { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+.nav-links a { font-size: 0.85rem; color: var(--stone); text-decoration: none; letter-spacing: 0.08em; transition: color 0.2s; white-space: nowrap; }
+.nav-links a:hover { color: var(--stone-dark); }
+.nav-links a.active { color: var(--terracotta); border-bottom: 1px solid var(--terracotta); padding-bottom: 2px; }
+.nav-links a.nav-lora { color: var(--terracotta); }
+.nav-links a.nav-lora:hover { color: var(--stone-dark); }
+
+/* HERO */
+.page-hero { padding: 6rem 4rem 4rem; text-align: center; position: relative; overflow: hidden; }
+.page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(143,168,138,0.12) 0%, transparent 70%); pointer-events: none; }
+.hero-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 1; }
+.page-eyebrow { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.4em; text-transform: uppercase; color: var(--sage); margin-bottom: 1.5rem; display: block; }
+.page-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 10vw, 8rem); font-weight: 300; line-height: 0.95; color: var(--stone-dark); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s ease 0.3s forwards; }
+.page-sub { font-family: 'Cormorant Garamond', serif; font-size: clamp(1rem, 2.5vw, 1.5rem); font-weight: 300; font-style: italic; color: var(--stone); line-height: 1.5; margin-bottom: 2rem; opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards; }
+.hero-ornament { display: flex; align-items: center; gap: 1rem; justify-content: center; opacity: 0; animation: fadeUp 0.8s ease 0.7s forwards; }
+.ornament-line { width: 60px; height: 1px; background: var(--terracotta-light); }
+.ornament-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--terracotta); }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* CONTEXT NOTE */
+.context-note { max-width: 600px; margin: 0 auto; padding: 0 2rem 4rem; text-align: center; }
+.context-note p { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-style: italic; color: var(--stone); line-height: 1.7; }
+
+/* SECTION INTRO */
+.section-intro { max-width: 720px; margin: 0 auto; padding: 0 2rem 3rem; text-align: center; }
+.section-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.4em; text-transform: uppercase; color: var(--sage); margin-bottom: 0.75rem; display: block; }
+.section-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 300; color: var(--stone-dark); line-height: 1.2; margin-bottom: 1rem; }
+.section-heading em { font-style: italic; color: var(--terracotta); }
+.section-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: var(--stone); line-height: 1.7; max-width: 540px; margin: 0 auto; }
+
+/* MAIN CONTENT */
+main { max-width: 720px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+/* PRINCIPLES - NUMBERED */
+.principle { background: var(--warm-white); border-radius: 1.5rem; padding: 2.5rem; margin-bottom: 1.5rem; border: 1px solid rgba(184,196,190,0.3); transition: transform 0.2s, border-color 0.2s; position: relative; overflow: hidden; }
+.principle:hover { transform: translateY(-2px); border-color: var(--terracotta-light); }
+.principle::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 3px; background: var(--terracotta); transform: scaleY(0); transform-origin: top; transition: transform 0.4s ease; }
+.principle:hover::before { transform: scaleY(1); }
+.principle-header { display: flex; align-items: baseline; gap: 1.2rem; margin-bottom: 1.2rem; }
+.principle-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--terracotta); line-height: 1; flex-shrink: 0; opacity: 0.7; }
+.principle h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.3rem, 3vw, 1.9rem); font-weight: 600; color: var(--stone-dark); line-height: 1.2; flex: 1; }
+.principle p { font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--stone); margin-bottom: 1rem; padding-left: calc(2.2rem + 1.2rem); }
+.principle p:last-child { margin-bottom: 0; }
+.principle em { color: var(--terracotta); font-style: italic; }
+
+/* DIVIDER */
+.divider { display: flex; align-items: center; gap: 1.5rem; margin: 0 0 1.5rem; padding: 0 2rem; max-width: 720px; margin-left: auto; margin-right: auto; }
+.divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--mist), transparent); }
+.divider-ornament { font-size: 0.75rem; letter-spacing: 0.5em; color: var(--terracotta); opacity: 0.5; }
+
+/* LAYERS SECTION */
+.stripe { background: var(--warm-white); border-top: 1px solid rgba(184,196,190,0.2); border-bottom: 1px solid rgba(184,196,190,0.2); padding: 5rem 2rem; margin: 2rem 0; }
+.stripe-inner { max-width: 720px; margin: 0 auto; }
+
+.layer { display: grid; grid-template-columns: 72px 1fr; gap: 1.5rem; padding: 1.5rem 0; border-bottom: 1px solid rgba(184,196,190,0.3); align-items: start; }
+.layer:last-child { border-bottom: none; }
+.layer-number { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: rgba(184,196,190,0.6); line-height: 1; text-align: right; transition: color 0.3s; }
+.layer:hover .layer-number { color: var(--terracotta); }
+.layer-content h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--stone-dark); margin-bottom: 0.5rem; }
+.layer-content p { font-size: 0.9rem; font-weight: 300; color: var(--stone); line-height: 1.8; }
+.layer-content em { color: var(--terracotta); font-style: italic; }
+
+/* NEGATION SECTION */
+.negation-section { padding: 4rem 2rem; max-width: 720px; margin: 0 auto; }
+.negation { background: var(--warm-white); border-radius: 1rem; padding: 1.2rem 1.5rem; margin-bottom: 1rem; border: 1px solid rgba(184,196,190,0.3); font-size: 0.95rem; font-weight: 300; color: var(--stone); line-height: 1.7; transition: border-color 0.2s, transform 0.2s; }
+.negation:hover { border-color: var(--terracotta-light); transform: translateX(4px); }
+.negation strong { color: var(--stone-dark); font-weight: 600; }
+.negation em { color: var(--terracotta); font-style: italic; }
+
+/* QUOTE SECTION */
+.quote-wrap { background: linear-gradient(135deg, var(--sage-pale) 0%, var(--terracotta-pale) 100%); border-radius: 2rem; padding: 4rem 2rem; text-align: center; border: 1px solid rgba(143,168,138,0.25); margin: 2rem; }
+.quote-label { font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--sage); margin-bottom: 2rem; display: block; }
+blockquote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.3rem, 3vw, 2rem); font-weight: 300; font-style: italic; color: var(--stone-dark); line-height: 1.5; max-width: 600px; margin: 0 auto; }
+
+/* PARADOX */
+.paradox { max-width: 720px; margin: 0 auto; padding: 3rem 2rem; }
+.paradox p { font-size: 0.95rem; font-weight: 300; color: var(--stone); line-height: 1.85; margin-bottom: 1.2rem; }
+
+/* CLOSING - ENHANCED FINAL BLOCK */
+.closing { max-width: 720px; margin: 0 auto; padding: 3rem 2rem 5rem; text-align: center; }
+.closing-lines { margin-bottom: 2rem; }
+.closing-lines p { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; font-style: italic; color: var(--stone); margin-bottom: 0.5rem; line-height: 1.5; }
+.closing-pause { margin: 2rem 0 3rem; }
+.closing-pause p { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; font-style: italic; color: var(--terracotta); }
+
+.closing-final {
+  background: var(--stone-dark);
+  border-radius: 2rem;
+  padding: 4rem 2.5rem;
+  margin-top: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.closing-final::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, transparent, var(--terracotta), transparent);
+}
+.closing-final::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, transparent, var(--terracotta), transparent);
+}
+.fire-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  animation: flicker 3s ease-in-out infinite;
+}
+@keyframes flicker {
+  0%, 100% { transform: scale(1) rotate(-1deg); }
+  25% { transform: scale(1.05) rotate(1deg); }
+  50% { transform: scale(0.98) rotate(-0.5deg); }
+  75% { transform: scale(1.03) rotate(0.5deg); }
+}
+.closing-final p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--terracotta-light);
+  line-height: 1.5;
+}
+
+/* FOOTER */
+footer { border-top: 1px solid rgba(184,196,190,0.3); padding: 2rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--stone-dark); letter-spacing: 0.1em; }
+.footer-copy { font-size: 0.75rem; font-weight: 300; color: var(--stone); }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.2rem; flex-wrap: wrap; gap: 0.5rem; }
+  .nav-links { order: 3; width: 100%; justify-content: center; gap: 1rem; border-top: 1px solid rgba(184,196,190,0.2); padding-top: 0.75rem; }
+  .nav-links a { font-size: 0.78rem; }
+  .page-hero { padding: 4rem 1.5rem 2.5rem; }
+  main { padding: 0 1.2rem 4rem; }
+  .principle { padding: 1.8rem 1.5rem; }
+  .principle-header { gap: 0.8rem; }
+  .principle-num { font-size: 1.8rem; }
+  .principle p { padding-left: 0; }
+  .layer { grid-template-columns: 50px 1fr; gap: 1rem; }
+  .layer-number { font-size: 2.2rem; }
+  .stripe { padding: 3rem 1.2rem; }
+  .negation-section { padding: 2.5rem 1.2rem; }
+  .paradox { padding: 2rem 1.2rem; }
+  .closing { padding: 2rem 1.2rem 3rem; }
+  .closing-final { padding: 3rem 1.5rem; }
+  .quote-wrap { margin: 1rem; padding: 2.5rem 1.5rem; }
+  footer { padding: 1.5rem 1.2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">З<span>А</span>ЕДНО</a>
+  <div class="nav-links">
+    <a href="ognishta.html">Огнища</a>
+    <a href="lora.html" class="nav-lora">📡 LoRa Мрежа</a>
+    <a href="pat.html" class="active">Пътят</a>
+    <a href="analiz.html">Анализ</a>
+    <a href="za-nas.html">За нас</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="hero-inner">
+    <span class="page-eyebrow">Основополагащ текст</span>
+    <h1 class="page-title">Пътят</h1>
+    <p class="page-sub">Как се променя система,<br>без да се воюва с нея</p>
+    <div class="hero-ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-dot"></div>
+      <div class="ornament-line"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTEXT NOTE -->
+<div class="context-note reveal">
+  <p>Това не е манифест.<br>Това е описание на нещо, което вече се случва.</p>
+</div>
+
+<!-- PRINCIPLES INTRO -->
+<div class="section-intro reveal">
+  <span class="section-label">Осемте принципа</span>
+  <h2 class="section-heading">Основата на<br><em>пътя</em></h2>
+  <p class="section-sub">Осем различия които правят промяната възможна без война.</p>
+</div>
+
+<!-- PRINCIPLES -->
+<main>
+
+  <article class="principle reveal">
+    <div class="principle-header">
+      <span class="principle-num">01</span>
+      <h2>Не през борба. През градене.</h2>
+    </div>
+    <p>Това е най-важното различие. Революциите се борят със системата на нейната територия и с нейните оръжия. Те печелят битки и губят войната — защото в момента, в който победят, стават това, срещу което са се борили. Френска, руска, китайска революция. Дори "цветните" революции от последните десетилетия. Всички сменят елити, не системи.</p>
+    <p>Успешният път не атакува. Той <em>прави ненужно</em> това, което атакува. Не разрушаваш стара къща — строиш по-добра до нея, и хората сами се преместват.</p>
+  </article>
+
+  <article class="principle reveal">
+    <div class="principle-header">
+      <span class="principle-num">02</span>
+      <h2>Не отгоре. Отдолу.</h2>
+    </div>
+    <p>Промяната, наложена отгоре, винаги се възпроизвежда като нова форма на същата йерархия. Закон, който отгоре забранява нещо, утре може отгоре да го наложи. Власт, която променя в твоя полза, утре променя в полза на друг.</p>
+    <p>Промяната, израснала отдолу, е тъкан, не структура. Тя не може да бъде разрушена с един декрет, защото няма едно сърце, което да спре.</p>
+  </article>
+
+  <article class="principle reveal">
+    <div class="principle-header">
+      <span class="principle-num">03</span>
+      <h2>Не масово. Малко по малко.</h2>
+    </div>
+    <p>Всичко, което е траяло, е започнало малко. Ранното християнство — 12 души. Будизмът — Буда и шепа ученици. Анонимните алкохолици — двама мъже в кухня в Охайо. Квакерите — една общност в Англия. Никой не е започнал с движение от милиони. Всеки е започнал с няколко души, които са се променили достатъчно, за да привлекат следващите.</p>
+    <p>Числото е важно — <em>пет до седем</em>. Това е човешкият мащаб. Под това си сам, над това губиш интимност. Огнището от 5-7 души е базовата единица на всичко, което трае.</p>
+  </article>
+
+  <article class="principle reveal">
+    <div class="principle-header">
+      <span class="principle-num">04</span>
+      <h2>Не чрез убеждаване. Чрез показване.</h2>
+    </div>
+    <p>Никой не се променя от аргумент. Хората се променят, когато видят някой, който живее по-добре, по-свободно, по-цялостно — и започнат да искат същото. Тогава задават въпроси. Тогава са готови да чуят.</p>
+    <p>Затова първата работа не е да обясняваш. Първата работа е да живееш това, в което вярваш, достатъчно добре, че да стане заразително. Огнище, което работи, привлича хора без реклама.</p>
+  </article>
+
+  <article class="principle reveal">
+    <div class="principle-header">
+      <span class="principle-num">05</span>
+      <h2>Не външно. Вътрешно първо.</h2>
+    </div>
+    <p>Това е парадоксът, който повечето революционери не разбират. Не можеш да промениш света, докато не си променил себе си. Защото външното, което градиш от непроменена вътрешност, винаги възпроизвежда твоите неразрешени проблеми.</p>
+    <p>Старата мъдрост — ако искаш мир в света, започни от мир в семейството си. Ако искаш мир в семейството, започни от мир в сърцето си. Това не е сантиментално. Това е причинно-следствено.</p>
+    <p><em>Вътре е всичко.</em> Не като метафора — буквално. Това, което не си решил в себе си, ще го построиш отвън като система.</p>
+  </article>
+
+  <article class="principle reveal">
+    <div class="principle-header">
+      <span class="principle-num">06</span>
+      <h2>Не бързо. С времето като съюзник.</h2>
+    </div>
+    <p>Системите, които искат бърза промяна, плащат с качество. Тези, които са готови да чакат поколения, плащат с търпение и получават трайност. Дъбът расте бавно — затова стои векове. Бамбукът пробива земята след години, в които изглежда, че нищо не се случва.</p>
+    <p>Десет години работа върху огнище от седем души е повече промяна за света, отколкото десет години политическа активност с десет хиляди души. Защото огнището остава. Активизмът се размива.</p>
+  </article>
+
+  <article class="principle reveal">
+    <div class="principle-header">
+      <span class="principle-num">07</span>
+      <h2>Не като алтернатива на системата. Като паралел.</h2>
+    </div>
+    <p>Грешката е да мислиш в дихотомия — "система или анти-система". И двете живеят на същата територия. Истинският ход е <em>паралелен</em>. Не се бориш с банката — строиш взаимопомощ. Не се бориш с фармацията — учиш биле и здраво хранене. Не се бориш със социалните мрежи — създаваш огнища, в които хората се събират лице в лице.</p>
+    <p>Системата не разпознава паралелни структури като заплаха, докато те не станат норма. И когато станат норма, вече е късно за реакция.</p>
+  </article>
+
+  <article class="principle reveal">
+    <div class="principle-header">
+      <span class="principle-num">08</span>
+      <h2>Не като жертва. Като избор.</h2>
+    </div>
+    <p>Това е духовната разлика, която променя всичко. Жертвата казва "светът е лош, някой трябва да го промени". Изборникът казва "светът е, какъвто е, и аз избирам да живея в по-добра версия от него тук, сега, с тези хора".</p>
+    <p>Първото е тежест. Второто е свобода. И само второто всъщност променя нещо — защото действа от изобилие, не от недостиг. От любов, не от страх.</p>
+  </article>
+
+</main>
+
+<!-- LAYERS -->
+<div class="stripe">
+  <div class="stripe-inner reveal">
+    <span class="section-label">В практика</span>
+    <h2 class="section-heading">Седем слоя на<br><em>пътя</em></h2>
+
+    <div class="layer">
+      <div class="layer-number">I</div>
+      <div class="layer-content">
+        <h3>Вътрешна работа</h3>
+        <p>Тяло, ум, дух. Без това всичко останало е къща върху пясък.</p>
+      </div>
+    </div>
+    <div class="layer">
+      <div class="layer-number">II</div>
+      <div class="layer-content">
+        <h3>Близък кръг</h3>
+        <p>Семейство, после няколко доверени хора. Огнището. Тук се случва истинският живот.</p>
+      </div>
+    </div>
+    <div class="layer">
+      <div class="layer-number">III</div>
+      <div class="layer-content">
+        <h3>Споделена практика</h3>
+        <p>Едно нещо, което правите заедно редовно. Вечеря. Проект. Грижа. Без обща практика огнището е само разговор.</p>
+      </div>
+    </div>
+    <div class="layer">
+      <div class="layer-number">IV</div>
+      <div class="layer-content">
+        <h3>Отвореност</h3>
+        <p>Не затворен клуб, а място, в което се влиза по покана и се излиза свободно. Без диктат, без членска карта.</p>
+      </div>
+    </div>
+    <div class="layer">
+      <div class="layer-number">V</div>
+      <div class="layer-content">
+        <h3>Мрежа</h3>
+        <p>Когато едно огнище работи, естествено се появяват други. Не ги създаваш — те се появяват, защото хора отвън ги виждат и искат същото.</p>
+      </div>
+    </div>
+    <div class="layer">
+      <div class="layer-number">VI</div>
+      <div class="layer-content">
+        <h3>Инфраструктура</h3>
+        <p>Тук влизат платформи като ЗАЕДНО, технологии като LoRa, енергийна независимост, споделени ресурси. Това е <em>под</em> огнищата, не <em>над</em> тях. Слугува им, не ги управлява.</p>
+      </div>
+    </div>
+    <div class="layer">
+      <div class="layer-number">VII</div>
+      <div class="layer-content">
+        <h3>Култура</h3>
+        <p>Когато достатъчно огнища съществуват, се появява нова култура — по подразбиране. Тя не се обявява, не воюва, не пропагандира. Просто <em>е</em>. И постепенно старата култура изглежда странна, остаряла, нечовешка.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEGATION -->
+<div class="negation-section reveal">
+  <span class="section-label" style="display:block; text-align:center;">Отграничаване</span>
+  <h2 class="section-heading" style="text-align:center; margin-bottom:2rem;">Какво не е<br><em>този път</em></h2>
+  <p class="negation"><strong>Не е политика.</strong> Политиката работи на нивото, на което проблемът е създаден.</p>
+  <p class="negation"><strong>Не е активизъм.</strong> Активизмът дава енергия на това, срещу което се бори.</p>
+  <p class="negation"><strong>Не е изолация.</strong> Изолацията не променя нищо — нито света, нито човека.</p>
+  <p class="negation"><strong>Не е нова идеология.</strong> Идеологиите са оръжия. Този път е практика.</p>
+  <p class="negation" style="margin-bottom:0;"><strong>Не е бягство.</strong> Бягството решава, че светът е загубен. Този път решава, че светът е <em>материал</em>.</p>
+</div>
+
+<!-- QUOTE -->
+<div class="quote-wrap reveal">
+  <span class="quote-label">В едно изречение</span>
+  <blockquote>Промени себе си, събери шест души, живейте по-добре от системата, и нека другите видят.</blockquote>
+</div>
+
+<!-- PARADOX -->
+<div class="paradox reveal">
+  <span class="section-label" style="display:block; text-align:center;">Парадоксът</span>
+  <h2 class="section-heading" style="text-align:center; font-size:clamp(1.6rem,3vw,2.4rem); margin-bottom:2rem;">Малкото е<br><em>най-голямата стратегия</em></h2>
+  <p>Това, което прави този път труден, е, че изглежда твърде малък, за да работи. Седем души срещу държава? Едно огнище срещу глобална икономика? Тиха практика срещу алгоритми за внимание?</p>
+  <p>Но именно защото изглежда малък, той е скрит. Именно защото е скрит, не може да бъде атакуван. Именно защото не може да бъде атакуван, той расте. И когато стане забележим, вече е твърде късно за реакция — защото вече е тъканта на новия свят.</p>
+</div>
+
+<!-- CLOSING -->
+<div class="closing reveal">
+  <div class="closing-lines">
+    <p>Не бързай.</p>
+    <p>Не се бори.</p>
+    <p>Не убеждавай.</p>
+  </div>
+  <div class="closing-pause">
+    <p>Просто продължавай да го правиш.</p>
+  </div>
+  <div class="closing-final">
+    <span class="fire-icon">🔥</span>
+    <p>Огънят, който гори,<br>не трябва да обяснява защо свети.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">ЗАЕДНО</div>
+  <div class="footer-copy">Заедно за по-добър свят · 2026</div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 60);
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
